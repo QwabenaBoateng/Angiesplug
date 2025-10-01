@@ -59,15 +59,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <MapPin size={16} className="text-primary-400" />
-                <span className="text-gray-300">123 Fashion Street, Style City</span>
+                <span className="text-gray-300">Madina ARS, Accra.</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone size={16} className="text-primary-400" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">0549759032</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail size={16} className="text-primary-400" />
-                <span className="text-gray-300">info@angiesplug.com</span>
+                <span className="text-gray-300">angelatyron251@gmail.com</span>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 Angie's Plug. All rights reserved.
+            © 2025 Angie's Plug. All rights reserved.
           </p>
         </div>
       </div>

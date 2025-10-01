@@ -48,6 +48,117 @@ const Shop = () => {
     try {
       setIsLoading(true)
       
+      // Check if Supabase is configured
+      if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Use mock data
+        const mockProducts = [
+          {
+            id: 1,
+            name: 'Elegant Evening Dress',
+            price: 129.99,
+            image: '/api/placeholder/300/400',
+            category: 'Ladies Wear',
+            rating: 4.8,
+            description: 'Beautiful evening dress perfect for special occasions.'
+          },
+          {
+            id: 2,
+            name: 'Casual Summer Dress',
+            price: 79.99,
+            image: '/api/placeholder/300/400',
+            category: 'Ladies Wear',
+            rating: 4.6,
+            description: 'Light and comfortable summer dress for everyday wear.'
+          },
+          {
+            id: 3,
+            name: 'Professional Blouse',
+            price: 59.99,
+            image: '/api/placeholder/300/400',
+            category: 'Ladies Wear',
+            rating: 4.7,
+            description: 'Stylish blouse perfect for office or casual wear.'
+          },
+          {
+            id: 4,
+            name: 'Classic Men\'s Shirt',
+            price: 69.99,
+            image: '/api/placeholder/300/400',
+            category: 'Mens Wear',
+            rating: 4.5,
+            description: 'High-quality cotton shirt for any occasion.'
+          },
+          {
+            id: 5,
+            name: 'Men\'s Formal Suit',
+            price: 299.99,
+            image: '/api/placeholder/300/400',
+            category: 'Mens Wear',
+            rating: 4.9,
+            description: 'Premium formal suit for business and special events.'
+          },
+          {
+            id: 6,
+            name: 'Men\'s Casual Pants',
+            price: 89.99,
+            image: '/api/placeholder/300/400',
+            category: 'Mens Wear',
+            rating: 4.4,
+            description: 'Comfortable and stylish casual pants.'
+          },
+          {
+            id: 7,
+            name: 'Designer Handbag',
+            price: 149.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
+            rating: 4.7,
+            description: 'Elegant handbag perfect for any occasion.'
+          },
+          {
+            id: 8,
+            name: 'Fashionable Scarf',
+            price: 39.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
+            rating: 4.6,
+            description: 'Stylish scarf to complete your look.'
+          },
+          {
+            id: 9,
+            name: 'Leather Belt',
+            price: 49.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
+            rating: 4.8,
+            description: 'Premium leather belt for men and women.'
+          },
+          {
+            id: 10,
+            name: 'Statement Necklace',
+            price: 79.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
+            rating: 4.5,
+            description: 'Beautiful statement necklace to elevate your style.'
+          }
+        ]
+        
+        // Apply search filter to mock data
+        let filteredProducts = mockProducts
+        if (searchQuery) {
+          filteredProducts = mockProducts.filter(product => 
+            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.category.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        }
+        
+        setProducts(filteredProducts)
+        setIsLoading(false)
+        return
+      }
+
       let query = supabase
         .from('products')
         .select(`
@@ -120,7 +231,7 @@ const Shop = () => {
           <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-primary-600">
-              ${product.price}
+              ₵{product.price}
             </span>
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -157,7 +268,7 @@ const Shop = () => {
         <p className="text-gray-600 mb-2">{product.categories?.name}</p>
         <p className="text-gray-700 mb-4 line-clamp-2">{product.description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary-600">${product.price}</span>
+          <span className="text-2xl font-bold text-primary-600">₵{product.price}</span>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -295,55 +406,87 @@ const Shop = () => {
                     className="w-full"
                   />
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>${filters.priceRange[0]}</span>
-                    <span>${filters.priceRange[1]}</span>
+                    <span>₵{filters.priceRange[0]}</span>
+                    <span>₵{filters.priceRange[1]}</span>
                   </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Products Grid/List */}
+          {/* Products by Category Sections */}
           <div className="flex-1">
             {isLoading ? (
-              <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                    {viewMode === 'grid' ? (
-                      <>
-                        <div className="h-64 bg-gray-300"></div>
-                        <div className="p-4">
-                          <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              <div className="space-y-12">
+                {['Ladies Wear', 'Mens Wear', 'Accessories'].map((category) => (
+                  <div key={category} className="animate-pulse">
+                    <div className="h-8 bg-gray-300 rounded w-1/4 mb-6"></div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {[...Array(4)].map((_, i) => (
+                        <div key={i} className="bg-white rounded-lg shadow-md">
+                          <div className="h-64 bg-gray-300"></div>
+                          <div className="p-4">
+                            <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                          </div>
                         </div>
-                      </>
-                    ) : (
-                      <div className="p-6 flex items-center space-x-6">
-                        <div className="w-32 h-32 bg-gray-300 rounded-lg"></div>
-                        <div className="flex-1">
-                          <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                          <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
-                          <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                        </div>
-                      </div>
-                    )}
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
-            ) : products.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No products found</p>
-                <p className="text-gray-400">Try adjusting your filters or search terms</p>
-              </div>
             ) : (
-              <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
-                {products.map((product) => (
-                  viewMode === 'grid' ? (
-                    <ProductCard key={product.id} product={product} />
-                  ) : (
-                    <ProductListItem key={product.id} product={product} />
-                  )
-                ))}
+              <div className="space-y-12">
+                {/* Ladies Wear Section */}
+                <section>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
+                      LADIES WEAR
+                    </div>
+                    <Link to="/catalog?category=ladies-wear" className="text-primary-600 hover:text-primary-700 font-medium">
+                      See More →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {products.filter(product => product.category === 'Ladies Wear').slice(0, 4).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </section>
+
+                {/* Mens Wear Section */}
+                <section>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
+                      MENS WEAR
+                    </div>
+                    <Link to="/catalog?category=mens-wear" className="text-primary-600 hover:text-primary-700 font-medium">
+                      See More →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {products.filter(product => product.category === 'Mens Wear').slice(0, 4).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </section>
+
+                {/* Accessories Section */}
+                <section>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
+                      ACCESSORIES
+                    </div>
+                    <Link to="/catalog?category=accessories" className="text-primary-600 hover:text-primary-700 font-medium">
+                      See More →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {products.filter(product => product.category === 'Accessories').slice(0, 4).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </section>
               </div>
             )}
           </div>

@@ -96,7 +96,7 @@ const OrderConfirmation = () => {
                 <p>Order Date: {new Date(order.created_at).toLocaleDateString()}</p>
                 <p>Status: <span className="font-medium text-primary-600">{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
                 <p className="mt-2 text-lg font-semibold text-gray-900">
-                  Total: ${order.total_amount.toFixed(2)}
+                  Total: ₵{order.total_amount.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -123,8 +123,8 @@ const OrderConfirmation = () => {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-medium text-gray-900">${item.price.toFixed(2)}</p>
-                  <p className="text-sm text-gray-600">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="font-medium text-gray-900">₵{item.price.toFixed(2)}</p>
+                  <p className="text-sm text-gray-600">Total: ₵{(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             ))}

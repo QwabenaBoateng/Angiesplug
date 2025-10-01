@@ -19,6 +19,7 @@ import Signup from './pages/Signup'
 import Profile from './pages/Profile'
 import OrderConfirmation from './pages/OrderConfirmation'
 import Contact from './pages/Contact'
+import AboutUs from './pages/AboutUs'
 import TestLogin from './pages/TestLogin'
 
 // Admin pages
@@ -138,6 +139,14 @@ function App() {
             <>
               <Navbar />
               <Contact />
+              <Footer />
+            </>
+          } />
+          
+          <Route path="/about" element={
+            <>
+              <Navbar />
+              <AboutUs />
               <Footer />
             </>
           } />

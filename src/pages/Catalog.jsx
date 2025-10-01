@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Filter, Grid, List, Star, Heart } from 'lucide-react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { Filter, Grid, List, Star, Heart, Search } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useStore } from '../store/useStore'
 
@@ -12,12 +12,24 @@ const Catalog = () => {
   const [sortBy, setSortBy] = useState('name')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 })
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchParams] = useSearchParams()
   const { addToCart } = useStore()
 
   useEffect(() => {
     fetchProducts()
     fetchCategories()
-  }, [])
+    
+    // Handle search from URL params
+    const search = searchParams.get('search')
+    if (search) {
+      setSearchQuery(search)
+    }
+  }, [searchParams])
+
+  useEffect(() => {
+    fetchProducts()
+  }, [searchQuery, selectedCategory, priceRange, sortBy])
 
   const fetchProducts = async () => {
     try {
@@ -29,75 +41,93 @@ const Catalog = () => {
         const mockProducts = [
           {
             id: 1,
-            name: 'Classic White T-Shirt',
-            price: 29.99,
+            name: 'Elegant Evening Dress',
+            price: 129.99,
             image: '/api/placeholder/300/400',
-            category: 'T-Shirts',
-            rating: 4.5,
-            description: 'Comfortable cotton t-shirt perfect for everyday wear.'
+            category: 'Ladies Wear',
+            rating: 4.8,
+            description: 'Beautiful evening dress perfect for special occasions.'
           },
           {
             id: 2,
-            name: 'Denim Jeans',
+            name: 'Casual Summer Dress',
             price: 79.99,
             image: '/api/placeholder/300/400',
-            category: 'Jeans',
-            rating: 4.8,
-            description: 'Classic blue denim jeans with a perfect fit.'
+            category: 'Ladies Wear',
+            rating: 4.6,
+            description: 'Light and comfortable summer dress for everyday wear.'
           },
           {
             id: 3,
-            name: 'Leather Jacket',
-            price: 199.99,
+            name: 'Professional Blouse',
+            price: 59.99,
             image: '/api/placeholder/300/400',
-            category: 'Jackets',
+            category: 'Ladies Wear',
             rating: 4.7,
-            description: 'Premium leather jacket for a stylish look.'
+            description: 'Stylish blouse perfect for office or casual wear.'
           },
           {
             id: 4,
-            name: 'Casual Hoodie',
-            price: 59.99,
+            name: 'Classic Men\'s Shirt',
+            price: 69.99,
             image: '/api/placeholder/300/400',
-            category: 'Hoodies',
-            rating: 4.6,
-            description: 'Soft and comfortable hoodie for casual wear.'
+            category: 'Mens Wear',
+            rating: 4.5,
+            description: 'High-quality cotton shirt for any occasion.'
           },
           {
             id: 5,
-            name: 'Running Sneakers',
-            price: 129.99,
+            name: 'Men\'s Formal Suit',
+            price: 299.99,
             image: '/api/placeholder/300/400',
-            category: 'Sneakers',
+            category: 'Mens Wear',
             rating: 4.9,
-            description: 'High-performance running shoes with great comfort.'
+            description: 'Premium formal suit for business and special events.'
           },
           {
             id: 6,
-            name: 'Designer Handbag',
-            price: 149.99,
+            name: 'Men\'s Casual Pants',
+            price: 89.99,
             image: '/api/placeholder/300/400',
-            category: 'Bags',
+            category: 'Mens Wear',
             rating: 4.4,
-            description: 'Elegant handbag perfect for any occasion.'
+            description: 'Comfortable and stylish casual pants.'
           },
           {
             id: 7,
-            name: 'Summer Dress',
-            price: 89.99,
+            name: 'Designer Handbag',
+            price: 149.99,
             image: '/api/placeholder/300/400',
-            category: 'Dresses',
+            category: 'Accessories',
             rating: 4.7,
-            description: 'Light and breezy summer dress.'
+            description: 'Elegant handbag perfect for any occasion.'
           },
           {
             id: 8,
-            name: 'Formal Blazer',
-            price: 179.99,
+            name: 'Fashionable Scarf',
+            price: 39.99,
             image: '/api/placeholder/300/400',
-            category: 'Blazers',
+            category: 'Accessories',
+            rating: 4.6,
+            description: 'Stylish scarf to complete your look.'
+          },
+          {
+            id: 9,
+            name: 'Leather Belt',
+            price: 49.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
             rating: 4.8,
-            description: 'Professional blazer for business occasions.'
+            description: 'Premium leather belt for men and women.'
+          },
+          {
+            id: 10,
+            name: 'Statement Necklace',
+            price: 79.99,
+            image: '/api/placeholder/300/400',
+            category: 'Accessories',
+            rating: 4.5,
+            description: 'Beautiful statement necklace to elevate your style.'
           }
         ]
         setProducts(mockProducts)
@@ -126,14 +156,9 @@ const Catalog = () => {
       if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
         // Use mock categories
         const mockCategories = [
-          { id: 1, name: 'T-Shirts', slug: 't-shirts' },
-          { id: 2, name: 'Jeans', slug: 'jeans' },
-          { id: 3, name: 'Jackets', slug: 'jackets' },
-          { id: 4, name: 'Hoodies', slug: 'hoodies' },
-          { id: 5, name: 'Sneakers', slug: 'sneakers' },
-          { id: 6, name: 'Bags', slug: 'bags' },
-          { id: 7, name: 'Dresses', slug: 'dresses' },
-          { id: 8, name: 'Blazers', slug: 'blazers' }
+          { id: 1, name: 'Ladies Wear', slug: 'ladies-wear' },
+          { id: 2, name: 'Mens Wear', slug: 'mens-wear' },
+          { id: 3, name: 'Accessories', slug: 'accessories' }
         ]
         setCategories(mockCategories)
         return
@@ -155,7 +180,11 @@ const Catalog = () => {
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory
     const matchesPrice = product.price >= priceRange.min && product.price <= priceRange.max
-    return matchesCategory && matchesPrice
+    const matchesSearch = !searchQuery || 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesCategory && matchesPrice && matchesSearch
   })
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -194,7 +223,7 @@ const Catalog = () => {
         </Link>
         <p className="text-gray-600 text-sm mb-3">{product.description}</p>
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xl font-bold text-gray-900">${product.price}</span>
+          <span className="text-xl font-bold text-gray-900">₵{product.price}</span>
           <div className="flex items-center">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
             <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
@@ -243,6 +272,20 @@ const Catalog = () => {
           <p className="text-lg text-gray-600">
             Discover our complete collection of fashion items
           </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mb-8">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -298,8 +341,8 @@ const Catalog = () => {
                     className="w-full"
                   />
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>${priceRange.min}</span>
-                    <span>${priceRange.max}</span>
+                    <span>₵{priceRange.min}</span>
+                    <span>₵{priceRange.max}</span>
                   </div>
                 </div>
               </div>

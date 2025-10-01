@@ -96,7 +96,7 @@ const ProductDetail = () => {
           <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-primary-600">
-              ${product.price}
+              ₵{product.price}
             </span>
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -192,7 +192,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="text-3xl font-bold text-primary-600 mb-6">
-              ${product.price}
+              ₵{product.price}
             </div>
 
             <p className="text-gray-700 mb-6 leading-relaxed">

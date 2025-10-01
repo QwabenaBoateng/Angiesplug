@@ -66,6 +66,18 @@ const AdminProducts = () => {
 
   const fetchCategories = async () => {
     try {
+      // Check if Supabase is configured
+      if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Use mock categories
+        const mockCategories = [
+          { id: 1, name: 'Ladies Wear', slug: 'ladies-wear' },
+          { id: 2, name: 'Mens Wear', slug: 'mens-wear' },
+          { id: 3, name: 'Accessories', slug: 'accessories' }
+        ]
+        setCategories(mockCategories)
+        return
+      }
+
       const { data } = await supabase
         .from('categories')
         .select('*')
@@ -74,6 +86,13 @@ const AdminProducts = () => {
       setCategories(data || [])
     } catch (error) {
       console.error('Error fetching categories:', error)
+      // Fallback to mock categories if there's an error
+      const mockCategories = [
+        { id: 1, name: 'Ladies Wear', slug: 'ladies-wear' },
+        { id: 2, name: 'Mens Wear', slug: 'mens-wear' },
+        { id: 3, name: 'Accessories', slug: 'accessories' }
+      ]
+      setCategories(mockCategories)
     }
   }
 
@@ -82,10 +101,23 @@ const AdminProducts = () => {
     const uploadedUrls = []
 
     try {
+      // Get the selected category name for folder organization
+      const selectedCategory = categories.find(cat => cat.id === productForm.category_id)
+      const categoryFolder = selectedCategory ? selectedCategory.slug : 'general'
+
       for (const file of files) {
         const fileExt = file.name.split('.').pop()
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
-        const filePath = `products/${fileName}`
+        // Organize images by category folder
+        const filePath = `products/${categoryFolder}/${fileName}`
+
+        // Check if Supabase is configured
+        if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+          // Mock upload for development
+          const mockUrl = `/api/placeholder/400/500?category=${categoryFolder}&file=${fileName}`
+          uploadedUrls.push(mockUrl)
+          continue
+        }
 
         const { error: uploadError } = await supabase.storage
           .from('products')
@@ -345,7 +377,7 @@ const AdminProducts = () => {
                       {product.categories?.name || 'Uncategorized'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${product.price}
+                      ₵{product.price}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

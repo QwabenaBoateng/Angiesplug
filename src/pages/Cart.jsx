@@ -78,7 +78,7 @@ const Cart = () => {
                           </p>
                         )}
                         <p className="text-lg font-bold text-primary-600">
-                          ${item.price}
+                          ₵{item.price}
                         </p>
                       </div>
                       
@@ -130,25 +130,25 @@ const Cart = () => {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                  <span className="font-semibold">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
                   <span className="font-semibold">
-                    {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'Free' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax</span>
-                  <span className="font-semibold">${tax.toFixed(2)}</span>
+                  <span className="font-semibold">₵{tax.toFixed(2)}</span>
                 </div>
                 
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>₵{total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@ const Cart = () => {
               {subtotal < 50 && (
                 <div className="mt-4 p-3 bg-primary-50 rounded-lg">
                   <p className="text-sm text-primary-700">
-                    Add ${(50 - subtotal).toFixed(2)} more for free shipping!
+                    Add ₵{(50 - subtotal).toFixed(2)} more for free shipping!
                   </p>
                 </div>
               )}

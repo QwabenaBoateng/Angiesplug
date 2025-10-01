@@ -180,7 +180,7 @@ const AdminOrders = () => {
                     {order.order_items?.reduce((total, item) => total + item.quantity, 0) || 0} items
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${order.total_amount.toFixed(2)}
+                    ₵{order.total_amount.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
@@ -285,8 +285,8 @@ const AdminOrders = () => {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-gray-900">${item.price.toFixed(2)}</p>
-                        <p className="text-sm text-gray-600">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-medium text-gray-900">₵{item.price.toFixed(2)}</p>
+                        <p className="text-sm text-gray-600">Total: ₵{(item.price * item.quantity).toFixed(2)}</p>
                       </div>
                     </div>
                   ))}
@@ -297,7 +297,7 @@ const AdminOrders = () => {
               <div className="border-t pt-4">
                 <div className="flex justify-between items-center text-lg font-semibold">
                   <span>Total Amount:</span>
-                  <span>${selectedOrder.total_amount.toFixed(2)}</span>
+                  <span>₵{selectedOrder.total_amount.toFixed(2)}</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
                   Order placed on {new Date(selectedOrder.created_at).toLocaleString()}

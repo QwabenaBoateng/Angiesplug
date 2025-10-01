@@ -60,7 +60,7 @@ const Home = () => {
         <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold text-gray-900">
-            ${product.price}
+            ₵{product.price}
           </span>
           <div className="flex items-center">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -109,12 +109,12 @@ const Home = () => {
               ANYTHING IS POSSIBLE
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors border border-black">
+              <Link to="/catalog" className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors border border-black text-center">
                 COLLECTIONS
-              </button>
-              <button className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+              </Link>
+              <Link to="/shop" className="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors text-center">
                 SHOP NOW
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -123,14 +123,9 @@ const Home = () => {
       {/* Featured Collections */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">FEATURED COLLECTIONS</h2>
-            <p className="text-lg text-gray-600">TOP NEW COLLECTIONS WITH HARFA BRANDS EXPLORE NOW</p>
-          </div>
-          
           {isLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {[...Array(8)].map((_, i) => (
+            <div className="grid grid-cols-2 gap-6">
+              {[...Array(4)].map((_, i) => (
                 <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
                   <div className="h-64 bg-gray-300"></div>
                   <div className="p-4">
@@ -141,18 +136,13 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {featuredProducts.map((product) => (
+            <div className="grid grid-cols-2 gap-6">
+              {featuredProducts.slice(0, 4).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}
           
-          <div className="text-center mt-8">
-            <button className="bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-              LOAD MORE PRODUCTS
-            </button>
-          </div>
         </div>
       </section>
 
@@ -181,7 +171,7 @@ const Home = () => {
                 <h3 className="font-semibold text-lg mb-2">Stylish Outfit</h3>
                 <p className="text-gray-600 text-sm mb-3">Complete look for any occasion</p>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">$89.99</span>
+                  <span className="text-xl font-bold text-gray-900">₵89.99</span>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="text-sm text-gray-600 ml-1">4.8</span>
@@ -209,7 +199,7 @@ const Home = () => {
                 <h3 className="font-semibold text-lg mb-2">Elegant Ensemble</h3>
                 <p className="text-gray-600 text-sm mb-3">Perfect for special events</p>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">$129.99</span>
+                  <span className="text-xl font-bold text-gray-900">₵129.99</span>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="text-sm text-gray-600 ml-1">4.9</span>
@@ -237,7 +227,7 @@ const Home = () => {
                 <h3 className="font-semibold text-lg mb-2">Casual Chic</h3>
                 <p className="text-gray-600 text-sm mb-3">Comfortable yet fashionable</p>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">$79.99</span>
+                  <span className="text-xl font-bold text-gray-900">₵79.99</span>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="text-sm text-gray-600 ml-1">4.7</span>
@@ -265,7 +255,7 @@ const Home = () => {
                 <h3 className="font-semibold text-lg mb-2">Trendy Set</h3>
                 <p className="text-gray-600 text-sm mb-3">Latest fashion trends</p>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">$99.99</span>
+                  <span className="text-xl font-bold text-gray-900">₵99.99</span>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="text-sm text-gray-600 ml-1">4.6</span>
@@ -284,24 +274,24 @@ const Home = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Harfa Collections */}
+            {/* Angie's Plug Collections */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="relative">
                   <img
                     src="/api/placeholder/400/300"
-                    alt="Harfa Collections"
+                    alt="Angie's Plug"
                     className="w-full h-64 object-cover"
                   />
                   <div className="absolute top-4 left-4">
-                    <h3 className="text-2xl font-bold text-red-600">Harfa Collections</h3>
+                    <h3 className="text-2xl font-bold text-red-600">Angie's Plug</h3>
                   </div>
                 </div>
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    FIND YOUR PERFECT LOOK AT HARFA STY
+                    FIND YOUR PERFECT LOOK AT ANGIE'S PLUG
                     <br />
-                    NEW ON PARIS
+                    
                   </h2>
                   <p className="text-gray-600 mb-6">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -321,7 +311,7 @@ const Home = () => {
             <div className="relative rounded-lg overflow-hidden">
               <img
                 src="/api/placeholder/600/400"
-                alt="Winter Collection"
+                alt=""
                 className="w-full h-64 object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
@@ -330,8 +320,8 @@ const Home = () => {
                 </button>
               </div>
               <div className="absolute top-6 left-6 text-white">
-                <h3 className="text-2xl font-bold mb-2">WEAR TO WINTER</h3>
-                <p className="text-sm">LET US LOVE Winter For IT IS THE SPRING</p>
+                <h3 className="text-2xl font-bold mb-2"> </h3>
+                <p className="text-sm"> ANGIE'S PLUG </p>
               </div>
               <div className="absolute bottom-6 right-6">
                 <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center">
@@ -347,7 +337,7 @@ const Home = () => {
       {/* Gender Categories */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Men */}
             <div className="relative rounded-lg overflow-hidden group">
               <img
@@ -358,9 +348,9 @@ const Home = () => {
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
                 <div className="p-6 text-white">
                   <h3 className="text-3xl font-bold mb-4">MEN</h3>
-                  <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
                     SHOP NOW
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -375,9 +365,9 @@ const Home = () => {
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
                 <div className="p-6 text-white">
                   <h3 className="text-3xl font-bold mb-4">WOMEN</h3>
-                  <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
                     SHOP NOW
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -392,8 +382,25 @@ const Home = () => {
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
                 <div className="p-6 text-white">
                   <h3 className="text-3xl font-bold mb-4">ACCESSORIES</h3>
-                  <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
                     SHOP NOW
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Footwear */}
+            <div className="relative rounded-lg overflow-hidden group">
+              <img
+                src="/api/placeholder/400/500"
+                alt="Footwear Collection"
+                className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
+                <div className="p-6 text-white">
+                  <h3 className="text-3xl font-bold mb-4">FOOTWEAR</h3>
+                  <button className="bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold cursor-not-allowed" disabled>
+                    COMING SOON
                   </button>
                 </div>
               </div>

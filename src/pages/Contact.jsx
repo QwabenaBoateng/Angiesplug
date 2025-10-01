@@ -51,8 +51,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                  <p className="text-gray-600">info@angiesplug.com</p>
-                  <p className="text-gray-600">support@angiesplug.com</p>
+                  <p className="text-gray-600">angelatyron251@gmail.com</p>
+                  
                 </div>
               </div>
 
@@ -63,8 +63,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                  <p className="text-gray-600">Mon-Fri 9AM-6PM EST</p>
+                  <p className="text-gray-600">0549759032</p>
+                  <p className="text-gray-600">Mon-Fri 9AM-4PM </p>
                 </div>
               </div>
 
@@ -76,9 +76,9 @@ const Contact = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Address</h3>
                   <p className="text-gray-600">
-                    123 Fashion Street<br />
-                    New York, NY 10001<br />
-                    United States
+                    Madina ARS<br />
+                  
+                    Accra.
                   </p>
                 </div>
               </div>
@@ -90,7 +90,7 @@ const Contact = () => {
               <div className="space-y-2 text-gray-600">
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                  <span>9:00 AM - 4:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>

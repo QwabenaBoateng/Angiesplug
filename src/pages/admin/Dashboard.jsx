@@ -134,7 +134,7 @@ const Dashboard = () => {
         />
         <StatCard
           title="Total Revenue"
-          value={`$${stats.totalRevenue.toFixed(2)}`}
+          value={`₵${stats.totalRevenue.toFixed(2)}`}
           icon={DollarSign}
           color="bg-yellow-500"
         />
@@ -240,7 +240,7 @@ const Dashboard = () => {
                     {order.order_items?.reduce((total, item) => total + item.quantity, 0) || 0} items
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${order.total_amount.toFixed(2)}
+                    ₵{order.total_amount.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
