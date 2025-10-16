@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, X } from 'lucide-react'
-import { supabase } from '../../lib/supabase'
+import { Plus, Edit, Trash2, X, Upload, Image as ImageIcon } from 'lucide-react'
+import { supabase, isSupabaseConfigured, getStorageBucket } from '../../lib/supabase'
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([])
@@ -10,8 +10,10 @@ const AdminCategories = () => {
   const [categoryForm, setCategoryForm] = useState({
     name: '',
     slug: '',
-    description: ''
+    description: '',
+    image_url: ''
   })
+  const [uploadingImage, setUploadingImage] = useState(false)
 
   useEffect(() => {
     fetchCategories()
@@ -53,7 +55,8 @@ const AdminCategories = () => {
           .update({
             name: categoryForm.name,
             slug: categoryForm.slug,
-            description: categoryForm.description
+            description: categoryForm.description,
+            image_url: categoryForm.image_url
           })
           .eq('id', editingCategory.id)
 
@@ -65,7 +68,8 @@ const AdminCategories = () => {
           .insert({
             name: categoryForm.name,
             slug: categoryForm.slug,
-            description: categoryForm.description
+            description: categoryForm.description,
+            image_url: categoryForm.image_url
           })
 
         if (error) throw error
@@ -73,7 +77,7 @@ const AdminCategories = () => {
 
       setShowModal(false)
       setEditingCategory(null)
-      setCategoryForm({ name: '', slug: '', description: '' })
+      setCategoryForm({ name: '', slug: '', description: '', image_url: '' })
       fetchCategories()
     } catch (error) {
       console.error('Error saving category:', error)
@@ -86,7 +90,8 @@ const AdminCategories = () => {
     setCategoryForm({
       name: category.name,
       slug: category.slug,
-      description: category.description || ''
+      description: category.description || '',
+      image_url: category.image_url || ''
     })
     setShowModal(true)
   }
@@ -110,7 +115,7 @@ const AdminCategories = () => {
 
   const openModal = () => {
     setEditingCategory(null)
-    setCategoryForm({ name: '', slug: '', description: '' })
+    setCategoryForm({ name: '', slug: '', description: '', image_url: '' })
     setShowModal(true)
   }
 
@@ -119,6 +124,93 @@ const AdminCategories = () => {
       ...prev,
       name,
       slug: generateSlug(name)
+    }))
+  }
+
+  const handleImageUpload = async (file) => {
+    if (!file) return
+
+    setUploadingImage(true)
+
+    try {
+      if (!isSupabaseConfigured) {
+        alert('Image uploads are not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.')
+        return
+      }
+
+      if (!(file instanceof File) || !file.type.startsWith('image/')) {
+        alert('Please select a valid image file.')
+        return
+      }
+
+      const fileExt = file.name.split('.').pop()
+      const fileName = `category-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+      const filePath = `categories/${fileName}`
+      const bucket = getStorageBucket()
+
+      // Delete old image if it exists
+      if (categoryForm.image_url) {
+        await deleteImageFromStorage(categoryForm.image_url)
+      }
+
+      const { error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, file, { contentType: file.type, upsert: true })
+
+      if (uploadError) {
+        console.error('Storage upload error:', uploadError)
+        throw new Error(`Upload failed: ${uploadError.message}`)
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from(bucket)
+        .getPublicUrl(filePath)
+
+      if (!publicUrl) {
+        throw new Error('Failed to get public URL for uploaded image')
+      }
+
+      console.log(`Category image uploaded:`, publicUrl)
+      setCategoryForm(prev => ({
+        ...prev,
+        image_url: publicUrl
+      }))
+    } catch (error) {
+      console.error('Error uploading image:', error)
+      alert('Error uploading image. Please try again.')
+    } finally {
+      setUploadingImage(false)
+    }
+  }
+
+  const deleteImageFromStorage = async (imageUrl) => {
+    if (!imageUrl || !imageUrl.includes('supabase.co/storage/v1/object/public/angies-db/')) {
+      return
+    }
+
+    try {
+      const urlParts = imageUrl.split('/storage/v1/object/public/angies-db/')
+      if (urlParts.length === 2) {
+        const filePath = urlParts[1]
+        const bucket = getStorageBucket()
+        
+        await supabase.storage
+          .from(bucket)
+          .remove([filePath])
+      }
+    } catch (error) {
+      console.error('Error deleting image from storage:', error)
+    }
+  }
+
+  const removeImage = async () => {
+    if (categoryForm.image_url) {
+      await deleteImageFromStorage(categoryForm.image_url)
+    }
+    
+    setCategoryForm(prev => ({
+      ...prev,
+      image_url: ''
     }))
   }
 
@@ -156,6 +248,9 @@ const AdminCategories = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Image
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Name
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -175,6 +270,18 @@ const AdminCategories = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {categories.map((category) => (
                   <tr key={category.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex-shrink-0 h-12 w-12">
+                        <img
+                          className="h-12 w-12 rounded-lg object-cover"
+                          src={category.image_url || '/api/placeholder/100/100'}
+                          alt={category.name}
+                          onError={(e) => {
+                            e.target.src = '/api/placeholder/100/100'
+                          }}
+                        />
+                      </div>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         {category.name}
@@ -276,6 +383,53 @@ const AdminCategories = () => {
                   className="input-field"
                   placeholder="Enter category description (optional)"
                 />
+              </div>
+
+              {/* Category Image Upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Category Image
+                </label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e.target.files[0])}
+                    className="hidden"
+                    id="category-image-upload"
+                    disabled={uploadingImage}
+                  />
+                  <label
+                    htmlFor="category-image-upload"
+                    className={`cursor-pointer flex flex-col items-center justify-center ${
+                      uploadingImage ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    {categoryForm.image_url ? (
+                      <div className="relative">
+                        <img
+                          src={categoryForm.image_url}
+                          alt="Category"
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={removeImage}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-600">
+                          {uploadingImage ? 'Uploading...' : 'Click to upload category image'}
+                        </span>
+                      </>
+                    )}
+                  </label>
+                </div>
               </div>
 
               <div className="flex justify-end space-x-4">

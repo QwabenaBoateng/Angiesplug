@@ -52,6 +52,7 @@ const Shop = () => {
       if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
         // Use mock data
         const mockProducts = [
+          // Ladies Wear
           {
             id: 1,
             name: 'Elegant Evening Dress',
@@ -81,6 +82,16 @@ const Shop = () => {
           },
           {
             id: 4,
+            name: 'Floral Maxi Dress',
+            price: 89.99,
+            image: '/api/placeholder/300/400',
+            category: 'Ladies Wear',
+            rating: 4.5,
+            description: 'Beautiful floral maxi dress for any occasion.'
+          },
+          // Mens Wear
+          {
+            id: 5,
             name: 'Classic Men\'s Shirt',
             price: 69.99,
             image: '/api/placeholder/300/400',
@@ -89,7 +100,7 @@ const Shop = () => {
             description: 'High-quality cotton shirt for any occasion.'
           },
           {
-            id: 5,
+            id: 6,
             name: 'Men\'s Formal Suit',
             price: 299.99,
             image: '/api/placeholder/300/400',
@@ -98,7 +109,7 @@ const Shop = () => {
             description: 'Premium formal suit for business and special events.'
           },
           {
-            id: 6,
+            id: 7,
             name: 'Men\'s Casual Pants',
             price: 89.99,
             image: '/api/placeholder/300/400',
@@ -107,7 +118,17 @@ const Shop = () => {
             description: 'Comfortable and stylish casual pants.'
           },
           {
-            id: 7,
+            id: 8,
+            name: 'Men\'s Polo Shirt',
+            price: 49.99,
+            image: '/api/placeholder/300/400',
+            category: 'Mens Wear',
+            rating: 4.6,
+            description: 'Classic polo shirt for casual wear.'
+          },
+          // Accessories
+          {
+            id: 9,
             name: 'Designer Handbag',
             price: 149.99,
             image: '/api/placeholder/300/400',
@@ -116,7 +137,7 @@ const Shop = () => {
             description: 'Elegant handbag perfect for any occasion.'
           },
           {
-            id: 8,
+            id: 10,
             name: 'Fashionable Scarf',
             price: 39.99,
             image: '/api/placeholder/300/400',
@@ -125,7 +146,7 @@ const Shop = () => {
             description: 'Stylish scarf to complete your look.'
           },
           {
-            id: 9,
+            id: 11,
             name: 'Leather Belt',
             price: 49.99,
             image: '/api/placeholder/300/400',
@@ -134,13 +155,50 @@ const Shop = () => {
             description: 'Premium leather belt for men and women.'
           },
           {
-            id: 10,
+            id: 12,
             name: 'Statement Necklace',
             price: 79.99,
             image: '/api/placeholder/300/400',
             category: 'Accessories',
             rating: 4.5,
             description: 'Beautiful statement necklace to elevate your style.'
+          },
+          // Footwear
+          {
+            id: 13,
+            name: 'Women\'s High Heels',
+            price: 119.99,
+            image: '/api/placeholder/300/400',
+            category: 'Footwear',
+            rating: 4.7,
+            description: 'Elegant high heels for special occasions.'
+          },
+          {
+            id: 14,
+            name: 'Men\'s Dress Shoes',
+            price: 159.99,
+            image: '/api/placeholder/300/400',
+            category: 'Footwear',
+            rating: 4.8,
+            description: 'Classic leather dress shoes for formal wear.'
+          },
+          {
+            id: 15,
+            name: 'Women\'s Sneakers',
+            price: 89.99,
+            image: '/api/placeholder/300/400',
+            category: 'Footwear',
+            rating: 4.6,
+            description: 'Comfortable sneakers for everyday wear.'
+          },
+          {
+            id: 16,
+            name: 'Men\'s Casual Boots',
+            price: 129.99,
+            image: '/api/placeholder/300/400',
+            category: 'Footwear',
+            rating: 4.5,
+            description: 'Stylish casual boots for any season.'
           }
         ]
         
@@ -286,6 +344,34 @@ const Shop = () => {
     </div>
   )
 
+  const CategoryCard = ({ category }) => (
+    <Link 
+      to={`/catalog?category=${category.slug}`}
+      className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+    >
+      <div className="aspect-w-1 aspect-h-1">
+        <img
+          src={category.image_url || '/api/placeholder/400/400'}
+          alt={category.name}
+          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            console.error('Category image failed to load:', category.image_url)
+            e.target.src = '/api/placeholder/400/400'
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors">
+          {category.name.toUpperCase()}
+        </h3>
+        <p className="text-white/90 text-sm">
+          Shop {category.name.toLowerCase()}
+        </p>
+      </div>
+    </Link>
+  )
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -347,150 +433,198 @@ const Shop = () => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filters Sidebar */}
-          {showFilters && (
-            <div className="lg:w-64 bg-white rounded-lg shadow-md p-6 h-fit">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Filters</h3>
-                <button
-                  onClick={clearFilters}
-                  className="text-sm text-primary-600 hover:text-primary-700"
-                >
-                  Clear All
-                </button>
-              </div>
+        {/* Category Sections */}
+        <div className="space-y-16">
+          {/* Ladies Wear Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Ladies Wear</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isLoading ? (
+                // Loading skeleton for Ladies Wear products
+                [...Array(4)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                    <div className="h-64 bg-gray-300"></div>
+                    <div className="p-4">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
+                      <div className="h-8 bg-gray-300 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Display first 4 Ladies Wear products
+                products
+                  .filter(product => 
+                    product.categories?.name === 'Ladies Wear' || 
+                    product.category === 'Ladies Wear'
+                  )
+                  .slice(0, 4)
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              )}
+            </div>
+          </div>
 
-              {/* Category Filter */}
-              <div className="mb-6">
-                <h4 className="font-medium mb-3">Category</h4>
-                <div className="space-y-2">
-                  <label className="flex items-center">
+          {/* Mens Wear Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Mens Wear</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isLoading ? (
+                // Loading skeleton for Mens Wear products
+                [...Array(4)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                    <div className="h-64 bg-gray-300"></div>
+                    <div className="p-4">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
+                      <div className="h-8 bg-gray-300 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Display first 4 Mens Wear products
+                products
+                  .filter(product => 
+                    product.categories?.name === 'Mens Wear' || 
+                    product.category === 'Mens Wear'
+                  )
+                  .slice(0, 4)
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              )}
+            </div>
+          </div>
+
+          {/* Accessories Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Accessories</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isLoading ? (
+                // Loading skeleton for Accessories products
+                [...Array(4)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                    <div className="h-64 bg-gray-300"></div>
+                    <div className="p-4">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
+                      <div className="h-8 bg-gray-300 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Display first 4 Accessories products
+                products
+                  .filter(product => 
+                    product.categories?.name === 'Accessories' || 
+                    product.category === 'Accessories'
+                  )
+                  .slice(0, 4)
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              )}
+            </div>
+          </div>
+
+          {/* Footwear Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Footwear</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isLoading ? (
+                // Loading skeleton for Footwear products
+                [...Array(4)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                    <div className="h-64 bg-gray-300"></div>
+                    <div className="p-4">
+                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
+                      <div className="h-8 bg-gray-300 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Display first 4 Footwear products
+                products
+                  .filter(product => 
+                    product.categories?.name === 'Footwear' || 
+                    product.category === 'Footwear'
+                  )
+                  .slice(0, 4)
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Filters Sidebar - Hidden by default, can be toggled */}
+        {showFilters && (
+          <div className="mt-12 bg-white rounded-lg shadow-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Filters</h3>
+              <button
+                onClick={clearFilters}
+                className="text-sm text-primary-600 hover:text-primary-700"
+              >
+                Clear All
+              </button>
+            </div>
+
+            {/* Category Filter */}
+            <div className="mb-6">
+              <h4 className="font-medium mb-3">Category</h4>
+              <div className="space-y-2">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="category"
+                    value=""
+                    checked={filters.category === ''}
+                    onChange={(e) => handleFilterChange('category', e.target.value)}
+                    className="mr-2"
+                  />
+                  All Categories
+                </label>
+                {categories.map((category) => (
+                  <label key={category.id} className="flex items-center">
                     <input
                       type="radio"
                       name="category"
-                      value=""
-                      checked={filters.category === ''}
+                      value={category.id}
+                      checked={filters.category === category.id}
                       onChange={(e) => handleFilterChange('category', e.target.value)}
                       className="mr-2"
                     />
-                    All Categories
+                    {category.name}
                   </label>
-                  {categories.map((category) => (
-                    <label key={category.id} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="category"
-                        value={category.id}
-                        checked={filters.category === category.id}
-                        onChange={(e) => handleFilterChange('category', e.target.value)}
-                        className="mr-2"
-                      />
-                      {category.name}
-                    </label>
-                  ))}
-                </div>
+                ))}
               </div>
+            </div>
 
-              {/* Price Range */}
-              <div className="mb-6">
-                <h4 className="font-medium mb-3">Price Range</h4>
-                <div className="space-y-2">
-                  <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    step="10"
-                    value={filters.priceRange[1]}
-                    onChange={(e) => handleFilterChange('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>₵{filters.priceRange[0]}</span>
-                    <span>₵{filters.priceRange[1]}</span>
-                  </div>
+            {/* Price Range */}
+            <div className="mb-6">
+              <h4 className="font-medium mb-3">Price Range</h4>
+              <div className="space-y-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="1000"
+                  step="10"
+                  value={filters.priceRange[1]}
+                  onChange={(e) => handleFilterChange('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>₵{filters.priceRange[0]}</span>
+                  <span>₵{filters.priceRange[1]}</span>
                 </div>
               </div>
             </div>
-          )}
-
-          {/* Products by Category Sections */}
-          <div className="flex-1">
-            {isLoading ? (
-              <div className="space-y-12">
-                {['Ladies Wear', 'Mens Wear', 'Accessories'].map((category) => (
-                  <div key={category} className="animate-pulse">
-                    <div className="h-8 bg-gray-300 rounded w-1/4 mb-6"></div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className="bg-white rounded-lg shadow-md">
-                          <div className="h-64 bg-gray-300"></div>
-                          <div className="p-4">
-                            <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-12">
-                {/* Ladies Wear Section */}
-                <section>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
-                      LADIES WEAR
-                    </div>
-                    <Link to="/catalog?category=ladies-wear" className="text-primary-600 hover:text-primary-700 font-medium">
-                      See More →
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {products.filter(product => product.category === 'Ladies Wear').slice(0, 4).map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                </section>
-
-                {/* Mens Wear Section */}
-                <section>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
-                      MENS WEAR
-                    </div>
-                    <Link to="/catalog?category=mens-wear" className="text-primary-600 hover:text-primary-700 font-medium">
-                      See More →
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {products.filter(product => product.category === 'Mens Wear').slice(0, 4).map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                </section>
-
-                {/* Accessories Section */}
-                <section>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
-                      ACCESSORIES
-                    </div>
-                    <Link to="/catalog?category=accessories" className="text-primary-600 hover:text-primary-700 font-medium">
-                      See More →
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {products.filter(product => product.category === 'Accessories').slice(0, 4).map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                </section>
-              </div>
-            )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

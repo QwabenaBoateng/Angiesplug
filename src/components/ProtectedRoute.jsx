@@ -2,45 +2,56 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useStore } from '../store/useStore'
+import { useAuth } from '../hooks/useAuth'
 
-const ProtectedRoute = ({ children, adminOnly = false }) => {
+const ProtectedRoute = ({ 
+  children, 
+  adminOnly = false, 
+  superAdminOnly = false,
+  requiredPermission = null 
+}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const { user } = useStore()
+  const { userProfile, hasPermission, isAdmin, isSuperAdmin } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
     const checkAuth = async () => {
-      if (!user) {
+      // Check if Supabase is configured
+      if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
         navigate('/login')
         return
       }
 
-      if (adminOnly) {
-        // Check if user has admin role (handle both mock and real users)
-        if (user.user_metadata?.role === 'admin') {
-          // Mock admin user or real admin user
-          setIsAuthorized(true)
-          setIsLoading(false)
-          return
-        }
+      // Get current session
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        navigate('/login')
+        return
+      }
 
-        // Check Supabase for real admin users
-        if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-          navigate('/')
-          return
-        }
+      // Wait for user profile to load
+      if (!userProfile) {
+        return // Still loading
+      }
 
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', user.id)
-          .single()
+      // Check role-based access
+      if (superAdminOnly && !isSuperAdmin()) {
+        navigate('/')
+        return
+      }
 
-        if (profile?.role !== 'admin') {
-          navigate('/')
-          return
-        }
+      if (adminOnly && !isAdmin()) {
+        navigate('/')
+        return
+      }
+
+      // Check permission-based access
+      if (requiredPermission && !hasPermission(requiredPermission)) {
+        navigate('/')
+        return
       }
 
       setIsAuthorized(true)
@@ -48,7 +59,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     }
 
     checkAuth()
-  }, [user, adminOnly, navigate])
+  }, [adminOnly, superAdminOnly, requiredPermission, userProfile, isAdmin, isSuperAdmin, hasPermission, navigate])
 
   if (isLoading) {
     return (

@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase'
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([])
   const [categories, setCategories] = useState([])
+  const [brands, setBrands] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -15,6 +16,40 @@ const Home = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true)
+      
+      // Check if Supabase is configured
+      if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Use mock data
+        const mockBrands = [
+          {
+            id: 1,
+            name: 'Brand 1',
+            image_url: '/api/placeholder/400/500',
+            description: 'Premium fashion brand'
+          },
+          {
+            id: 2,
+            name: 'Brand 2', 
+            image_url: '/api/placeholder/400/500',
+            description: 'Luxury accessories'
+          },
+          {
+            id: 3,
+            name: 'Brand 3',
+            image_url: '/api/placeholder/400/500',
+            description: 'Casual wear specialist'
+          },
+          {
+            id: 4,
+            name: 'Brand 4',
+            image_url: '/api/placeholder/400/500',
+            description: 'Footwear excellence'
+          }
+        ]
+        setBrands(mockBrands)
+        setIsLoading(false)
+        return
+      }
       
       // Fetch featured products
       const { data: featured } = await supabase
@@ -32,10 +67,45 @@ const Home = () => {
         .select('*')
         .limit(6)
 
+      // Fetch brands
+      const { data: brandsData } = await supabase
+        .from('brands')
+        .select('*')
+        .limit(4)
+
       setFeaturedProducts(featured || [])
       setCategories(categoriesData || [])
+      setBrands(brandsData || [])
     } catch (error) {
       console.error('Error fetching data:', error)
+      // Fallback to mock brands on error
+      const mockBrands = [
+        {
+          id: 1,
+          name: 'Brand 1',
+          image_url: '/api/placeholder/400/500',
+          description: 'Premium fashion brand'
+        },
+        {
+          id: 2,
+          name: 'Brand 2', 
+          image_url: '/api/placeholder/400/500',
+          description: 'Luxury accessories'
+        },
+        {
+          id: 3,
+          name: 'Brand 3',
+          image_url: '/api/placeholder/400/500',
+          description: 'Casual wear specialist'
+        },
+        {
+          id: 4,
+          name: 'Brand 4',
+          image_url: '/api/placeholder/400/500',
+          description: 'Footwear excellence'
+        }
+      ]
+      setBrands(mockBrands)
     } finally {
       setIsLoading(false)
     }
@@ -90,6 +160,24 @@ const Home = () => {
               </button>
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  )
+
+  const BrandCard = ({ brand }) => (
+    <div className="relative rounded-lg overflow-hidden group">
+      <img
+        src={brand.image_url}
+        alt={brand.name}
+        className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
+        <div className="p-6 text-white">
+          <h3 className="text-3xl font-bold mb-4">{brand.name.toUpperCase()}</h3>
+          <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
+            SHOP NOW
+          </Link>
         </div>
       </div>
     </div>
@@ -334,78 +422,29 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Gender Categories */}
+      {/* Brands Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Men */}
-            <div className="relative rounded-lg overflow-hidden group">
-              <img
-                src="/api/placeholder/400/500"
-                alt="Men's Collection"
-                className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
-                <div className="p-6 text-white">
-                  <h3 className="text-3xl font-bold mb-4">MEN</h3>
-                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
-                    SHOP NOW
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Women */}
-            <div className="relative rounded-lg overflow-hidden group">
-              <img
-                src="/api/placeholder/400/500"
-                alt="Women's Collection"
-                className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
-                <div className="p-6 text-white">
-                  <h3 className="text-3xl font-bold mb-4">WOMEN</h3>
-                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
-                    SHOP NOW
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Accessories */}
-            <div className="relative rounded-lg overflow-hidden group">
-              <img
-                src="/api/placeholder/400/500"
-                alt="Accessories Collection"
-                className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
-                <div className="p-6 text-white">
-                  <h3 className="text-3xl font-bold mb-4">ACCESSORIES</h3>
-                  <Link to="/shop" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block">
-                    SHOP NOW
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Footwear */}
-            <div className="relative rounded-lg overflow-hidden group">
-              <img
-                src="/api/placeholder/400/500"
-                alt="Footwear Collection"
-                className="w-full h-96 object-cover group-hover:scale-105 transition-transform"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
-                <div className="p-6 text-white">
-                  <h3 className="text-3xl font-bold mb-4">FOOTWEAR</h3>
-                  <button className="bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold cursor-not-allowed" disabled>
-                    COMING SOON
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">BRANDS</h2>
+            <p className="text-lg text-gray-600">Discover our featured brand partners</p>
           </div>
+          
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                  <div className="h-96 bg-gray-300"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {brands.map((brand) => (
+                <BrandCard key={brand.id} brand={brand} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

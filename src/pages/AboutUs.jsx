@@ -1,21 +1,76 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Instagram, Mail, ArrowRight } from 'lucide-react'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 const AboutUs = () => {
+  const [aboutContent, setAboutContent] = useState({
+    hero_image: '/api/placeholder/1200/500',
+    angie_image: '/api/placeholder/400/500',
+    hero_title: 'About Us',
+    hero_subtitle: 'Your Plug for the Freshest Threads. No Cap.',
+    whats_the_plug: `Hey, we're Angie's Plug – your ultimate source for exclusive, high-quality streetwear that you won't find anywhere else. Just like a trusted "plug" hooks you up with what's real, we're here to connect you with fire fits that speak volumes.
+
+We started because we were tired of the same basic styles everywhere. We wanted a spot to cop unique pieces that blend premium comfort with head-turning design. That's the plug promise: no boring basics, just curated drip.`,
+    our_vibe: `We're more than just a clothing brand. We're your insider connection to a lifestyle. We're for the hustlers, the creators, the trend-setters, and anyone who uses their style as a form of self-expression. We believe what you wear should be as unique as you are.`,
+    angie_quote: `"Wassup, y'all! I'm Angie, the founder and your original plug.
+
+This all started in my house. I was always the friend people hit up to find the coolest pieces or put together the best fit. I turned that passion into a mission: to build a one-stop shop for unique, high-quality streetwear that actually represents our generation.
+
+Angie's Plug is my way of hooking you all up with the gear you really want. This isn't just my business; it's my passion. Every piece is chosen with love, and I'm stoked to have you on this journey with us.
+
+Stay fresh,
+- Angie"`
+  })
+
+  useEffect(() => {
+    fetchAboutContent()
+  }, [])
+
+  const fetchAboutContent = async () => {
+    try {
+      if (!isSupabaseConfigured) {
+        return // Use default content
+      }
+
+      const { data, error } = await supabase
+        .from('about_page')
+        .select('*')
+        .single()
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error fetching about content:', error)
+      } else if (data) {
+        console.log('About page data loaded:', data)
+        setAboutContent(prev => ({
+          ...prev,
+          ...data,
+          // Use placeholder images if no uploaded images
+          hero_image: data.hero_image || '/api/placeholder/1200/500',
+          angie_image: data.angie_image || '/api/placeholder/400/500'
+        }))
+      }
+    } catch (error) {
+      console.error('Error fetching about content:', error)
+    }
+  }
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative h-96 md:h-[500px] overflow-hidden">
         <img
-          src="/api/placeholder/1200/500"
+          src={aboutContent.hero_image}
           alt="Angie's Plug - Urban Streetwear"
           className="w-full h-full object-cover"
+          onError={(e) => {
+            console.error('Hero image failed to load:', aboutContent.hero_image)
+            e.target.src = '/api/placeholder/1200/500'
+          }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">About Us</h1>
-            <p className="text-xl md:text-2xl font-semibold">Your Plug for the Freshest Threads. No Cap.</p>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">{aboutContent.hero_title}</h1>
+            <p className="text-xl md:text-2xl font-semibold">{aboutContent.hero_subtitle}</p>
           </div>
         </div>
       </div>
@@ -25,12 +80,11 @@ const AboutUs = () => {
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">What's the Plug?</h2>
           <div className="prose prose-lg max-w-none">
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Hey, we're <strong>Angie's Plug</strong> – your ultimate source for exclusive, high-quality streetwear that you won't find anywhere else. Just like a trusted "plug" hooks you up with what's real, we're here to connect you with fire fits that speak volumes.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              We started because we were tired of the same basic styles everywhere. We wanted a spot to cop unique pieces that blend premium comfort with head-turning design. That's the plug promise: <strong>no boring basics, just curated drip.</strong>
-            </p>
+            {aboutContent.whats_the_plug.split('\n\n').map((paragraph, index) => (
+              <p key={index} className="text-gray-700 leading-relaxed mb-6">
+                {paragraph}
+              </p>
+            ))}
           </div>
         </section>
 
@@ -39,7 +93,7 @@ const AboutUs = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Vibe</h2>
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-700 leading-relaxed">
-              We're more than just a clothing brand. We're your insider connection to a lifestyle. We're for the hustlers, the creators, the trend-setters, and anyone who uses their style as a form of self-expression. We believe what you wear should be as unique as you are.
+              {aboutContent.our_vibe}
             </p>
           </div>
         </section>
@@ -83,22 +137,23 @@ const AboutUs = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <img
-                src="/api/placeholder/400/500"
+                src={aboutContent.angie_image}
                 alt="Angie - Founder of Angie's Plug"
                 className="w-full h-auto rounded-lg shadow-lg"
+                onError={(e) => {
+                  console.error('Angie image failed to load:', aboutContent.angie_image)
+                  e.target.src = '/api/placeholder/400/500'
+                }}
               />
             </div>
             <div className="prose prose-lg max-w-none">
               <blockquote className="text-gray-700 leading-relaxed italic text-lg border-l-4 border-gray-300 pl-6">
-                "Wassup, y'all! I'm Angie, the founder and your original plug.
-                <br /><br />
-                This all started in my house. I was always the friend people hit up to find the coolest pieces or put together the best fit. I turned that passion into a mission: to build a one-stop shop for unique, high-quality streetwear that actually represents our generation.
-                <br /><br />
-                Angie's Plug is my way of hooking you all up with the gear you really want. This isn't just my business; it's my passion. Every piece is chosen with love, and I'm stoked to have you on this journey with us.
-                <br /><br />
-                Stay fresh,
-                <br />
-                <strong>- Angie</strong>"
+                {aboutContent.angie_quote.split('\n').map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    {index < aboutContent.angie_quote.split('\n').length - 1 && <br />}
+                  </span>
+                ))}
               </blockquote>
             </div>
           </div>

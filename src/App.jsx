@@ -28,6 +28,8 @@ import AdminDashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
 import AdminOrders from './pages/admin/Orders'
 import AdminCategories from './pages/admin/Categories'
+import AdminAboutPage from './pages/admin/AboutPage'
+import UserManagement from './pages/admin/UserManagement'
 
 // Protected route component
 import ProtectedRoute from './components/ProtectedRoute'
@@ -59,7 +61,12 @@ function App() {
   }, [setUser, setLoading])
 
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }}
+    >
       <div className="min-h-screen bg-gray-50">
         <Routes>
           {/* Public routes */}
@@ -170,6 +177,8 @@ function App() {
                   <Route path="products" element={<AdminProducts />} />
                   <Route path="orders" element={<AdminOrders />} />
                   <Route path="categories" element={<AdminCategories />} />
+                  <Route path="about" element={<AdminAboutPage />} />
+                  <Route path="users" element={<UserManagement />} />
                 </Routes>
               </AdminLayout>
             </ProtectedRoute>

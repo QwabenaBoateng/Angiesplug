@@ -137,8 +137,10 @@ const Catalog = () => {
 
       const { data, error } = await supabase
         .from('products')
-        .select('*')
-        .eq('is_active', true)
+        .select(`
+          *,
+          categories (name)
+        `)
 
       if (error) throw error
       setProducts(data || [])
@@ -167,7 +169,6 @@ const Catalog = () => {
       const { data, error } = await supabase
         .from('categories')
         .select('*')
-        .eq('is_active', true)
 
       if (error) throw error
       setCategories(data || [])
@@ -178,12 +179,13 @@ const Catalog = () => {
   }
 
   const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory
+    const productCategoryName = product.category || product.categories?.name || ''
+    const matchesCategory = selectedCategory === 'all' || productCategoryName === selectedCategory
     const matchesPrice = product.price >= priceRange.min && product.price <= priceRange.max
     const matchesSearch = !searchQuery || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      productCategoryName.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesPrice && matchesSearch
   })
 
@@ -201,43 +203,48 @@ const Catalog = () => {
     }
   })
 
-  const ProductCard = ({ product }) => (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
-      <div className="relative">
-        <Link to={`/product/${product.id}`}>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-80 object-cover group-hover:scale-105 transition-transform"
-          />
-        </Link>
-        <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
-          <Heart className="w-4 h-4 text-gray-600" />
-        </button>
-      </div>
-      <div className="p-4">
-        <Link to={`/product/${product.id}`}>
-          <h3 className="font-semibold text-lg mb-2 hover:text-gray-600 transition-colors">
-            {product.name}
-          </h3>
-        </Link>
-        <p className="text-gray-600 text-sm mb-3">{product.description}</p>
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xl font-bold text-gray-900">₵{product.price}</span>
-          <div className="flex items-center">
-            <Star className="w-4 h-4 text-yellow-400 fill-current" />
-            <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
-          </div>
+  const ProductCard = ({ product }) => {
+    const imageSrc = product.image || product.image_urls?.[0] || '/placeholder-image.jpg'
+    const rating = product.rating || 4.8
+    return (
+      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
+        <div className="relative">
+          <Link to={`/product/${product.id}`}>
+            <img
+              src={imageSrc}
+              alt={product.name}
+              className="w-full h-80 object-cover group-hover:scale-105 transition-transform"
+            />
+          </Link>
+          <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
+            <Heart className="w-4 h-4 text-gray-600" />
+          </button>
         </div>
-        <button
-          onClick={() => addToCart(product)}
-          className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-        >
-          Add to Cart
-        </button>
+        <div className="p-4">
+          <Link to={`/product/${product.id}`}>
+            <h3 className="font-semibold text-lg mb-2 hover:text-gray-600 transition-colors">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-gray-600 text-sm mb-1">{product.categories?.name || product.category}</p>
+          <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xl font-bold text-gray-900">₵{product.price}</span>
+            <div className="flex items-center">
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+              <span className="text-sm text-gray-600 ml-1">{rating}</span>
+            </div>
+          </div>
+          <button
+            onClick={() => addToCart(product)}
+            className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   if (isLoading) {
     return (

@@ -10,7 +10,8 @@ import {
   LogOut,
   Menu,
   X,
-  Home
+  Home,
+  FileText
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useStore } from '../../store/useStore'
@@ -22,9 +23,16 @@ const AdminLayout = ({ children }) => {
   const { setUser } = useStore()
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    setUser(null)
-    navigate('/')
+    try {
+      await supabase.auth.signOut()
+      setUser(null)
+      navigate('/')
+    } catch (error) {
+      console.error('Error signing out:', error)
+      // Still navigate to home even if logout fails
+      setUser(null)
+      navigate('/')
+    }
   }
 
   const navigation = [
@@ -32,7 +40,8 @@ const AdminLayout = ({ children }) => {
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Categories', href: '/admin/categories', icon: Tag },
-    { name: 'Users', href: '/admin/users', icon: Users },
+    { name: 'About Page', href: '/admin/about', icon: FileText },
+    { name: 'User Management', href: '/admin/users', icon: Users },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ]
 
@@ -182,4 +191,7 @@ const AdminLayout = ({ children }) => {
 }
 
 export default AdminLayout
+
+
+
 

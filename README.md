@@ -84,6 +84,15 @@ CREATE TABLE categories (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Create brands table
+CREATE TABLE brands (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT,
+  image_url TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Create products table
 CREATE TABLE products (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -121,12 +130,19 @@ CREATE TABLE order_items (
 -- Create storage bucket for product images
 INSERT INTO storage.buckets (id, name, public) VALUES ('products', 'products', true);
 
+-- Note: Brand images will be stored in the existing 'angies-db' bucket under a 'brands/' folder
+
 -- Set up RLS policies
 CREATE POLICY "Public profiles are viewable by everyone" ON profiles FOR SELECT USING (true);
 CREATE POLICY "Users can insert their own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
 CREATE POLICY "Users can update their own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
 
 CREATE POLICY "Categories are viewable by everyone" ON categories FOR SELECT USING (true);
+
+CREATE POLICY "Brands are viewable by everyone" ON brands FOR SELECT USING (true);
+CREATE POLICY "Brands can be inserted by authenticated users" ON brands FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "Brands can be updated by authenticated users" ON brands FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Brands can be deleted by authenticated users" ON brands FOR DELETE USING (auth.role() = 'authenticated');
 CREATE POLICY "Only admins can manage categories" ON categories FOR ALL USING (
   EXISTS (
     SELECT 1 FROM profiles 
@@ -183,6 +199,26 @@ CREATE POLICY "Only admins can upload product images" ON storage.objects FOR INS
 
 CREATE POLICY "Only admins can delete product images" ON storage.objects FOR DELETE USING (
   bucket_id = 'products' AND
+  EXISTS (
+    SELECT 1 FROM profiles 
+    WHERE profiles.id = auth.uid() 
+    AND profiles.role = 'admin'
+  )
+);
+
+-- Brand images storage policies (stored in angies-db bucket under brands/ folder)
+CREATE POLICY "Brand images are publicly accessible" ON storage.objects FOR SELECT USING (bucket_id = 'angies-db' AND name LIKE 'brands/%');
+CREATE POLICY "Only admins can upload brand images" ON storage.objects FOR INSERT WITH CHECK (
+  bucket_id = 'angies-db' AND name LIKE 'brands/%' AND
+  EXISTS (
+    SELECT 1 FROM profiles 
+    WHERE profiles.id = auth.uid() 
+    AND profiles.role = 'admin'
+  )
+);
+
+CREATE POLICY "Only admins can delete brand images" ON storage.objects FOR DELETE USING (
+  bucket_id = 'angies-db' AND name LIKE 'brands/%' AND
   EXISTS (
     SELECT 1 FROM profiles 
     WHERE profiles.id = auth.uid() 

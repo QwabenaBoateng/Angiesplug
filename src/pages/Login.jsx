@@ -31,38 +31,9 @@ const Login = () => {
 
     console.log('Login attempt:', formData.email, formData.password)
 
-    // Check for hardcoded admin credentials
-    if (formData.email === 'admin@gmail.com' && formData.password === 'admin') {
-      console.log('Admin credentials matched, creating mock user')
-      try {
-        // Create a mock admin user
-        const mockAdminUser = {
-          id: 'admin-123',
-          email: 'admin@gmail.com',
-          user_metadata: {
-            role: 'admin',
-            first_name: 'Admin',
-            last_name: 'User'
-          }
-        }
-        
-        // Set the user in the store
-        setUser(mockAdminUser)
-        setLoading(false)
-        console.log('Navigating to admin panel')
-        navigate('/admin')
-        return
-      } catch (error) {
-        console.error('Error setting admin user:', error)
-        setError('Error setting up admin user')
-        setIsLoading(false)
-        return
-      }
-    }
-
     // Check if Supabase is configured
     if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-      setError('Supabase not configured. Use admin@gmail.com / admin for admin access.')
+      setError('Supabase not configured. Please contact administrator.')
       setIsLoading(false)
       return
     }
@@ -75,8 +46,23 @@ const Login = () => {
 
       if (error) {
         setError(error.message)
-      } else {
-        navigate('/')
+      } else if (data.user) {
+        // Check if user is admin by looking at their profile
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single()
+
+        // If user has admin role, redirect to admin panel
+        if (profile?.role === 'admin') {
+          console.log('Admin user logged in, navigating to admin panel')
+          navigate('/admin')
+        } else {
+          // Regular user, redirect to home
+          console.log('Regular user logged in, navigating to home')
+          navigate('/')
+        }
       }
     } catch (error) {
       console.error('Supabase login error:', error)
