@@ -21,6 +21,8 @@ import OrderConfirmation from './pages/OrderConfirmation'
 import Contact from './pages/Contact'
 import AboutUs from './pages/AboutUs'
 import TestLogin from './pages/TestLogin'
+import AdminTest from './pages/AdminTest'
+import DebugPage from './pages/DebugPage'
 
 // Admin pages
 import AdminLayout from './components/admin/AdminLayout'
@@ -34,6 +36,7 @@ import UserManagement from './pages/admin/UserManagement'
 
 // Protected route component
 import ProtectedRoute from './components/ProtectedRoute'
+import SimpleAdminRoute from './components/SimpleAdminRoute'
 
 function App() {
   const { setUser, setLoading } = useStore()
@@ -168,6 +171,17 @@ function App() {
           } />
           
           <Route path="/test-login" element={<TestLogin />} />
+          <Route path="/admin-test" element={<AdminTest />} />
+          <Route path="/debug" element={<DebugPage />} />
+          
+          {/* Alternative admin route for testing */}
+          <Route path="/admin-simple" element={
+            <SimpleAdminRoute>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </SimpleAdminRoute>
+          } />
           
           {/* Admin routes */}
           <Route path="/admin" element={
