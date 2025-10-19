@@ -170,18 +170,61 @@ function App() {
           <Route path="/test-login" element={<TestLogin />} />
           
           {/* Admin routes */}
+          <Route path="/admin" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/products" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminProducts />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/orders" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminOrders />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/categories" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminCategories />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/about" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminAboutPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/promotional" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminPromotionalSection />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/users" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <UserManagement />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          
+          {/* Fallback for any unmatched admin routes */}
           <Route path="/admin/*" element={
             <ProtectedRoute adminOnly>
               <AdminLayout>
-                <Routes>
-                  <Route index element={<AdminDashboard />} />
-                  <Route path="products" element={<AdminProducts />} />
-                  <Route path="orders" element={<AdminOrders />} />
-                  <Route path="categories" element={<AdminCategories />} />
-                  <Route path="about" element={<AdminAboutPage />} />
-                  <Route path="promotional" element={<AdminPromotionalSection />} />
-                  <Route path="users" element={<UserManagement />} />
-                </Routes>
+                <AdminDashboard />
               </AdminLayout>
             </ProtectedRoute>
           } />
