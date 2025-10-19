@@ -16,6 +16,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import UserAuth from './pages/UserAuth'
 import Profile from './pages/Profile'
 import OrderConfirmation from './pages/OrderConfirmation'
 import Contact from './pages/Contact'
@@ -122,7 +123,7 @@ function App() {
           <Route path="/login" element={
             <>
               <Navbar />
-              <Login />
+              <UserAuth />
               <Footer />
             </>
           } />
@@ -130,10 +131,12 @@ function App() {
           <Route path="/signup" element={
             <>
               <Navbar />
-              <Signup />
+              <UserAuth />
               <Footer />
             </>
           } />
+
+          <Route path="/admin-login" element={<Login />} />
           
           <Route path="/profile" element={
             <ProtectedRoute>

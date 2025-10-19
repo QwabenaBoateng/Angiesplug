@@ -107,7 +107,7 @@ const Login = () => {
               </div>
               
               <h1 className="text-4xl font-bold text-white mb-6">
-                Hello, welcome!
+                Admin Access
               </h1>
               
               <p className="text-white text-lg mb-8 opacity-90">
@@ -210,14 +210,14 @@ const Login = () => {
                   {isLoading ? 'Signing in...' : 'Login'}
                 </button>
                 
-                {/* Sign Up Section */}
+                {/* User Login Section */}
                 <div className="text-center">
-                  <p className="text-blue-600 mb-4">Not a member yet?</p>
+                  <p className="text-gray-600 mb-4">Looking for customer login?</p>
                   <Link
-                    to="/signup"
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 inline-block text-center"
+                    to="/login"
+                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 inline-block text-center"
                   >
-                    Sign up
+                    Customer Login / Signup
                   </Link>
                 </div>
               </form>
