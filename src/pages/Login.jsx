@@ -54,15 +54,9 @@ const Login = () => {
           .eq('id', data.user.id)
           .single()
 
-        // If user has admin role, redirect to admin panel
-        if (profile?.role === 'admin') {
-          console.log('Admin user logged in, navigating to admin panel')
-          navigate('/admin')
-        } else {
-          // Regular user, redirect to home
-          console.log('Regular user logged in, navigating to home')
-          navigate('/')
-        }
+        // All users redirect to profile page after login
+        console.log('User logged in, navigating to profile')
+        navigate('/profile')
       }
     } catch (error) {
       console.error('Supabase login error:', error)

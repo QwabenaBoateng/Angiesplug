@@ -14,6 +14,9 @@ const Navbar = () => {
 
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0)
 
+  // Debug user state for troubleshooting
+  console.log('Navbar - User state:', user ? 'authenticated' : 'not authenticated')
+
   // Hide search icon on specific pages
   const hideSearchIcon = ['/shop', '/catalog', '/contact', '/about'].includes(location.pathname)
 
@@ -81,7 +84,11 @@ const Navbar = () => {
             )}
 
             {/* User */}
-            <Link to={user ? "/profile" : "/login"} className="text-black hover:text-gray-600 transition-colors">
+            <Link 
+              to={user ? "/profile" : "/login"} 
+              className="text-black hover:text-gray-600 transition-colors"
+              title={user ? "Go to Profile" : "Login"}
+            >
               <User size={20} />
             </Link>
 

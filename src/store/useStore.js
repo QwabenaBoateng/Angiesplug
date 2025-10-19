@@ -65,6 +65,8 @@ export const useStore = create(
         cart: state.cart,
         user: state.user 
       }),
+      // Ensure proper hydration across environments
+      skipHydration: false,
     }
   )
 )
