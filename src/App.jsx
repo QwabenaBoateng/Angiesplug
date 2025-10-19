@@ -29,6 +29,7 @@ import AdminProducts from './pages/admin/Products'
 import AdminOrders from './pages/admin/Orders'
 import AdminCategories from './pages/admin/Categories'
 import AdminAboutPage from './pages/admin/AboutPage'
+import AdminPromotionalSection from './pages/admin/PromotionalSection'
 import UserManagement from './pages/admin/UserManagement'
 
 // Protected route component
@@ -178,6 +179,7 @@ function App() {
                   <Route path="orders" element={<AdminOrders />} />
                   <Route path="categories" element={<AdminCategories />} />
                   <Route path="about" element={<AdminAboutPage />} />
+                  <Route path="promotional" element={<AdminPromotionalSection />} />
                   <Route path="users" element={<UserManagement />} />
                 </Routes>
               </AdminLayout>

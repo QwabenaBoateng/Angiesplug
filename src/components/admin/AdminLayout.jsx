@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   Home,
-  FileText
+  FileText,
+  Megaphone
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useStore } from '../../store/useStore'
@@ -41,6 +42,7 @@ const AdminLayout = ({ children }) => {
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Categories', href: '/admin/categories', icon: Tag },
     { name: 'About Page', href: '/admin/about', icon: FileText },
+    { name: 'Promotional Section', href: '/admin/promotional', icon: Megaphone },
     { name: 'User Management', href: '/admin/users', icon: Users },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ]

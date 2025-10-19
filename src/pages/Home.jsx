@@ -7,6 +7,19 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [brands, setBrands] = useState([])
+  const [promoContent, setPromoContent] = useState({
+    promo_image: '/api/placeholder/400/300',
+    promo_video: '',
+    promo_video_poster: '',
+    promo_title: 'FIND YOUR PERFECT LOOK AT ANGIE\'S PLUG',
+    promo_description: 'Discover exclusive streetwear that sets you apart from the crowd. From fresh drops to limited editions, we curate the hottest pieces that define your unique style. No basic fits, just pure drip.',
+    promo_discount_text: 'SALES AND DISCOUNT!',
+    promo_discount_percentage: '87%',
+    promo_button_text: 'FIND THE STORE',
+    promo_button_link: '/shop',
+    promo_video_button_text: 'SHOP NOW →',
+    promo_video_button_link: '/shop'
+  })
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -49,6 +62,16 @@ const Home = () => {
         setBrands(mockBrands)
         setIsLoading(false)
         return
+      }
+
+      // Fetch promotional content
+      const { data: promoData } = await supabase
+        .from('promotional_section')
+        .select('*')
+        .single()
+
+      if (promoData) {
+        setPromoContent(promoData)
       }
       
       // Fetch featured products
@@ -367,41 +390,47 @@ const Home = () => {
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="relative">
                   <img
-                    src="/api/placeholder/400/300"
+                    src={promoContent.promo_image}
                     alt="Angie's Plug"
                     className="w-full h-64 object-cover"
                   />
-                  <div className="absolute top-4 left-4">
-                    <h3 className="text-2xl font-bold text-red-600">Angie's Plug</h3>
-                  </div>
                 </div>
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    FIND YOUR PERFECT LOOK AT ANGIE'S PLUG
-                    <br />
-                    
+                    {promoContent.promo_title}
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    {promoContent.promo_description}
                   </p>
                   <div className="mb-6">
-                    <p className="text-sm text-gray-600">SALES AND DISCOUNT!</p>
-                    <p className="text-4xl font-bold text-gray-900">87%</p>
+                    <p className="text-sm text-gray-600">{promoContent.promo_discount_text}</p>
+                    <p className="text-4xl font-bold text-gray-900">{promoContent.promo_discount_percentage}</p>
                   </div>
-                  <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                    FIND THE STORE
-                  </button>
+                  <Link to={promoContent.promo_button_link}>
+                    <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                      {promoContent.promo_button_text}
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
 
             {/* Winter Collection Video */}
             <div className="relative rounded-lg overflow-hidden">
-              <img
-                src="/api/placeholder/600/400"
-                alt=""
-                className="w-full h-64 object-cover"
-              />
+              {promoContent.promo_video ? (
+                <video
+                  src={promoContent.promo_video}
+                  poster={promoContent.promo_video_poster}
+                  className="w-full h-64 object-cover"
+                  controls
+                />
+              ) : (
+                <img
+                  src="/api/placeholder/600/400"
+                  alt=""
+                  className="w-full h-64 object-cover"
+                />
+              )}
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                 <button className="bg-white bg-opacity-20 rounded-full p-4 hover:bg-opacity-30 transition-colors">
                   <Play className="w-8 h-8 text-white" />
@@ -412,10 +441,11 @@ const Home = () => {
                 <p className="text-sm"> ANGIE'S PLUG </p>
               </div>
               <div className="absolute bottom-6 right-6">
-                <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center">
-                  SHOP NOW
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </button>
+                <Link to={promoContent.promo_video_button_link}>
+                  <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center">
+                    {promoContent.promo_video_button_text}
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
