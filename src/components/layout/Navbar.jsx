@@ -88,6 +88,10 @@ const Navbar = () => {
               to={user ? "/profile" : "/login"} 
               className="text-black hover:text-gray-600 transition-colors"
               title={user ? "Go to Profile" : "Login"}
+              onClick={() => {
+                console.log('Navbar - User icon clicked, user state:', user ? 'authenticated' : 'not authenticated')
+                console.log('Navbar - Will navigate to:', user ? '/profile' : '/login')
+              }}
             >
               <User size={20} />
             </Link>

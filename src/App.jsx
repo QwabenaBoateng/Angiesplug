@@ -50,6 +50,8 @@ function App() {
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('App - Initial session check:', session ? 'exists' : 'none')
+      console.log('App - Setting user:', session?.user ? 'user found' : 'no user')
       setUser(session?.user ?? null)
       setLoading(false)
     })
@@ -57,7 +59,9 @@ function App() {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('App - Auth state change:', event, session ? 'session exists' : 'no session')
+      console.log('App - Setting user:', session?.user ? 'user found' : 'no user')
       setUser(session?.user ?? null)
     })
 
@@ -122,13 +126,7 @@ function App() {
             </>
           } />
           
-          <Route path="/login" element={
-            <>
-              <Navbar />
-              <Login />
-              <Footer />
-            </>
-          } />
+          <Route path="/login" element={<Login />} />
           
           <Route path="/signup" element={
             <>

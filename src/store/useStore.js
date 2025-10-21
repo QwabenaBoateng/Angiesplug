@@ -6,7 +6,10 @@ export const useStore = create(
     (set, get) => ({
       // User state
       user: null,
-      setUser: (user) => set({ user }),
+      setUser: (user) => {
+        console.log('Store - setUser called with:', user ? 'user object' : 'null')
+        set({ user })
+      },
       
       // Cart state
       cart: [],

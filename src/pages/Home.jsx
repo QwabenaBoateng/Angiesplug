@@ -231,31 +231,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Collections */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {isLoading ? (
-            <div className="grid grid-cols-2 gap-6">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                  <div className="h-64 bg-gray-300"></div>
-                  <div className="p-4">
-                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-6">
-              {featuredProducts.slice(0, 4).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-          
-        </div>
-      </section>
 
       {/* Featured Looks */}
       <section className="py-16 bg-white">
@@ -265,119 +240,53 @@ const Home = () => {
             <p className="text-lg text-gray-600">Discover our curated collection of stylish outfits</p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Featured Look 1 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="relative">
-                <img
-                  src="/api/placeholder/300/400"
-                  alt="Featured Look 1"
-                  className="w-full h-80 object-cover"
-                />
-                <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
-                  <Heart className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-2">Stylish Outfit</h3>
-                <p className="text-gray-600 text-sm mb-3">Complete look for any occasion</p>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">₵89.99</span>
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">4.8</span>
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
+                  <div className="h-80 bg-gray-300"></div>
+                  <div className="p-4">
+                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-3"></div>
+                    <div className="h-6 bg-gray-300 rounded w-1/2"></div>
                   </div>
                 </div>
-                <button className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                  Add to Cart
-                </button>
-              </div>
+              ))}
             </div>
-
-            {/* Featured Look 2 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="relative">
-                <img
-                  src="/api/placeholder/300/400"
-                  alt="Featured Look 2"
-                  className="w-full h-80 object-cover"
-                />
-                <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
-                  <Heart className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-2">Elegant Ensemble</h3>
-                <p className="text-gray-600 text-sm mb-3">Perfect for special events</p>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">₵129.99</span>
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">4.9</span>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredProducts.slice(0, 4).map((product) => (
+                <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
+                  <div className="relative">
+                    <Link to={`/product/${product.id}`}>
+                      <img
+                        src={product.image_urls?.[0] || '/placeholder-image.jpg'}
+                        alt={product.name}
+                        className="w-full h-80 object-cover"
+                      />
+                    </Link>
+                    <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
+                      <Heart className="w-4 h-4 text-gray-600" />
+                    </button>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
+                    <p className="text-gray-600 text-sm mb-3">{product.description || 'Complete look for any occasion'}</p>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xl font-bold text-gray-900">₵{product.price}</span>
+                      <div className="flex items-center">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="text-sm text-gray-600 ml-1">4.8</span>
+                      </div>
+                    </div>
+                    <button className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
-                <button className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                  Add to Cart
-                </button>
-              </div>
+              ))}
             </div>
-
-            {/* Featured Look 3 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="relative">
-                <img
-                  src="/api/placeholder/300/400"
-                  alt="Featured Look 3"
-                  className="w-full h-80 object-cover"
-                />
-                <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
-                  <Heart className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-2">Casual Chic</h3>
-                <p className="text-gray-600 text-sm mb-3">Comfortable yet fashionable</p>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">₵79.99</span>
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">4.7</span>
-                  </div>
-                </div>
-                <button className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-
-            {/* Featured Look 4 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="relative">
-                <img
-                  src="/api/placeholder/300/400"
-                  alt="Featured Look 4"
-                  className="w-full h-80 object-cover"
-                />
-                <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors opacity-0 group-hover:opacity-100">
-                  <Heart className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-2">Trendy Set</h3>
-                <p className="text-gray-600 text-sm mb-3">Latest fashion trends</p>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl font-bold text-gray-900">₵99.99</span>
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">4.6</span>
-                  </div>
-                </div>
-                <button className="w-full bg-black text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
