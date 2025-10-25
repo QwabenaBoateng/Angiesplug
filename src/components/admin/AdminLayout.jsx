@@ -12,7 +12,8 @@ import {
   X,
   Home,
   FileText,
-  Megaphone
+  Megaphone,
+  Building2
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useStore } from '../../store/useStore'
@@ -44,6 +45,7 @@ const AdminLayout = ({ children }) => {
     { name: 'About Page', href: '/admin/about', icon: FileText },
     { name: 'Promotional Section', href: '/admin/promotional', icon: Megaphone },
     { name: 'User Management', href: '/admin/users', icon: Users },
+    { name: 'Brands', href: '/admin/brands', icon: Building2 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ]
 

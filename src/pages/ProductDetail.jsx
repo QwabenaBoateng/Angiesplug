@@ -95,7 +95,7 @@ const ProductDetail = () => {
           <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
           <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-primary-600">
+            <span className="text-2xl font-bold text-black">
               ₵{product.price}
             </span>
             <div className="flex items-center">
@@ -191,7 +191,7 @@ const ProductDetail = () => {
               <span className="ml-2 text-gray-600">(4.8) • 124 reviews</span>
             </div>
 
-            <div className="text-3xl font-bold text-primary-600 mb-6">
+            <div className="text-3xl font-bold text-black mb-6">
               ₵{product.price}
             </div>
 

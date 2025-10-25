@@ -288,7 +288,7 @@ const Shop = () => {
           <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
           <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-primary-600">
+            <span className="text-2xl font-bold text-black">
               ₵{product.price}
             </span>
             <div className="flex items-center">
@@ -326,7 +326,7 @@ const Shop = () => {
         <p className="text-gray-600 mb-2">{product.categories?.name}</p>
         <p className="text-gray-700 mb-4 line-clamp-2">{product.description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary-600">₵{product.price}</span>
+          <span className="text-2xl font-bold text-black">₵{product.price}</span>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />

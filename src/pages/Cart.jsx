@@ -77,7 +77,7 @@ const Cart = () => {
                             Color: {item.selectedColor}
                           </p>
                         )}
-                        <p className="text-lg font-bold text-primary-600">
+                        <p className="text-lg font-bold text-black">
                           ₵{item.price}
                         </p>
                       </div>

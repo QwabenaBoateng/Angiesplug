@@ -33,6 +33,7 @@ import AdminCategories from './pages/admin/Categories'
 import AdminAboutPage from './pages/admin/AboutPage'
 import AdminPromotionalSection from './pages/admin/PromotionalSection'
 import UserManagement from './pages/admin/UserManagement'
+import AdminBrands from './pages/admin/Brands'
 
 // Protected route component
 import ProtectedRoute from './components/ProtectedRoute'
@@ -228,6 +229,13 @@ function App() {
             <ProtectedRoute adminOnly>
               <AdminLayout>
                 <UserManagement />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/brands" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminBrands />
               </AdminLayout>
             </ProtectedRoute>
           } />
