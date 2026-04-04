@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { Search, Filter, Grid, List, Star } from 'lucide-react'
+import { Search, Filter, Grid, List, Star, ShoppingCart, Heart, User, Shirt, Watch, Footprints, ArrowRight } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useStore } from '../store/useStore'
 
@@ -20,7 +20,6 @@ const Shop = () => {
   }, [])
 
   useEffect(() => {
-    // Handle search from URL params
     const search = searchParams.get('search')
     if (search) {
       setSearchQuery(search)
@@ -48,171 +47,29 @@ const Shop = () => {
     try {
       setIsLoading(true)
       
-      // Check if Supabase is configured
       if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-        // Use mock data
         const mockProducts = [
-          // Ladies Wear
-          {
-            id: 1,
-            name: 'Elegant Evening Dress',
-            price: 129.99,
-            image: '/api/placeholder/300/400',
-            category: 'Ladies Wear',
-            rating: 4.8,
-            description: 'Beautiful evening dress perfect for special occasions.'
-          },
-          {
-            id: 2,
-            name: 'Casual Summer Dress',
-            price: 79.99,
-            image: '/api/placeholder/300/400',
-            category: 'Ladies Wear',
-            rating: 4.6,
-            description: 'Light and comfortable summer dress for everyday wear.'
-          },
-          {
-            id: 3,
-            name: 'Professional Blouse',
-            price: 59.99,
-            image: '/api/placeholder/300/400',
-            category: 'Ladies Wear',
-            rating: 4.7,
-            description: 'Stylish blouse perfect for office or casual wear.'
-          },
-          {
-            id: 4,
-            name: 'Floral Maxi Dress',
-            price: 89.99,
-            image: '/api/placeholder/300/400',
-            category: 'Ladies Wear',
-            rating: 4.5,
-            description: 'Beautiful floral maxi dress for any occasion.'
-          },
-          // Mens Wear
-          {
-            id: 5,
-            name: 'Classic Men\'s Shirt',
-            price: 69.99,
-            image: '/api/placeholder/300/400',
-            category: 'Mens Wear',
-            rating: 4.5,
-            description: 'High-quality cotton shirt for any occasion.'
-          },
-          {
-            id: 6,
-            name: 'Men\'s Formal Suit',
-            price: 299.99,
-            image: '/api/placeholder/300/400',
-            category: 'Mens Wear',
-            rating: 4.9,
-            description: 'Premium formal suit for business and special events.'
-          },
-          {
-            id: 7,
-            name: 'Men\'s Casual Pants',
-            price: 89.99,
-            image: '/api/placeholder/300/400',
-            category: 'Mens Wear',
-            rating: 4.4,
-            description: 'Comfortable and stylish casual pants.'
-          },
-          {
-            id: 8,
-            name: 'Men\'s Polo Shirt',
-            price: 49.99,
-            image: '/api/placeholder/300/400',
-            category: 'Mens Wear',
-            rating: 4.6,
-            description: 'Classic polo shirt for casual wear.'
-          },
-          // Accessories
-          {
-            id: 9,
-            name: 'Designer Handbag',
-            price: 149.99,
-            image: '/api/placeholder/300/400',
-            category: 'Accessories',
-            rating: 4.7,
-            description: 'Elegant handbag perfect for any occasion.'
-          },
-          {
-            id: 10,
-            name: 'Fashionable Scarf',
-            price: 39.99,
-            image: '/api/placeholder/300/400',
-            category: 'Accessories',
-            rating: 4.6,
-            description: 'Stylish scarf to complete your look.'
-          },
-          {
-            id: 11,
-            name: 'Leather Belt',
-            price: 49.99,
-            image: '/api/placeholder/300/400',
-            category: 'Accessories',
-            rating: 4.8,
-            description: 'Premium leather belt for men and women.'
-          },
-          {
-            id: 12,
-            name: 'Statement Necklace',
-            price: 79.99,
-            image: '/api/placeholder/300/400',
-            category: 'Accessories',
-            rating: 4.5,
-            description: 'Beautiful statement necklace to elevate your style.'
-          },
-          // Footwear
-          {
-            id: 13,
-            name: 'Women\'s High Heels',
-            price: 119.99,
-            image: '/api/placeholder/300/400',
-            category: 'Footwear',
-            rating: 4.7,
-            description: 'Elegant high heels for special occasions.'
-          },
-          {
-            id: 14,
-            name: 'Men\'s Dress Shoes',
-            price: 159.99,
-            image: '/api/placeholder/300/400',
-            category: 'Footwear',
-            rating: 4.8,
-            description: 'Classic leather dress shoes for formal wear.'
-          },
-          {
-            id: 15,
-            name: 'Women\'s Sneakers',
-            price: 89.99,
-            image: '/api/placeholder/300/400',
-            category: 'Footwear',
-            rating: 4.6,
-            description: 'Comfortable sneakers for everyday wear.'
-          },
-          {
-            id: 16,
-            name: 'Men\'s Casual Boots',
-            price: 129.99,
-            image: '/api/placeholder/300/400',
-            category: 'Footwear',
-            rating: 4.5,
-            description: 'Stylish casual boots for any season.'
-          }
+          { id: 1, name: 'Elegant Evening Dress', price: 129.99, image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=400', category: 'Ladies Wear', rating: 4.8 },
+          { id: 2, name: 'Casual Summer Dress', price: 79.99, image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=400', category: 'Ladies Wear', rating: 4.6 },
+          { id: 3, name: 'Professional Blouse', price: 59.99, image: 'https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&q=80&w=400', category: 'Ladies Wear', rating: 4.7 },
+          { id: 4, name: 'Modern Streetwear Hoodie', price: 89.99, image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400', category: 'Mens Wear', rating: 4.5 },
+          { id: 5, name: 'Classic Denim Jacket', price: 119.99, image: 'https://images.unsplash.com/photo-1551537482-f2075a1d41f2?auto=format&fit=crop&q=80&w=400', category: 'Mens Wear', rating: 4.9 },
+          { id: 6, name: 'Premium Leather Watch', price: 199.99, image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=400', category: 'Accessories', rating: 4.8 },
+          { id: 7, name: 'Urban Sneakers', price: 149.99, image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=400', category: 'Footwear', rating: 4.7 }
         ]
         
-        // Apply search filter to mock data
-        let filteredProducts = mockProducts
+        let filtered = mockProducts
         if (searchQuery) {
-          filteredProducts = mockProducts.filter(product => 
-            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.category.toLowerCase().includes(searchQuery.toLowerCase())
-          )
+          filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        }
+        if (filters.category) {
+          const catName = categories.find(c => c.id === filters.category)?.name
+          if (catName) {
+            filtered = filtered.filter(p => p.category === catName)
+          }
         }
         
-        setProducts(filteredProducts)
+        setProducts(filtered)
         setIsLoading(false)
         return
       }
@@ -224,24 +81,18 @@ const Shop = () => {
           categories (name)
         `)
 
-      // Apply search filter
       if (searchQuery) {
         query = query.or(`name.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
       }
 
-      // Apply category filter
       if (filters.category) {
         query = query.eq('category_id', filters.category)
       }
 
-      // Apply price range filter
-      if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) {
-        query = query
-          .gte('price', filters.priceRange[0])
-          .lte('price', filters.priceRange[1])
+      if (filters.priceRange[0] > 0 || filters.priceRange[1] < 5000) {
+        query = query.gte('price', filters.priceRange[0]).lte('price', filters.priceRange[1])
       }
 
-      // Apply sorting
       const sortBy = filters.sortBy || 'created_at'
       const ascending = filters.sortOrder === 'asc'
       query = query.order(sortBy, { ascending })
@@ -265,7 +116,7 @@ const Shop = () => {
   const clearFilters = () => {
     setFilters({
       category: '',
-      priceRange: [0, 1000],
+      priceRange: [0, 5000],
       size: '',
       color: '',
       sortBy: 'created_at',
@@ -275,360 +126,229 @@ const Shop = () => {
   }
 
   const ProductCard = ({ product }) => (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <Link to={`/product/${product.id}`}>
-        <div className="aspect-w-1 aspect-h-1">
+    <div className="glass-card rounded-[2rem] overflow-hidden group">
+      <div className="relative aspect-[3/4] overflow-hidden">
+        <Link to={`/product/${product.id}`}>
           <img
-            src={product.image_urls?.[0] || '/placeholder-image.jpg'}
+            src={product.image_urls?.[0] || product.image || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'}
             alt={product.name}
-            className="w-full h-64 object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-        </div>
-        <div className="p-4">
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
-          <p className="text-gray-600 text-sm mb-2">{product.categories?.name}</p>
-          <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-black">
-              ₵{product.price}
-            </span>
-            <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-gray-600 ml-1">4.8</span>
-            </div>
-          </div>
-          <button
+        </Link>
+        <div className="absolute top-4 right-4 flex flex-col gap-2 translate-x-12 group-hover:translate-x-0 transition-transform duration-500">
+          <button 
             onClick={(e) => {
               e.preventDefault()
               addToCart(product)
             }}
-            className="w-full mt-4 btn-primary"
+            className="p-3 bg-blue-600 rounded-2xl text-white shadow-xl shadow-blue-500/40 hover:bg-blue-500 transition-all active:scale-90"
           >
-            Add to Cart
+            <ShoppingCart size={20} />
+          </button>
+          <button className="p-3 bg-white/10 backdrop-blur-xl rounded-2xl text-white hover:bg-white/20 transition-all active:scale-90 border border-white/10">
+            <Heart size={20} />
           </button>
         </div>
-      </Link>
-    </div>
-  )
-
-  const ProductListItem = ({ product }) => (
-    <div className="bg-white rounded-lg shadow-md p-6 flex items-center space-x-6 hover:shadow-lg transition-shadow">
-      <Link to={`/product/${product.id}`} className="flex-shrink-0">
-        <img
-          src={product.image_urls?.[0] || '/placeholder-image.jpg'}
-          alt={product.name}
-          className="w-32 h-32 object-cover rounded-lg"
-        />
-      </Link>
-      <div className="flex-1">
-        <Link to={`/product/${product.id}`}>
-          <h3 className="text-xl font-semibold mb-2 hover:text-primary-600">{product.name}</h3>
-        </Link>
-        <p className="text-gray-600 mb-2">{product.categories?.name}</p>
-        <p className="text-gray-700 mb-4 line-clamp-2">{product.description}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
+          <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+            {product.categories?.name || product.category || 'Exquisite Exclusive'}
+          </span>
+        </div>
+      </div>
+      <div className="p-6">
+        <h3 className="font-bold text-white text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-black">₵{product.price}</span>
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="text-sm text-gray-600 ml-1">4.8</span>
+          <div className="flex flex-col">
+            <span className="text-2xl font-black text-white tracking-tighter">₵{product.price}</span>
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Available Now</span>
+          </div>
+          <div className="flex flex-col items-end">
+            <div className="flex items-center text-amber-400 mb-1">
+              {[...Array(5)].map((_, i) => <Star key={i} size={12} className={i < 4 ? 'fill-current' : 'text-slate-700'} />)}
             </div>
-            <button
-              onClick={() => addToCart(product)}
-              className="btn-primary"
-            >
-              Add to Cart
-            </button>
+            <span className="text-[10px] font-bold text-slate-400">4.8 (120+ reviews)</span>
           </div>
         </div>
       </div>
     </div>
   )
 
-  const CategoryCard = ({ category }) => (
-    <Link 
-      to={`/catalog?category=${category.slug}`}
-      className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-    >
-      <div className="aspect-w-1 aspect-h-1">
-        <img
-          src={category.image_url || '/api/placeholder/400/400'}
-          alt={category.name}
-          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-          onError={(e) => {
-            console.error('Category image failed to load:', category.image_url)
-            e.target.src = '/api/placeholder/400/400'
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors">
-          {category.name.toUpperCase()}
-        </h3>
-        <p className="text-white/90 text-sm">
-          Shop {category.name.toLowerCase()}
-        </p>
-      </div>
-    </Link>
-  )
+  const categoryIcons = {
+    'Ladies Wear': User,
+    'Mens Wear': Shirt,
+    'Accessories': Watch,
+    'Footwear': Footprints
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Shop</h1>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 w-64"
-                />
+    <div className="min-h-screen bg-slate-950 overflow-hidden">
+      {/* Marketplace Hero Header */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full animate-pulse-slow"></div>
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 blur-[100px] rounded-full animate-pulse-slow"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 animate-in fade-in slide-in-from-top-4 duration-700">
+            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em]">Verified Marketplace</span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
+            MARKET<span className="text-gradient">PLACE</span>
+          </h1>
+          
+          <div className="max-w-3xl mx-auto relative group animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+            <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-3xl group-focus-within:bg-blue-500/30 transition-all"></div>
+            <div className="relative flex items-center bg-slate-900/80 border border-slate-700/50 backdrop-blur-2xl rounded-[2.5rem] p-2 pr-4 shadow-2xl focus-within:border-blue-500/50 transition-all">
+              <div className="pl-6 text-slate-500">
+                <Search size={24} />
               </div>
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-              >
-                <Filter size={20} />
-                <span>Filters</span>
+              <input
+                type="text"
+                placeholder="What are you looking for today?"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 bg-transparent border-none text-white px-6 py-4 focus:ring-0 text-lg placeholder:text-slate-600"
+              />
+              <button className="btn-gradient px-8 py-3.5 text-sm">
+                Search
               </button>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        {/* Horizontal Category Slider */}
+        <div className="mb-16 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+          <div className="flex items-center space-x-4 min-w-max pb-4">
+            <button
+              onClick={() => handleFilterChange('category', '')}
+              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === '' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 active:scale-95'}`}
+            >
+              <Grid size={18} />
+              <span>All Styles</span>
+            </button>
+            {categories.map((category) => {
+              const Icon = categoryIcons[category.name] || Grid
+              return (
                 <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded ${viewMode === 'grid' ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-600'}`}
+                  key={category.id}
+                  onClick={() => handleFilterChange('category', category.id)}
+                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === category.id ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 active:scale-95'}`}
                 >
-                  <Grid size={20} />
+                  <Icon size={18} />
+                  <span>{category.name}</span>
                 </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 rounded ${viewMode === 'list' ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-600'}`}
-                >
-                  <List size={20} />
-                </button>
-              </div>
-              <select
-                value={`${filters.sortBy}-${filters.sortOrder}`}
-                onChange={(e) => {
-                  const [sortBy, sortOrder] = e.target.value.split('-')
-                  handleFilterChange('sortBy', sortBy)
-                  handleFilterChange('sortOrder', sortOrder)
-                }}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Dynamic Controls Row */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'}`}
+            >
+              <Filter size={18} />
+              <span>Advanced Filters</span>
+            </button>
+            
+            <div className="flex items-center bg-white/5 p-1 rounded-xl border border-white/10">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
               >
-                <option value="created_at-desc">Newest First</option>
-                <option value="created_at-asc">Oldest First</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="name-asc">Name: A to Z</option>
-                <option value="name-desc">Name: Z to A</option>
-              </select>
+                <Grid size={18} />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+              >
+                <List size={18} />
+              </button>
+            </div>
+          </div>
+
+          <div className="relative group min-w-[200px]">
+            <select
+              value={`${filters.sortBy}-${filters.sortOrder}`}
+              onChange={(e) => {
+                const [sortBy, sortOrder] = e.target.value.split('-')
+                handleFilterChange('sortBy', sortBy)
+                handleFilterChange('sortOrder', sortOrder)
+              }}
+              className="w-full bg-slate-900 border border-slate-700/50 rounded-xl px-6 py-3 text-slate-200 font-bold focus:ring-2 focus:ring-blue-500/20 appearance-none pr-12"
+            >
+              <option value="created_at-desc">Newest First</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+              <ArrowRight size={16} className="rotate-90" />
             </div>
           </div>
         </div>
 
-        {/* Category Sections */}
-        <div className="space-y-16">
-          {/* Ladies Wear Section */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Ladies Wear</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {isLoading ? (
-                // Loading skeleton for Ladies Wear products
-                [...Array(4)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                    <div className="h-64 bg-gray-300"></div>
-                    <div className="p-4">
-                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
-                      <div className="h-8 bg-gray-300 rounded"></div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                // Display first 4 Ladies Wear products
-                products
-                  .filter(product => 
-                    product.categories?.name === 'Ladies Wear' || 
-                    product.category === 'Ladies Wear'
-                  )
-                  .slice(0, 4)
-                  .map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-              )}
-            </div>
-          </div>
-
-          {/* Mens Wear Section */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Mens Wear</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {isLoading ? (
-                // Loading skeleton for Mens Wear products
-                [...Array(4)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                    <div className="h-64 bg-gray-300"></div>
-                    <div className="p-4">
-                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
-                      <div className="h-8 bg-gray-300 rounded"></div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                // Display first 4 Mens Wear products
-                products
-                  .filter(product => 
-                    product.categories?.name === 'Mens Wear' || 
-                    product.category === 'Mens Wear'
-                  )
-                  .slice(0, 4)
-                  .map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-              )}
-            </div>
-          </div>
-
-          {/* Accessories Section */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Accessories</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {isLoading ? (
-                // Loading skeleton for Accessories products
-                [...Array(4)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                    <div className="h-64 bg-gray-300"></div>
-                    <div className="p-4">
-                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
-                      <div className="h-8 bg-gray-300 rounded"></div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                // Display first 4 Accessories products
-                products
-                  .filter(product => 
-                    product.categories?.name === 'Accessories' || 
-                    product.category === 'Accessories'
-                  )
-                  .slice(0, 4)
-                  .map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-              )}
-            </div>
-          </div>
-
-          {/* Footwear Section */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Footwear</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {isLoading ? (
-                // Loading skeleton for Footwear products
-                [...Array(4)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
-                    <div className="h-64 bg-gray-300"></div>
-                    <div className="p-4">
-                      <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
-                      <div className="h-8 bg-gray-300 rounded"></div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                // Display first 4 Footwear products
-                products
-                  .filter(product => 
-                    product.categories?.name === 'Footwear' || 
-                    product.category === 'Footwear'
-                  )
-                  .slice(0, 4)
-                  .map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Filters Sidebar - Hidden by default, can be toggled */}
+        {/* Filters Sidebar */}
         {showFilters && (
-          <div className="mt-12 bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Filters</h3>
-              <button
-                onClick={clearFilters}
-                className="text-sm text-primary-600 hover:text-primary-700"
-              >
-                Clear All
-              </button>
+          <div className="mb-12 glass-card rounded-3xl p-8 animate-in fade-in slide-in-from-top-8 duration-500">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-black text-white">Refine <span className="text-blue-500">Search</span></h3>
+              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-widest hover:text-white transition-colors">Reset All</button>
             </div>
-
-            {/* Category Filter */}
-            <div className="mb-6">
-              <h4 className="font-medium mb-3">Category</h4>
-              <div className="space-y-2">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="category"
-                    value=""
-                    checked={filters.category === ''}
-                    onChange={(e) => handleFilterChange('category', e.target.value)}
-                    className="mr-2"
-                  />
-                  All Categories
-                </label>
-                {categories.map((category) => (
-                  <label key={category.id} className="flex items-center">
-                    <input
-                      type="radio"
-                      name="category"
-                      value={category.id}
-                      checked={filters.category === category.id}
-                      onChange={(e) => handleFilterChange('category', e.target.value)}
-                      className="mr-2"
-                    />
-                    {category.name}
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Range */}
-            <div className="mb-6">
-              <h4 className="font-medium mb-3">Price Range</h4>
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div>
+                <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Price Range (₵)</h4>
                 <input
                   type="range"
                   min="0"
-                  max="1000"
-                  step="10"
+                  max="5000"
+                  step="50"
                   value={filters.priceRange[1]}
-                  onChange={(e) => handleFilterChange('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
-                  className="w-full"
+                  onChange={(e) => handleFilterChange('priceRange', [0, parseInt(e.target.value)])}
+                  className="w-full accent-blue-500 h-2 bg-white/5 rounded-full appearance-none mb-4"
                 />
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>₵{filters.priceRange[0]}</span>
-                  <span>₵{filters.priceRange[1]}</span>
+                <div className="flex justify-between text-slate-400 font-bold text-sm">
+                  <span>₵0</span>
+                  <span className="text-blue-400 text-lg">₵{filters.priceRange[1]}</span>
                 </div>
               </div>
             </div>
           </div>
         )}
+
+        {/* Main Product Grid */}
+        <div className="relative">
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="glass-card rounded-[2rem] aspect-[3/4] animate-pulse"></div>
+              ))}
+            </div>
+          ) : products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="py-32 text-center">
+              <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search size={40} className="text-slate-700" />
+              </div>
+              <h3 className="text-2xl font-black text-white mb-2">No items found</h3>
+              <p className="text-slate-500 max-w-sm mx-auto">We couldn't find any items matching your search. Try adjusting your filters or searching for something else.</p>
+              <button onClick={clearFilters} className="mt-8 btn-glass">Clear Search</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
 }
 
 export default Shop
-

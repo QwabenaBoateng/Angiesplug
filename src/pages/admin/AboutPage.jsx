@@ -13,19 +13,19 @@ const AdminAboutPage = () => {
     hero_image: '',
     angie_image: '',
     hero_title: 'About Us',
-    hero_subtitle: 'Your Plug for the Freshest Threads. No Cap.',
-    whats_the_plug: `Hey, we're Angie's Plug – your ultimate source for exclusive, high-quality streetwear that you won't find anywhere else. Just like a trusted "plug" hooks you up with what's real, we're here to connect you with fire fits that speak volumes.
+    hero_subtitle: 'Your source for the Freshest Threads. No Cap.',
+    whats_the_plug: `Hey, we're Exquisite Boutique – your ultimate source for exclusive, high-quality streetwear that you won't find anywhere else. Just like a trusted advisor hooks you up with what's real, we're here to connect you with fire fits that speak volumes.
 
-We started because we were tired of the same basic styles everywhere. We wanted a spot to cop unique pieces that blend premium comfort with head-turning design. That's the plug promise: no boring basics, just curated drip.`,
+We started because we were tired of the same basic styles everywhere. We wanted a spot to cop unique pieces that blend premium comfort with head-turning design. That's the Exquisite promise: no boring basics, just curated drip.`,
     our_vibe: `We're more than just a clothing brand. We're your insider connection to a lifestyle. We're for the hustlers, the creators, the trend-setters, and anyone who uses their style as a form of self-expression. We believe what you wear should be as unique as you are.`,
-    angie_quote: `"Wassup, y'all! I'm Angie, the founder and your original plug.
+    angie_quote: `"Wassup, y'all! I'm the lead curator here at Exquisite Boutique.
 
-This all started in my house. I was always the friend people hit up to find the coolest pieces or put together the best fit. I turned that passion into a mission: to build a one-stop shop for unique, high-quality streetwear that actually represents our generation.
+This all started from a passion for unique style. I was always the one people hit up to find the coolest pieces or put together the best fit. I turned that passion into a mission: to build a one-stop shop for unique, high-quality streetwear that actually represents our generation.
 
-Angie's Plug is my way of hooking you all up with the gear you really want. This isn't just my business; it's my passion. Every piece is chosen with love, and I'm stoked to have you on this journey with us.
+Exquisite Boutique is my way of hooking you all up with the gear you really want. This isn't just my business; it's my passion. Every piece is chosen with love, and I'm stoked to have you on this journey with us.
 
 Stay fresh,
-- Angie"`
+- Exquisite Boutique"`
   })
   const [uploadingImages, setUploadingImages] = useState({})
   const [isLoading, setIsLoading] = useState(true)
@@ -318,14 +318,14 @@ Stay fresh,
           </div>
         </div>
 
-        {/* Angie Section */}
+        {/* Curator Section */}
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Meet Angie Section</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Meet Our Curator</h2>
           
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Angie's Photo
+                Curator's Photo
               </label>
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
                 <input
@@ -361,7 +361,7 @@ Stay fresh,
                     <>
                       <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
                       <span className="text-sm text-gray-600">
-                        {uploadingImages.angie_image ? 'Uploading...' : 'Click to upload Angie\'s photo'}
+                        {uploadingImages.angie_image ? 'Uploading...' : 'Click to upload curator\'s photo'}
                       </span>
                     </>
                   )}
@@ -371,7 +371,7 @@ Stay fresh,
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Angie's Quote
+                Curator's Quote
               </label>
               <textarea
                 rows={8}

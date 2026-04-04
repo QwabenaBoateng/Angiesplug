@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, User, ShieldCheck } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useStore } from '../store/useStore'
 
 const Login = () => {
   const navigate = useNavigate()
-  const { setLoading, setUser } = useStore()
+  const { setUser } = useStore()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -29,11 +29,8 @@ const Login = () => {
     setIsLoading(true)
     setError('')
 
-    console.log('Login attempt:', formData.email, formData.password)
-
-    // Check if Supabase is configured
     if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-      setError('Supabase not configured. Please contact administrator.')
+      setError('System configuration error. Please contact support.')
       setIsLoading(false)
       return
     }
@@ -47,24 +44,20 @@ const Login = () => {
       if (error) {
         setError(error.message)
       } else if (data.user) {
-        // Check if user is admin by looking at their profile
         const { data: profile } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
           .single()
 
-        // Check user role and redirect accordingly
         if (profile?.role === 'admin') {
-          console.log('Admin user logged in, navigating to admin panel')
           navigate('/admin')
         } else {
-          console.log('Regular user logged in, navigating to profile')
           navigate('/profile')
         }
       }
     } catch (error) {
-      console.error('Supabase login error:', error)
+      console.error('Login error:', error)
       setError('An unexpected error occurred')
     } finally {
       setIsLoading(false)
@@ -72,151 +65,130 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-white opacity-10" style={{
-        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
-        backgroundSize: '20px 20px'
-      }}></div>
-      
-      <div className="relative w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="flex min-h-[600px]">
-          {/* Left Panel - Welcome Section */}
-          <div className="flex-1 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 p-12 flex flex-col justify-center relative overflow-hidden">
-            {/* Abstract Wave Design */}
-            <div className="absolute inset-0 opacity-20">
-              <svg viewBox="0 0 400 300" className="w-full h-full">
-                <path d="M0,150 Q100,50 200,150 T400,150 L400,300 L0,300 Z" fill="url(#gradient1)" />
-                <defs>
-                  <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#60A5FA" />
-                    <stop offset="100%" stopColor="#3B82F6" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden">
+      {/* Background Decor */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/5 blur-[100px] rounded-full"></div>
+      </div>
+
+      <div className="relative w-full max-w-5xl glass-card rounded-[3rem] overflow-hidden border-white/5 shadow-2xl">
+        <div className="flex flex-col lg:flex-row min-h-[650px]">
+          {/* Left Panel - Branding */}
+          <div className="lg:w-5/12 bg-slate-900 border-r border-white/5 p-12 flex flex-col items-center justify-center text-center relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-50"></div>
             
             <div className="relative z-10">
-              {/* Logo */}
-              <div className="flex items-center mb-8">
-                <div className="w-8 h-8 bg-blue-300 rounded-full flex items-center justify-center mr-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+              <div className="inline-flex items-center space-x-3 mb-12">
+                <div className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                  <ShieldCheck className="text-white" size={24} />
                 </div>
-                <span className="text-white font-bold text-lg">ANGIE'S PLUG</span>
+                <span className="text-xl font-black tracking-tighter italic">EXQUISITE <span className="text-blue-500">BOUTIQUE</span></span>
               </div>
               
-              <h1 className="text-4xl font-bold text-white mb-6">
-                Hello, welcome!
+              <h1 className="text-5xl font-black tracking-tighter mb-6 italic leading-none">
+                WELCOME <br /> <span className="text-gradient">BACK.</span>
               </h1>
               
-              <p className="text-white text-lg mb-8 opacity-90">
-                Access your admin dashboard to manage products, orders, and customers with ease.
+              <p className="text-slate-400 font-bold text-lg mb-12 tracking-tight">
+                Sign in to manage your drops, track orders, and stay connected.
               </p>
               
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg border border-blue-300 transition-colors">
-                View more
-              </button>
+              <div className="p-6 rounded-[2rem] bg-white/5 border border-white/5">
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Member Perks</p>
+                <p className="text-sm font-bold text-slate-300 italic">Early Access & 5% Discount on every drop.</p>
+              </div>
             </div>
           </div>
           
-          {/* Right Panel - Login Form */}
-          <div className="flex-1 p-12 flex flex-col justify-center">
+          {/* Right Panel - Form */}
+          <div className="lg:w-7/12 p-12 lg:p-20 flex flex-col justify-center">
             <div className="max-w-md mx-auto w-full">
-              <h2 className="text-2xl font-bold text-gray-900 mb-8">Admin Login</h2>
+              <div className="mb-10 text-center lg:text-left">
+                <h2 className="text-3xl font-black tracking-tighter mb-2 italic">ACCESS <span className="text-blue-500">TERMINAL</span></h2>
+                <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Secure encrypted login</p>
+              </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Email Field */}
-                <div>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <User className="h-5 w-5 text-blue-500" />
-                    </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Intel Email</label>
+                  <div className="relative group">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={20} />
                     <input
-                      id="email"
-                      name="email"
                       type="email"
+                      name="email"
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Email address"
+                      className="input-glass pl-12"
+                      placeholder="address@nexus.com"
                     />
                   </div>
                 </div>
                 
-                {/* Password Field */}
-                <div>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Lock className="h-5 w-5 text-blue-500" />
-                    </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Pass-Key</label>
+                  <div className="relative group">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={20} />
                     <input
-                      id="password"
-                      name="password"
                       type={showPassword ? 'text' : 'password'}
+                      name="password"
                       required
                       value={formData.password}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-12 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Password"
+                      className="input-glass pl-12 pr-12"
+                      placeholder="••••••••"
                     />
                     <button
                       type="button"
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-400" />
-                      )}
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
                 </div>
                 
-                {/* Remember Me & Forgot Password */}
                 <div className="flex items-center justify-between">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-blue-300 rounded"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                  <label className="flex items-center cursor-pointer group">
+                    <div className="relative">
+                      <input
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        className="sr-only"
+                      />
+                      <div className={`w-10 h-5 rounded-full transition-colors ${rememberMe ? 'bg-blue-600' : 'bg-slate-800 border border-white/5'}`}></div>
+                      <div className={`absolute top-1 left-1 w-3 h-3 bg-white rounded-full transition-transform ${rememberMe ? 'translate-x-5' : 'translate-x-0'}`}></div>
+                    </div>
+                    <span className="ml-3 text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-slate-200">Remember Me</span>
                   </label>
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-blue-600 hover:text-blue-500"
-                  >
-                    Forgot password?
+                  <Link to="/forgot-password" size="sm" className="text-xs font-black text-blue-500 uppercase tracking-widest hover:text-white transition-colors">
+                    Reset Key?
                   </Link>
                 </div>
                 
-                {/* Error Message */}
                 {error && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p className="text-sm text-red-600">{error}</p>
+                  <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 animate-in fade-in zoom-in duration-300">
+                    <p className="text-xs font-bold text-red-500 text-center uppercase tracking-widest">{error}</p>
                   </div>
                 )}
                 
-                {/* Login Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-white border-2 border-blue-500 text-blue-500 py-3 px-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-gradient w-full py-5 text-sm font-black tracking-[0.2em] shadow-xl shadow-blue-500/20 active:scale-[0.98]"
                 >
-                  {isLoading ? 'Signing in...' : 'Login'}
+                  {isLoading ? 'ENCRYPTING...' : 'SIGN IN TO NEXUS'}
                 </button>
                 
-                {/* Sign Up Section */}
-                <div className="text-center">
-                  <p className="text-blue-600 mb-4">Not a member yet?</p>
+                <div className="mt-8 text-center">
+                  <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-6">New to the mission?</p>
                   <Link
                     to="/signup"
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 inline-block text-center"
+                    className="inline-block w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black tracking-[0.2em] text-xs hover:bg-white/10 transition-all uppercase"
                   >
-                    Sign up
+                    Initiate Registration
                   </Link>
                 </div>
               </form>
@@ -229,4 +201,3 @@ const Login = () => {
 }
 
 export default Login
-

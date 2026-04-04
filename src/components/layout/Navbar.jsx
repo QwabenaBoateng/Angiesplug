@@ -44,40 +44,38 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className="nav-blur">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-black">Angie's Plug</span>
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+              <span className="text-white font-black text-xl">E</span>
+            </div>
+            <span className="text-xl font-bold text-white tracking-tight">Exquisite <span className="text-blue-500">Boutique</span></span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-black hover:text-gray-600 transition-colors font-medium">
-              Home
-            </Link>
-            <Link to="/shop" className="text-black hover:text-gray-600 transition-colors font-medium">
-              Shop
-            </Link>
-            <Link to="/catalog" className="text-black hover:text-gray-600 transition-colors font-medium">
-              Catalog
-            </Link>
-            <Link to="/about" className="text-black hover:text-gray-600 transition-colors font-medium">
-              About
-            </Link>
-            <Link to="/contact" className="text-black hover:text-gray-600 transition-colors font-medium">
-              Contact
-            </Link>
+            {['Home', 'Shop', 'Catalog', 'About', 'Contact'].map((item) => (
+              <Link 
+                key={item}
+                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
+                className="text-slate-300 hover:text-white transition-colors font-medium text-sm tracking-wide relative group"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            ))}
           </div>
 
           {/* Right side icons */}
-          <div className="flex items-center space-x-6">
-            {/* Search - Hidden on specific pages */}
+          <div className="flex items-center space-x-5">
+            {/* Search */}
             {!hideSearchIcon && (
               <button 
                 onClick={handleSearchToggle}
-                className="text-black hover:text-gray-600 transition-colors"
+                className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
               >
                 <Search size={20} />
               </button>
@@ -86,21 +84,17 @@ const Navbar = () => {
             {/* User */}
             <Link 
               to={user ? "/profile" : "/login"} 
-              className="text-black hover:text-gray-600 transition-colors"
+              className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
               title={user ? "Go to Profile" : "Login"}
-              onClick={() => {
-                console.log('Navbar - User icon clicked, user state:', user ? 'authenticated' : 'not authenticated')
-                console.log('Navbar - Will navigate to:', user ? '/profile' : '/login')
-              }}
             >
               <User size={20} />
             </Link>
 
             {/* Cart */}
-            <Link to="/cart" className="relative text-black hover:text-gray-600 transition-colors">
+            <Link to="/cart" className="relative p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
               <ShoppingCart size={20} />
               {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute top-1 right-1 bg-blue-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center ring-2 ring-slate-950">
                   {cartItemCount}
                 </span>
               )}
@@ -109,31 +103,33 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-black hover:text-gray-600"
+              className="md:hidden p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
-        {/* Search Form */}
         {isSearchOpen && (
-          <div className="py-4 border-t border-gray-200 bg-white">
-            <div className="max-w-md mx-auto">
+          <div className="py-6 border-t border-slate-800/50 glass">
+            <div className="max-w-2xl mx-auto px-4">
               <form onSubmit={handleSearchSubmit} className="relative">
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder="What are you looking for?"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl pl-12 pr-4 py-4 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all"
                   autoFocus
                 />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+                  <Search size={20} />
+                </div>
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 btn-gradient px-4 py-2 text-sm"
                 >
-                  <Search size={20} />
+                  Search
                 </button>
               </form>
             </div>
@@ -142,43 +138,18 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-3">
-              <Link
-                to="/"
-                className="text-black hover:text-gray-600 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/shop"
-                className="text-black hover:text-gray-600 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Shop
-              </Link>
-              <Link
-                to="/catalog"
-                className="text-black hover:text-gray-600 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Catalog
-              </Link>
-              <Link
-                to="/about"
-                className="text-black hover:text-gray-600 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className="text-black hover:text-gray-600 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
+          <div className="md:hidden py-6 border-t border-slate-800/50 glass animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex flex-col space-y-2 px-2">
+              {['Home', 'Shop', 'Catalog', 'About', 'Contact'].map((item) => (
+                <Link
+                  key={item}
+                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                  className="text-slate-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-xl font-medium transition-all"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ))}
             </div>
           </div>
         )}

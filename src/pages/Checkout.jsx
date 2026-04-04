@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { CreditCard, MapPin, Phone, Mail, User } from 'lucide-react'
+import { useNavigate, Link } from 'react-router-dom'
+import { CreditCard, MapPin, Phone, Mail, User, ShieldCheck, ArrowRight, Truck, ChevronLeft } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { supabase } from '../lib/supabase'
 
@@ -17,7 +17,7 @@ const Checkout = () => {
     city: '',
     state: '',
     zipCode: '',
-    country: 'US'
+    country: 'GH'
   })
   const [paymentMethod, setPaymentMethod] = useState('card')
   const [errors, setErrors] = useState({})
@@ -38,21 +38,21 @@ const Checkout = () => {
   }, [cart, user, navigate])
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0)
-  const shipping = subtotal > 50 ? 0 : 10
-  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 30
+  const tax = subtotal * 0.05
   const total = subtotal + shipping + tax
 
   const validateForm = () => {
     const newErrors = {}
     
-    if (!shippingInfo.firstName.trim()) newErrors.firstName = 'First name is required'
-    if (!shippingInfo.lastName.trim()) newErrors.lastName = 'Last name is required'
-    if (!shippingInfo.email.trim()) newErrors.email = 'Email is required'
-    if (!shippingInfo.phone.trim()) newErrors.phone = 'Phone is required'
-    if (!shippingInfo.address.trim()) newErrors.address = 'Address is required'
-    if (!shippingInfo.city.trim()) newErrors.city = 'City is required'
-    if (!shippingInfo.state.trim()) newErrors.state = 'State is required'
-    if (!shippingInfo.zipCode.trim()) newErrors.zipCode = 'ZIP code is required'
+    if (!shippingInfo.firstName.trim()) newErrors.firstName = 'Required'
+    if (!shippingInfo.lastName.trim()) newErrors.lastName = 'Required'
+    if (!shippingInfo.email.trim()) newErrors.email = 'Required'
+    if (!shippingInfo.phone.trim()) newErrors.phone = 'Required'
+    if (!shippingInfo.address.trim()) newErrors.address = 'Required'
+    if (!shippingInfo.city.trim()) newErrors.city = 'Required'
+    if (!shippingInfo.state.trim()) newErrors.state = 'Required'
+    if (!shippingInfo.zipCode.trim()) newErrors.zipCode = 'Required'
     
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -130,249 +130,251 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+    <div className="min-h-screen bg-slate-950 pt-24 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link to="/cart" className="inline-flex items-center space-x-2 text-slate-500 hover:text-white transition-colors mb-12 uppercase text-[10px] font-black tracking-widest">
+          <ChevronLeft size={16} />
+          <span>Review Cart Selection</span>
+        </Link>
         
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Shipping Information */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Shipping Address */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-6 flex items-center">
-                <MapPin className="w-5 h-5 mr-2 text-primary-600" />
-                Shipping Address
-              </h2>
+        <div className="mb-16">
+          <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Deployment Terminal</span>
+          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter italic uppercase leading-none">
+            SECURE <span className="text-gradient">CHECKOUT</span>
+          </h1>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Main Form Area */}
+          <div className="lg:col-span-8 space-y-12">
+            
+            {/* Step 1: Destination */}
+            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <MapPin size={120} className="text-blue-500" />
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
-                  </label>
+              <div className="flex items-center space-x-4 mb-10">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+                  <MapPin size={20} />
+                </div>
+                <h2 className="text-2xl font-black italic tracking-tighter text-white">01. <span className="text-blue-500">DESTINATION</span> INTEL</h2>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">First Name</label>
                   <input
                     type="text"
                     value={shippingInfo.firstName}
                     onChange={(e) => handleInputChange('firstName', e.target.value)}
-                    className={`input-field ${errors.firstName ? 'border-red-500' : ''}`}
-                    placeholder="Enter your first name"
+                    className={`input-glass ${errors.firstName ? 'border-red-500/50' : ''}`}
+                    placeholder="Identify as..."
                   />
-                  {errors.firstName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
-                  )}
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
-                  </label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Last Name</label>
                   <input
                     type="text"
                     value={shippingInfo.lastName}
                     onChange={(e) => handleInputChange('lastName', e.target.value)}
-                    className={`input-field ${errors.lastName ? 'border-red-500' : ''}`}
-                    placeholder="Enter your last name"
+                    className={`input-glass ${errors.lastName ? 'border-red-500/50' : ''}`}
+                    placeholder="Identify as..."
                   />
-                  {errors.lastName && (
-                    <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
-                  )}
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Intel Email</label>
                   <input
                     type="email"
                     value={shippingInfo.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className={`input-field ${errors.email ? 'border-red-500' : ''}`}
-                    placeholder="Enter your email"
+                    className={`input-glass ${errors.email ? 'border-red-500/50' : ''}`}
+                    placeholder="address@nexus.com"
                   />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone *
-                  </label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Comm Link (Phone)</label>
                   <input
                     type="tel"
                     value={shippingInfo.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className={`input-field ${errors.phone ? 'border-red-500' : ''}`}
-                    placeholder="Enter your phone number"
+                    className={`input-glass ${errors.phone ? 'border-red-500/50' : ''}`}
+                    placeholder="+233..."
                   />
-                  {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                  )}
                 </div>
                 
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Address *
-                  </label>
+                <div className="md:col-span-2 space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Base Address</label>
                   <input
                     type="text"
                     value={shippingInfo.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
-                    className={`input-field ${errors.address ? 'border-red-500' : ''}`}
-                    placeholder="Enter your street address"
+                    className={`input-glass ${errors.address ? 'border-red-500/50' : ''}`}
+                    placeholder="Sector, Street, Building"
                   />
-                  {errors.address && (
-                    <p className="text-red-500 text-sm mt-1">{errors.address}</p>
-                  )}
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    City *
-                  </label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">City / District</label>
                   <input
                     type="text"
                     value={shippingInfo.city}
                     onChange={(e) => handleInputChange('city', e.target.value)}
-                    className={`input-field ${errors.city ? 'border-red-500' : ''}`}
-                    placeholder="Enter your city"
+                    className={`input-glass ${errors.city ? 'border-red-500/50' : ''}`}
+                    placeholder="Location"
                   />
-                  {errors.city && (
-                    <p className="text-red-500 text-sm mt-1">{errors.city}</p>
-                  )}
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    State *
-                  </label>
-                  <input
-                    type="text"
-                    value={shippingInfo.state}
-                    onChange={(e) => handleInputChange('state', e.target.value)}
-                    className={`input-field ${errors.state ? 'border-red-500' : ''}`}
-                    placeholder="Enter your state"
-                  />
-                  {errors.state && (
-                    <p className="text-red-500 text-sm mt-1">{errors.state}</p>
-                  )}
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ZIP Code *
-                  </label>
-                  <input
-                    type="text"
-                    value={shippingInfo.zipCode}
-                    onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                    className={`input-field ${errors.zipCode ? 'border-red-500' : ''}`}
-                    placeholder="Enter your ZIP code"
-                  />
-                  {errors.zipCode && (
-                    <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
-                  )}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Region</label>
+                    <input
+                      type="text"
+                      value={shippingInfo.state}
+                      onChange={(e) => handleInputChange('state', e.target.value)}
+                      className={`input-glass ${errors.state ? 'border-red-500/50' : ''}`}
+                      placeholder="State"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Digital Code</label>
+                    <input
+                      type="text"
+                      value={shippingInfo.zipCode}
+                      onChange={(e) => handleInputChange('zipCode', e.target.value)}
+                      className={`input-glass ${errors.zipCode ? 'border-red-500/50' : ''}`}
+                      placeholder="ZIP"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Payment Method */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-6 flex items-center">
-                <CreditCard className="w-5 h-5 mr-2 text-primary-600" />
-                Payment Method
-              </h2>
+            {/* Step 2: Payment */}
+            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-8 opacity-5">
+                <CreditCard size={120} className="text-indigo-500" />
+              </div>
               
-              <div className="space-y-4">
-                <label className="flex items-center">
+              <div className="flex items-center space-x-4 mb-10">
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20">
+                  <CreditCard size={20} />
+                </div>
+                <h2 className="text-2xl font-black italic tracking-tighter text-white">02. <span className="text-indigo-500">SETTLEMENT</span> PROTOCOL</h2>
+              </div>
+              
+              <div className="space-y-6">
+                <label className="flex items-center p-6 rounded-[2rem] border-2 transition-all cursor-pointer group bg-white/5 border-white/5 hover:border-indigo-500/30">
                   <input
                     type="radio"
                     name="payment"
                     value="card"
                     checked={paymentMethod === 'card'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-3"
+                    className="w-5 h-5 accent-indigo-500"
                   />
-                  <CreditCard className="w-5 h-5 mr-2" />
-                  Credit/Debit Card
+                  <div className="ml-6 flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-black text-white uppercase tracking-widest">Digital Credit Card</span>
+                      <div className="flex space-x-2">
+                        <div className="w-8 h-5 bg-white/10 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
+                        <div className="w-8 h-5 bg-white/10 rounded flex items-center justify-center text-[8px] font-black">MASTERCARD</div>
+                      </div>
+                    </div>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Secure encrypted transmission</p>
+                  </div>
                 </label>
                 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">
-                    Payment processing will be integrated with Stripe in the production version.
-                    For now, this is a demo checkout.
+                <div className="p-6 rounded-[2rem] bg-indigo-500/5 border border-indigo-500/10">
+                  <p className="text-xs font-bold text-slate-400 italic">
+                    Note: Payment processing is isolated and encrypted. The production gateway (Stripe/Paystack) will be activated for live transactions.
                   </p>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
-              <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+          {/* Summary Sidebar */}
+          <div className="lg:col-span-4">
+            <div className="glass-card rounded-[3rem] p-8 sm:p-10 sticky top-24 border-white/5 shadow-2xl overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl group-hover:bg-blue-600/10 transition-all"></div>
+               
+              <div className="flex items-center space-x-4 mb-10">
+                <ShieldCheck className="text-blue-500" size={24} />
+                <h2 className="text-2xl font-black italic tracking-tighter">SUMMARY <span className="text-blue-500">INTEL</span></h2>
+              </div>
               
-              {/* Cart Items */}
-              <div className="space-y-4 mb-6">
+              {/* Mini Cart Feed */}
+              <div className="space-y-6 mb-10 max-h-60 overflow-y-auto no-scrollbar pr-2 border-b border-white/5 pb-8">
                 {cart.map((item) => (
-                  <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="flex items-center space-x-3">
-                    <img
-                      src={item.image_urls?.[0] || '/placeholder-image.jpg'}
-                      alt={item.name}
-                      className="w-12 h-12 object-cover rounded"
-                    />
+                  <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="flex items-center space-x-4 group">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0 group-hover:border-blue-500/30 transition-all">
+                      <img
+                        src={item.image_urls?.[0] || item.image || '/placeholder-image.jpg'}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-[10px] font-black text-white uppercase truncate tracking-widest leading-none mb-1">
                         {item.name}
                       </p>
-                      <p className="text-xs text-gray-600">
-                        {item.selectedSize && `Size: ${item.selectedSize}`}
-                        {item.selectedColor && ` • Color: ${item.selectedColor}`}
+                      <p className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.1em]">
+                        {item.selectedSize && `SZ: ${item.selectedSize}`} • QTY: {item.quantity}
                       </p>
-                      <p className="text-xs text-gray-600">
-                        Qty: {item.quantity}
-                      </p>
+                      <p className="text-[10px] font-black text-blue-500 mt-1">₵{(item.price * item.quantity).toFixed(2)}</p>
                     </div>
-                    <p className="text-sm font-semibold">
-                      ₵{(item.price * item.quantity).toFixed(2)}
-                    </p>
                   </div>
                 ))}
               </div>
               
-              {/* Totals */}
-              <div className="space-y-2 border-t border-gray-200 pt-4">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">₵{subtotal.toFixed(2)}</span>
+              <div className="space-y-6">
+                <div className="flex justify-between items-end">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Subtotal</span>
+                  <span className="text-lg font-black text-white tracking-tighter">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Shipping</span>
-                  <span className="font-semibold">
-                    {shipping === 0 ? 'Free' : `₵${shipping.toFixed(2)}`}
+                <div className="flex justify-between items-end">
+                  <div className="flex items-center space-x-2">
+                    <Truck size={14} className="text-slate-500" />
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
+                  </div>
+                  <span className={`text-lg font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-white'}`}>
+                    {shipping === 0 ? 'FREE' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Tax</span>
-                  <span className="font-semibold">₵{tax.toFixed(2)}</span>
+                <div className="flex justify-between items-end pb-8 border-b border-white/5">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
+                  <span className="text-lg font-black text-white tracking-tighter">₵{tax.toFixed(2)}</span>
                 </div>
                 
-                <div className="border-t border-gray-200 pt-2">
-                  <div className="flex justify-between text-lg font-bold">
-                    <span>Total</span>
-                    <span>₵{total.toFixed(2)}</span>
+                <div className="pt-2">
+                  <div className="flex justify-between items-end mb-10">
+                    <span className="text-xs font-black text-white uppercase tracking-[0.3em]">Total Mission Cost</span>
+                    <span className="text-4xl font-black text-blue-500 tracking-tighter">₵{total.toFixed(2)}</span>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    disabled={isProcessing}
+                    className="btn-gradient w-full py-5 text-sm font-black tracking-[0.2em] flex items-center justify-center space-x-4 shadow-xl shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50"
+                  >
+                    <span>{isProcessing ? 'TERMINATING TRANSACTION...' : 'AUTHORIZE PROCUREMENT'}</span>
+                    <ArrowRight size={20} />
+                  </button>
+                  
+                  <div className="mt-8 flex items-center justify-center space-x-4">
+                    <div className="flex items-center space-x-2 grayscale opacity-50">
+                      <ShieldCheck size={14} className="text-blue-500" />
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">SSL Encrypted Deployment</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              <button
-                type="submit"
-                disabled={isProcessing}
-                className="w-full mt-6 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isProcessing ? 'Processing...' : 'Place Order'}
-              </button>
             </div>
           </div>
         </form>
@@ -382,4 +384,3 @@ const Checkout = () => {
 }
 
 export default Checkout
-

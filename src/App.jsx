@@ -26,6 +26,7 @@ import DebugPage from './pages/DebugPage'
 
 // Admin pages
 import AdminLayout from './components/admin/AdminLayout'
+import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
 import AdminOrders from './pages/admin/Orders'
@@ -172,6 +173,8 @@ function App() {
           <Route path="/test-login" element={<TestLogin />} />
           <Route path="/admin-test" element={<AdminTest />} />
           <Route path="/debug" element={<DebugPage />} />
+          
+          <Route path="/admin/login" element={<AdminLogin />} />
           
           {/* Alternative admin route for testing */}
           <Route path="/admin-simple" element={

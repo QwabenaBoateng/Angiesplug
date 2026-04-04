@@ -16,7 +16,7 @@ const AdminPromotionalSection = () => {
     promo_image: '',
     promo_video: '',
     promo_video_poster: '',
-    promo_title: 'FIND YOUR PERFECT LOOK AT ANGIE\'S PLUG',
+    promo_title: 'FIND YOUR PERFECT LOOK AT EXQUISITE BOUTIQUE',
     promo_description: 'Discover exclusive streetwear that sets you apart from the crowd. From fresh drops to limited editions, we curate the hottest pieces that define your unique style. No basic fits, just pure drip.',
     promo_discount_text: 'SALES AND DISCOUNT!',
     promo_discount_percentage: '87%',
@@ -697,7 +697,7 @@ const AdminPromotionalSection = () => {
               </div>
             )}
             <div className="absolute top-4 left-4">
-              <h3 className="text-lg font-bold text-white bg-black bg-opacity-50 px-2 py-1 rounded">ANGIE'S PLUG</h3>
+              <h3 className="text-lg font-bold text-white bg-black bg-opacity-50 px-2 py-1 rounded">EXQUISITE BOUTIQUE</h3>
             </div>
             <div className="absolute bottom-4 right-4">
               <button className="bg-gray-900 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors">

@@ -8,7 +8,8 @@ const ProtectedRoute = ({
   children, 
   adminOnly = false, 
   superAdminOnly = false,
-  requiredPermission = null 
+  requiredPermission = null,
+  redirectPath = null 
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthorized, setIsAuthorized] = useState(false)
@@ -22,56 +23,46 @@ const ProtectedRoute = ({
       
       // Check if Supabase is configured
       if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-        console.log('ProtectedRoute: Supabase not configured, redirecting to login')
-        navigate('/login')
+        navigate(redirectPath || '/login')
         return
       }
 
       // Get current session
       const { data: { session } } = await supabase.auth.getSession()
-      console.log('ProtectedRoute: Session:', session ? 'exists' : 'none')
       
       if (!session) {
-        console.log('ProtectedRoute: No session, redirecting to login')
-        navigate('/login')
+        navigate(redirectPath || (adminOnly ? '/admin/login' : '/login'))
         return
       }
 
       // Wait for user profile to load
       if (!userProfile) {
-        console.log('ProtectedRoute: User profile still loading...')
         return // Still loading
       }
 
-      console.log('ProtectedRoute: User profile loaded:', userProfile.role)
-
       // Check role-based access
       if (superAdminOnly && !isSuperAdmin()) {
-        console.log('ProtectedRoute: Super admin access denied')
         navigate('/')
         return
       }
 
       if (adminOnly && !isAdmin()) {
-        console.log('ProtectedRoute: Admin access denied, user role:', userProfile.role)
         navigate('/')
         return
       }
 
       // Check permission-based access
       if (requiredPermission && !hasPermission(requiredPermission)) {
-        console.log('ProtectedRoute: Permission access denied')
         navigate('/')
         return
       }
 
-      console.log('ProtectedRoute: Access granted')
       setIsAuthorized(true)
       setIsLoading(false)
     }
 
     checkAuth()
-  }, [adminOnly, superAdminOnly, requiredPermission, userProfile, isAdmin, isSuperAdmin, hasPermission, navigate])
+  }, [adminOnly, superAdminOnly, requiredPermission, userProfile, isAdmin, isSuperAdmin, hasPermission, navigate, redirectPath])
 
   if (isLoading) {
     return (

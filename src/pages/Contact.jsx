@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Globe } from 'lucide-react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,171 +18,172 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle form submission here
     console.log('Form submitted:', formData)
     alert('Thank you for your message! We will get back to you soon.')
     setFormData({ name: '', email: '', subject: '', message: '' })
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get in touch with us for any questions, feedback, or support. We'd love to hear from you!
-          </p>
-        </div>
+    <div className="min-h-screen bg-slate-950 text-white overflow-hidden selection:bg-blue-500/30">
+      {/* Background Decor */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full -mr-96 -mt-96 animate-pulse-slow"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/5 blur-[120px] rounded-full -ml-48 -mb-48 opacity-50"></div>
       </div>
 
-      {/* Contact Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      {/* Header Section */}
+      <header className="relative pt-32 pb-20 text-center px-4 overflow-hidden">
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block animate-in fade-in slide-in-from-top-4 duration-700">We respond in hours, not days</span>
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 italic animate-in fade-in slide-in-from-top-6 duration-700">
+            CONNECT <span className="text-gradient">WITH US</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-400 font-bold max-w-2xl mx-auto leading-snug tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            Have a question about a drop or an existing order? Our squad is on standby to help you out.
+          </p>
+        </div>
+      </header>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           {/* Contact Information */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Get in Touch</h2>
+          <div className="lg:col-span-5 space-y-12">
+            <h2 className="text-4xl font-black tracking-tighter pb-4 border-b border-white/5 inline-block">THE <span className="text-blue-500">INTEL</span></h2>
             
-            <div className="space-y-6">
-              {/* Email */}
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Mail className="w-6 h-6 text-gray-600" />
+            <div className="space-y-10">
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mr-6 border border-blue-500/10 group-hover:bg-blue-600 transition-all duration-500 group-hover:text-white text-blue-500 group-hover:scale-110">
+                  <Mail size={24} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                  <p className="text-gray-600">angelatyron251@gmail.com</p>
-                  
+                  <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Direct Intel</h3>
+                  <p className="text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">angelatyron251@gmail.com</p>
                 </div>
               </div>
 
-              {/* Phone */}
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <Phone className="w-6 h-6 text-gray-600" />
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mr-6 border border-indigo-500/10 group-hover:bg-indigo-600 transition-all duration-500 group-hover:text-white text-indigo-500 group-hover:scale-110">
+                  <Phone size={24} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                  <p className="text-gray-600">0549759032</p>
-                  <p className="text-gray-600">Mon-Fri 9AM-4PM </p>
+                  <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Voice Comms</h3>
+                  <p className="text-2xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">0549759032</p>
+                  <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Support: Mon-Fri 9AM-4PM</p>
                 </div>
               </div>
 
-              {/* Address */}
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-gray-600" />
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mr-6 border border-white/5 group-hover:bg-white/10 transition-all duration-500 group-hover:text-white text-slate-400 group-hover:scale-110">
+                  <MapPin size={24} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Address</h3>
-                  <p className="text-gray-600">
-                    Madina ARS<br />
-                  
-                    Accra.
-                  </p>
+                  <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Base Operations</h3>
+                  <p className="text-2xl font-bold tracking-tight text-white">Madina ARS, Accra</p>
                 </div>
               </div>
             </div>
 
-            {/* Business Hours */}
-            <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Hours</h3>
-              <div className="space-y-2 text-gray-600">
-                <div className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span>9:00 AM - 4:00 PM</span>
+            {/* Business Hours Card */}
+            <div className="glass-card rounded-[2.5rem] p-10 bg-white/5 border border-white/5 overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-600/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="flex items-center space-x-4 mb-8">
+                <Clock className="text-blue-500" size={24} />
+                <h3 className="text-2xl font-black italic tracking-tighter">OPERATING <span className="text-blue-500">HOURS</span></h3>
+              </div>
+              <div className="space-y-4 font-bold text-slate-300">
+                <div className="flex justify-between pb-3 border-b border-white/5">
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px]">Monday - Friday</span>
+                  <span className="text-white tracking-widest text-sm">09:00 — 16:00</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span>10:00 AM - 4:00 PM</span>
+                <div className="flex justify-between pb-3 border-b border-white/5">
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px]">Saturday</span>
+                  <span className="text-white tracking-widest text-sm">10:00 — 16:00</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>Closed</span>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px]">Sunday</span>
+                  <span className="text-slate-400/50 uppercase tracking-widest text-xs italic">Closed Terminal</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Send us a Message</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="lg:col-span-7">
+            <div className="glass-card rounded-[3rem] p-8 lg:p-14 bg-white/5 border border-white/5 animate-in fade-in slide-in-from-right-8 duration-1000">
+              <div className="flex items-center space-x-6 mb-12">
+                <div className="w-px h-12 bg-blue-500"></div>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Name *
-                  </label>
+                  <h2 className="text-4xl font-black italic tracking-tighter">SUBMIT A <span className="text-gradient leading-tight">TRANSMISSION</span></h2>
+                  <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mt-1">Direct message our support cell</p>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-2">Codename</label>
+                    <div className="relative group">
+                       <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="Full Name"
+                        className="input-glass w-full"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-2">Secure Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="address@nexus.com"
+                      className="input-glass w-full"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-2">Intel Subject</label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    name="subject"
+                    value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                    placeholder="Your full name"
+                    placeholder="General Inquiry / Order Update"
+                    className="input-glass w-full"
                   />
                 </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] pl-2">Message Payload</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                    placeholder="your.email@example.com"
+                    rows={6}
+                    placeholder="Enter your transmission details here..."
+                    className="input-glass w-full min-h-[200px]"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject *
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
-                  placeholder="Tell us more about your inquiry..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2"
-              >
-                <Send className="w-5 h-5" />
-                <span>Send Message</span>
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  className="btn-gradient w-full py-5 text-lg font-black tracking-widest flex items-center justify-center space-x-4 shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.4)] transition-all active:scale-95 group"
+                >
+                  <span>SEND TRANSMISSION</span>
+                  <Send className="w-6 h-6 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
