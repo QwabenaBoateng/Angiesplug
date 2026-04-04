@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { 
   Plus, 
   Edit, 
@@ -7,7 +8,9 @@ import {
   Upload, 
   X,
   Search,
-  Filter
+  Filter,
+  Package,
+  Building2
 } from 'lucide-react'
 import { supabase, isSupabaseConfigured, getStorageBucket } from '../../lib/supabase'
 
@@ -630,86 +633,98 @@ const AdminProducts = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Analytics Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg shadow p-4">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold text-gray-700">Products by Category</h3>
-            <span className="text-xs text-gray-500">Total: {totalProducts}</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-blue-500"></div>
+          <div className="relative z-10 flex items-center justify-between mb-4">
+            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Products by Category</h3>
+            <span className="text-[10px] font-black text-blue-500 tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
           </div>
-          <PieChart counts={countsByCat} />
-        </div>
-        <div className="bg-white rounded-lg shadow p-4">
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Category Distribution</h3>
-          <BarChart counts={countsByCat} />
-        </div>
-        <div className="bg-white rounded-lg shadow p-4">
-          <div className="flex items-center justify-between mb-1">
-            <h3 className="text-sm font-semibold text-gray-700">New Products (7 days)</h3>
-            <span className="text-xs text-gray-500">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
+          <div className="relative z-10">
+            <PieChart counts={countsByCat} />
           </div>
-          <Sparkline values={sparkCounts} />
-          <div className="flex justify-between text-[10px] text-gray-500 mt-1">
-            {sparkDays.map((d, i) => (
-              <span key={i}>{d.toLocaleDateString(undefined, { day: '2-digit' })}</span>
-            ))}
+        </div>
+        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-indigo-500"></div>
+          <h3 className="relative z-10 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Category Distribution</h3>
+          <div className="relative z-10">
+            <BarChart counts={countsByCat} />
+          </div>
+        </div>
+        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-emerald-500"></div>
+          <div className="relative z-10 flex items-center justify-between mb-4">
+            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">New Deployment (7 Days)</h3>
+            <span className="text-[10px] font-black text-emerald-400 tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
+          </div>
+          <div className="relative z-10">
+            <Sparkline values={sparkCounts} />
+            <div className="flex justify-between text-[10px] font-bold text-slate-600 mt-2">
+              {sparkDays.map((d, i) => (
+                <span key={i}>{d.toLocaleDateString(undefined, { day: '2-digit' })}</span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+      
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Products</h1>
-          <p className="text-gray-600">Manage your product inventory</p>
+          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+            INVENTORY <span className="text-blue-500">CONTROL</span>
+          </h1>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage product database & assets</p>
         </div>
-        <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-2">
-          <button
-            onClick={openModal}
-            className="btn-primary flex items-center"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Product
-          </button>
+        <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => setShowBrandModal(true)}
-            className="btn-secondary flex items-center"
+            className="btn-glass flex items-center justify-center text-xs tracking-widest"
+          >
+            <Plus className="w-4 h-4 mr-2 text-indigo-400" />
+            REGISTER BRAND
+          </button>
+          <button
+            onClick={openModal}
+            className="btn-gradient flex items-center justify-center text-xs tracking-widest"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Manage Brands
+            DEPLOY PRODUCT
           </button>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="glass-card rounded-3xl p-6 sm:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Search Products
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              Search Parameters
             </label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={18} />
               <input
                 type="text"
-                placeholder="Search by name or description..."
+                placeholder="Query by nomenclature..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="input-glass pl-12 w-full text-sm"
               />
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Category
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              Taxonomy Filter
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="input-glass w-full text-sm appearance-none bg-slate-900"
             >
-              <option value="">All Categories</option>
+              <option value="">Global Array</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -724,98 +739,104 @@ const AdminProducts = () => {
                 setSearchQuery('')
                 setSelectedCategory('')
               }}
-              className="w-full btn-secondary flex items-center justify-center"
+              className="w-full btn-glass flex items-center justify-center text-xs tracking-widest"
             >
-              <Filter className="w-4 h-4 mr-2" />
-              Clear Filters
+              <Filter className="w-4 h-4 mr-2 text-slate-400" />
+              FLUSH FILTERS
             </button>
           </div>
         </div>
       </div>
 
       {/* Products Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="glass-card rounded-[2rem] overflow-hidden">
         {isLoading ? (
-          <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Loading products...</p>
+          <div className="p-12 text-center flex flex-col items-center justify-center">
+            <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
+            <p className="text-xs font-black tracking-widest uppercase text-blue-500">Querying Database...</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Product
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/5 bg-black/20">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Asset
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Category
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Taxonomy
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Price
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Value
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Featured
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Created
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Timestamp
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
+                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Directives
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="divide-y divide-white/5">
                 {products.map((product) => (
-                  <tr key={product.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
+                  <tr key={product.id} className="hover:bg-white-[0.02] transition-colors group">
+                    <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-12 w-12">
+                        <div className="flex-shrink-0 h-12 w-12 rounded-xl overflow-hidden border border-white/10 bg-black/50">
                           <img
-                            className="h-12 w-12 rounded-lg object-cover"
+                            className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                             src={product.image_urls?.[0] || '/placeholder-image.jpg'}
                             alt={product.name}
                           />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-bold text-white tracking-wide">
                             {product.name}
                           </div>
-                          <div className="text-sm text-gray-500 truncate max-w-xs">
+                          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest truncate max-w-xs mt-1">
                             {product.description}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {product.categories?.name || 'Uncategorized'}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ₵{product.price}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        product.featured
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {product.featured ? 'Featured' : 'Regular'}
+                    <td className="px-6 py-4">
+                      <span className="text-xs font-bold text-slate-300">
+                         {product.categories?.name || 'Unbound'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(product.created_at).toLocaleDateString()}
+                    <td className="px-6 py-4">
+                      <span className="text-sm font-black text-blue-400 tracking-wider">
+                         ₵{product.price}
+                      </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-3 py-1 text-[10px] font-black rounded-lg border uppercase tracking-widest ${
+                        product.featured
+                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                          : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                      }`}>
+                        {product.featured ? 'Featured' : 'Standard'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-widest">
+                        {new Date(product.created_at).toLocaleDateString()}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end space-x-2">
                         <button
                           onClick={() => handleEdit(product)}
-                          className="text-primary-600 hover:text-primary-900"
+                          className="p-2 rounded-xl bg-white/5 hover:bg-blue-500/10 text-slate-400 hover:text-blue-500 border border-transparent hover:border-blue-500/20 transition-all"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -823,6 +844,13 @@ const AdminProducts = () => {
                     </td>
                   </tr>
                 ))}
+                {products.length === 0 && !isLoading && (
+                  <tr>
+                    <td colSpan="6" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
+                      No assets found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -830,40 +858,49 @@ const AdminProducts = () => {
       </div>
 
       {/* Product Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {editingProduct ? 'Edit Product' : 'Add New Product'}
-              </h3>
+      {showModal && createPortal(
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-4xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+            <div className="absolute top-0 right-0 p-8 opacity-5">
+              <Package size={120} className="text-blue-500" />
+            </div>
+            
+            <div className="flex items-center justify-between mb-10 relative z-10">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                  <Package className="w-6 h-6 text-blue-500" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
+                  {editingProduct ? 'EDIT ' : 'DEPLOY '}<span className="text-blue-500">PRODUCT</span>
+                </h3>
+              </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Product Name *
+            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                    Product Identifier
                   </label>
                   <input
                     type="text"
                     required
                     value={productForm.name}
                     onChange={(e) => setProductForm(prev => ({ ...prev, name: e.target.value }))}
-                    className="input-field"
-                    placeholder="Enter product name"
+                    className="input-glass w-full text-sm"
+                    placeholder="E.g., Carbon Fiber Jacket"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Price *
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                    Commercial Value (₵)
                   </label>
                   <input
                     type="number"
@@ -871,38 +908,38 @@ const AdminProducts = () => {
                     required
                     value={productForm.price}
                     onChange={(e) => setProductForm(prev => ({ ...prev, price: e.target.value }))}
-                    className="input-field"
+                    className="input-glass w-full text-sm"
                     placeholder="0.00"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Detailed Specifications
                 </label>
                 <textarea
                   required
-                  rows={3}
+                  rows={4}
                   value={productForm.description}
                   onChange={(e) => setProductForm(prev => ({ ...prev, description: e.target.value }))}
-                  className="input-field"
-                  placeholder="Enter product description"
+                  className="input-glass w-full text-sm resize-none"
+                  placeholder="Outline product parameters and features..."
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Category *
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                    Taxonomy Binding
                   </label>
                   <select
                     required
                     value={productForm.category_id}
                     onChange={(e) => setProductForm(prev => ({ ...prev, category_id: e.target.value }))}
-                    className="input-field"
+                    className="input-glass w-full text-sm appearance-none bg-slate-900"
                   >
-                    <option value="">Select a category</option>
+                    <option value="">Select logical group</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id}>
                         {category.name}
@@ -911,26 +948,23 @@ const AdminProducts = () => {
                   </select>
                 </div>
 
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="featured"
-                    checked={productForm.featured}
-                    onChange={(e) => setProductForm(prev => ({ ...prev, featured: e.target.checked }))}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="featured" className="ml-2 block text-sm text-gray-900">
-                    Featured Product
-                  </label>
+                <div className="flex items-center space-x-4 bg-white/5 border border-white/5 rounded-2xl p-4 cursor-pointer hover:bg-white/10 transition-colors" onClick={() => setProductForm(prev => ({ ...prev, featured: !prev.featured }))}>
+                  <div className={`w-6 h-6 rounded border flex items-center justify-center transition-colors flex-shrink-0 ${productForm.featured ? 'bg-blue-500 border-blue-500' : 'border-slate-600 bg-slate-900'}`}>
+                     {productForm.featured && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-slate-300 uppercase tracking-widest">Mark as Featured</p>
+                    <p className="text-[10px] font-bold text-slate-500">Prioritize in catalog</p>
+                  </div>
                 </div>
               </div>
 
-              {/* Image Upload */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Images
+              {/* Enhanced Visual Asset Upload */}
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Visual Assets
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingImages ? 'border-blue-500/50 bg-blue-500/5 cursor-wait' : 'border-white/10 hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer bg-black/20'}`}>
                   <input
                     type="file"
                     multiple
@@ -942,33 +976,42 @@ const AdminProducts = () => {
                   />
                   <label
                     htmlFor="image-upload"
-                    className={`cursor-pointer flex flex-col items-center justify-center ${
-                      uploadingImages ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
                   >
-                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                    <span className="text-sm text-gray-600">
-                      {uploadingImages ? 'Uploading...' : 'Click to upload images'}
-                    </span>
+                    {uploadingImages ? (
+                      <>
+                        <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
+                        <span className="text-xs font-black tracking-widest uppercase text-blue-500 text-center">Transmitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                          <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Click to Interface</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG, WEBP</span>
+                      </>
+                    )}
                   </label>
                 </div>
 
                 {/* Display uploaded images */}
                 {productForm.image_urls.length > 0 && (
-                  <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {productForm.image_urls.map((url, index) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-square bg-slate-900">
                         <img
                           src={url}
-                          alt={`Product ${index + 1}`}
-                          className="w-full h-24 object-cover rounded-lg"
+                          alt={`Asset ${index + 1}`}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-110"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <button
                           type="button"
                           onClick={() => removeImage(index)}
-                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 shadow-lg"
                         >
-                          <X className="w-3 h-3" />
+                          <X className="w-4 h-4" />
                         </button>
                       </div>
                     ))}
@@ -976,75 +1019,87 @@ const AdminProducts = () => {
                 )}
               </div>
 
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="btn-secondary"
+                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Cancel
+                  Abort
                 </button>
                 <button
                   type="submit"
-                  className="btn-primary"
+                  className="btn-gradient shadow-blue-500/20 text-[10px] sm:text-xs tracking-widest"
                 >
-                  {editingProduct ? 'Update Product' : 'Create Product'}
+                  {editingProduct ? 'APPLY CONFIGURATION' : 'INITIALIZE ASSET'}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Brand Modal */}
-      {showBrandModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Add New Brand</h3>
+      {showBrandModal && createPortal(
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-2xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+            <div className="absolute top-0 right-0 p-8 opacity-5">
+              <Building2 size={120} className="text-indigo-500" />
+            </div>
+
+            <div className="flex items-center justify-between mb-10 relative z-10">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
+                  <Plus className="w-6 h-6 text-indigo-500" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
+                  REGISTER <span className="text-indigo-500">BRAND</span>
+                </h3>
+              </div>
               <button
                 onClick={() => setShowBrandModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleBrandSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Brand Name *
+            <form onSubmit={handleBrandSubmit} className="space-y-8 relative z-10">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Brand Distinction
                 </label>
                 <input
                   type="text"
                   required
                   value={brandForm.name}
                   onChange={(e) => setBrandForm(prev => ({ ...prev, name: e.target.value }))}
-                  className="input-field"
-                  placeholder="Enter brand name"
+                  className="input-glass w-full text-sm"
+                  placeholder="Official Brand Name"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Brand Description *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Brand Intelligence
                 </label>
                 <textarea
                   required
                   rows={3}
                   value={brandForm.description}
                   onChange={(e) => setBrandForm(prev => ({ ...prev, description: e.target.value }))}
-                  className="input-field"
-                  placeholder="Enter brand description"
+                  className="input-glass w-full text-sm resize-none"
+                  placeholder="Design ideology or mission statement..."
                 />
               </div>
 
               {/* Brand Image Upload */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Brand Image *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Identity Marker (Logo/Banner)
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingBrandImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer bg-black/20'}`}>
                   <input
                     type="file"
                     accept="image/*"
@@ -1055,48 +1110,58 @@ const AdminProducts = () => {
                   />
                   <label
                     htmlFor="brand-image-upload"
-                    className={`cursor-pointer flex flex-col items-center justify-center ${
-                      uploadingBrandImage ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
                   >
-                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                    <span className="text-sm text-gray-600">
-                      {uploadingBrandImage ? 'Uploading...' : 'Click to upload brand image'}
-                    </span>
+                    {uploadingBrandImage ? (
+                      <>
+                        <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
+                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Transmitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                          <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Load Asset</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">Raster graphics</span>
+                      </>
+                    )}
                   </label>
                 </div>
 
                 {/* Display uploaded brand image */}
                 {brandForm.image_url && (
-                  <div className="mt-4">
+                  <div className="mt-6 p-4 rounded-2xl border border-white/10 bg-black/30">
                     <img
                       src={brandForm.image_url}
-                      alt="Brand preview"
-                      className="w-full h-48 object-cover rounded-lg"
+                      alt="Identity preview"
+                      className="w-full h-48 object-cover rounded-xl"
                     />
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setShowBrandModal(false)}
-                  className="btn-secondary"
+                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Cancel
+                  Abort
                 </button>
                 <button
                   type="submit"
-                  className="btn-primary"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-600/20 text-[10px] sm:text-xs tracking-widest uppercase"
                 >
-                  Add Brand
+                  Register Identity
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
+
     </div>
   )
 }

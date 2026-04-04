@@ -35,6 +35,7 @@ import AdminAboutPage from './pages/admin/AboutPage'
 import AdminPromotionalSection from './pages/admin/PromotionalSection'
 import UserManagement from './pages/admin/UserManagement'
 import AdminBrands from './pages/admin/Brands'
+import AdminSettings from './pages/admin/Settings'
 
 // Protected route component
 import ProtectedRoute from './components/ProtectedRoute'
@@ -77,7 +78,7 @@ function App() {
         v7_relativeSplatPath: true
       }}
     >
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
         <Routes>
           {/* Public routes */}
           <Route path="/" element={
@@ -239,6 +240,13 @@ function App() {
             <ProtectedRoute adminOnly>
               <AdminLayout>
                 <AdminBrands />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/settings" element={
+            <ProtectedRoute adminOnly>
+              <AdminLayout>
+                <AdminSettings />
               </AdminLayout>
             </ProtectedRoute>
           } />

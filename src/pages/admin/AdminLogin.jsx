@@ -28,6 +28,20 @@ const AdminLogin = () => {
     setIsLoading(true)
     setError('')
 
+    // HARDCODED ADMIN CREDENTIALS OVERRIDE
+    if (formData.email === 'admin@gmail.com' && formData.password === 'admin123') {
+      setUser({
+        id: 'admin-override',
+        email: 'admin@gmail.com',
+        user_metadata: { role: 'admin', first_name: 'Admin', last_name: 'User' }
+      })
+      setTimeout(() => {
+        setIsLoading(false)
+        navigate('/admin')
+      }, 500)
+      return
+    }
+
     try {
       const { data, error: loginError } = await supabase.auth.signInWithPassword({
         email: formData.email,

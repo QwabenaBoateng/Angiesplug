@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { 
   Users, 
   UserPlus, 
@@ -8,7 +9,9 @@ import {
   Crown,
   User,
   Search,
-  Filter
+  Filter,
+  X,
+  Fingerprint
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../hooks/useAuth'
@@ -28,8 +31,6 @@ const UserManagement = () => {
   })
 
   useEffect(() => {
-    // For now, allow any admin to access user management
-    // We'll add proper permission checking later
     if (userProfile?.role === 'admin' || userProfile?.role === 'super_admin') {
       fetchUsers()
     }
@@ -57,7 +58,6 @@ const UserManagement = () => {
     
     try {
       if (editingUser) {
-        // Update existing user
         const { error } = await supabase
           .from('profiles')
           .update({
@@ -68,7 +68,6 @@ const UserManagement = () => {
 
         if (error) throw error
       } else {
-        // Create new user (invite)
         const { error } = await supabase.auth.admin.inviteUserByEmail(
           userForm.email,
           {
@@ -103,7 +102,7 @@ const UserManagement = () => {
   }
 
   const handleDelete = async (userId) => {
-    if (!confirm('Are you sure you want to delete this user?')) return
+    if (!confirm('WARNING: Deleting personnel access is irreversible. Proceed?')) return
 
     try {
       const { error } = await supabase.auth.admin.deleteUser(userId)
@@ -118,25 +117,25 @@ const UserManagement = () => {
   const getRoleIcon = (role) => {
     switch (role) {
       case 'super_admin':
-        return <Crown className="w-4 h-4 text-yellow-600" />
+        return <Crown className="w-4 h-4 text-amber-500" />
       case 'admin':
-        return <Shield className="w-4 h-4 text-blue-600" />
+        return <Shield className="w-4 h-4 text-blue-500" />
       default:
-        return <User className="w-4 h-4 text-gray-600" />
+        return <User className="w-4 h-4 text-slate-500" />
     }
   }
 
   const getRoleBadge = (role) => {
     const styles = {
-      super_admin: 'bg-yellow-100 text-yellow-800',
-      admin: 'bg-blue-100 text-blue-800',
-      user: 'bg-gray-100 text-gray-800'
+      super_admin: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+      admin: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+      user: 'bg-slate-500/10 text-slate-400 border-slate-500/20'
     }
 
     return (
-      <span className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full ${styles[role]}`}>
+      <span className={`inline-flex items-center px-3 py-1 text-[10px] uppercase tracking-widest font-black rounded border ${styles[role]}`}>
         {getRoleIcon(role)}
-        <span className="ml-1 capitalize">{role.replace('_', ' ')}</span>
+        <span className="ml-2">{role.replace('_', ' ')}</span>
       </span>
     )
   }
@@ -148,37 +147,39 @@ const UserManagement = () => {
     return matchesSearch && matchesRole
   })
 
-  // Show loading while checking auth
   if (authLoading || isLoading) {
     return (
-      <div className="text-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-        <p className="mt-2 text-gray-600">Loading user management...</p>
+      <div className="flex flex-col items-center justify-center p-24">
+        <div className="w-12 h-12 rounded-full border-4 border-amber-500/30 border-t-amber-500 animate-spin mb-4"></div>
+        <p className="text-xs font-black tracking-widest uppercase text-amber-500">Decrypting Access Logs...</p>
       </div>
     )
   }
 
-  // Check if user has admin access
   if (!userProfile || (userProfile.role !== 'admin' && userProfile.role !== 'super_admin')) {
     return (
-      <div className="text-center py-12">
-        <Shield className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
-        <p className="text-gray-600">You need admin privileges to manage users.</p>
-        <p className="text-sm text-gray-500 mt-2">
-          Your role: {userProfile?.role || 'Unknown'}
+      <div className="flex flex-col items-center justify-center p-24 text-center">
+        <Shield className="w-24 h-24 text-rose-500 mx-auto mb-6 opacity-80" />
+        <h2 className="text-2xl font-black italic tracking-tighter text-rose-500 uppercase">ACCESS DENIED</h2>
+        <p className="text-xs font-black text-rose-400/70 tracking-widest uppercase mt-2 max-w-md">
+          Insufficient clearance. You require Administrative authorization to view personnel logs.
         </p>
+        <div className="mt-8 px-6 py-3 bg-red-500/5 my-2 border border-rose-500/10 rounded-xl inline-block">
+           <p className="text-[10px] font-black tracking-widest text-white uppercase">Detected Clearance Level: <span className="text-rose-500">{userProfile?.role || 'UNKNOWN'}</span></p>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-600">Manage user accounts and roles</p>
+          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+            PERSONNEL <span className="text-amber-500">ACCESS LOGS</span>
+          </h1>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Administer roles, clearance, and accounts</p>
         </div>
         {(isSuperAdmin() || hasPermission('create_users')) && (
           <button
@@ -187,46 +188,46 @@ const UserManagement = () => {
               setUserForm({ email: '', full_name: '', role: 'user' })
               setShowModal(true)
             }}
-            className="mt-4 sm:mt-0 btn-primary flex items-center"
+            className="mt-4 sm:mt-0 btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <UserPlus className="w-4 h-4 mr-2" />
-            Add User
+            Provision Access
           </button>
         )}
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="glass-card rounded-3xl p-6 sm:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Search Users
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              Identity Search
             </label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 group-focus-within:text-amber-500 transition-colors" size={18} />
               <input
                 type="text"
-                placeholder="Search by name or email..."
+                placeholder="Query by nomenclature or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="input-glass pl-12 w-full text-sm"
               />
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Filter by Role
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              Clearance Level
             </label>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="input-glass w-full text-sm appearance-none bg-slate-900"
             >
-              <option value="">All Roles</option>
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option value="super_admin">Super Admin</option>
+              <option value="">Global Array</option>
+              <option value="user">Standard Agent (User)</option>
+              <option value="admin">Administrator</option>
+              <option value="super_admin">Prime Directive (Super Admin)</option>
             </select>
           </div>
           
@@ -236,176 +237,188 @@ const UserManagement = () => {
                 setSearchQuery('')
                 setRoleFilter('')
               }}
-              className="w-full btn-secondary flex items-center justify-center"
+              className="w-full btn-glass flex items-center justify-center text-xs tracking-widest uppercase"
             >
-              <Filter className="w-4 h-4 mr-2" />
-              Clear Filters
+              <Filter className="w-4 h-4 mr-2 text-slate-400" />
+              Flush Filters
             </button>
           </div>
         </div>
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        {isLoading ? (
-          <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Loading users...</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Role
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Created
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+      <div className="glass-card rounded-[2rem] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-white/5 bg-black/20">
+                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  Personnel Identity
+                </th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  Clearance Level
+                </th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  Initialization Date
+                </th>
+                <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  Directives
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {filteredUsers.map((user) => (
+                <tr key={user.id} className="hover:bg-white-[0.02] transition-colors group">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-black/50 border border-white/10 flex items-center justify-center">
+                        <Fingerprint className="w-6 h-6 text-slate-600 group-hover:text-amber-500 transition-colors" />
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-bold text-white tracking-wide">
+                          {user.full_name || 'UNVERIFIED ENTITY'}
+                        </div>
+                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">
+                          {user.email}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    {getRoleBadge(user.role)}
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                       {new Date(user.created_at).toLocaleDateString()}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end space-x-2">
+                      {(isSuperAdmin() || hasPermission('update_users')) && (
+                        <button
+                          onClick={() => handleEdit(user)}
+                          className="p-2 rounded-xl bg-white/5 hover:bg-blue-500/10 text-slate-400 hover:text-blue-500 border border-transparent hover:border-blue-500/20 transition-all"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                      )}
+                      {isSuperAdmin() && user.id !== userProfile?.id && (
+                        <button
+                          onClick={() => handleDelete(user.id)}
+                          className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
-                            <User className="w-5 h-5 text-gray-600" />
-                          </div>
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
-                            {user.full_name || 'No name'}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {user.email}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {getRoleBadge(user.role)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(user.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center justify-end space-x-2">
-                        {(isSuperAdmin() || hasPermission('update_users')) && (
-                          <button
-                            onClick={() => handleEdit(user)}
-                            className="text-primary-600 hover:text-primary-900"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                        )}
-                        {isSuperAdmin() && user.id !== userProfile?.id && (
-                          <button
-                            onClick={() => handleDelete(user.id)}
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+              {filteredUsers.length === 0 && (
+                <tr>
+                   <td colSpan="4" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
+                     No personnel active under current parameters
+                   </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* User Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 shadow-lg rounded-md bg-white">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {editingUser ? 'Edit User' : 'Add New User'}
-              </h3>
+      {showModal && createPortal(
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+            <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+              <Users size={120} className="text-amber-500" />
+            </div>
+
+            <div className="flex items-center justify-between mb-10 relative z-10">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 flex-shrink-0">
+                  <Shield className="w-6 h-6 text-amber-500" />
+                </div>
+                <div>
+                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
+                     {editingUser ? 'MODIFY ' : 'PROVISION '} <span className="text-amber-500">ACCESS</span>
+                   </h3>
+                </div>
+              </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
-                ×
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {!editingUser && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                    Network Address (Email) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="email"
                     required
                     value={userForm.email}
                     onChange={(e) => setUserForm(prev => ({ ...prev, email: e.target.value }))}
-                    className="input-field"
-                    placeholder="user@example.com"
+                    className="input-glass w-full text-sm"
+                    placeholder="agent@exquisite.boutique"
                   />
                 </div>
               )}
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Nomenclature (Full Name) <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={userForm.full_name}
                   onChange={(e) => setUserForm(prev => ({ ...prev, full_name: e.target.value }))}
-                  className="input-field"
-                  placeholder="John Doe"
+                  className="input-glass w-full text-sm"
+                  placeholder="Subject Full Name"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Role *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Authorization Clearance <span className="text-rose-500">*</span>
                 </label>
                 <select
                   required
                   value={userForm.role}
                   onChange={(e) => setUserForm(prev => ({ ...prev, role: e.target.value }))}
-                  className="input-field"
+                  className="input-glass w-full text-sm appearance-none bg-slate-900 border-amber-500/30 focus:border-amber-500 transition-colors text-amber-500"
                 >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                  {isSuperAdmin() && <option value="super_admin">Super Admin</option>}
+                  <option value="user">Standard Agent (User)</option>
+                  <option value="admin">Administrator</option>
+                  {isSuperAdmin() && <option value="super_admin">Prime Directive (Super Admin)</option>}
                 </select>
               </div>
 
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="btn-secondary"
+                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Cancel
+                  Abort
                 </button>
                 <button
                   type="submit"
-                  className="btn-primary"
+                  className="btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 text-[10px] sm:text-xs tracking-widest uppercase"
                 >
-                  {editingUser ? 'Update User' : 'Create User'}
+                  {editingUser ? 'CONFIRM MODIFICATION' : 'DISPATCH INVITATION'}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

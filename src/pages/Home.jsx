@@ -8,7 +8,7 @@ const Home = () => {
   const [categories, setCategories] = useState([])
   const [brands, setBrands] = useState([])
   const [promoContent, setPromoContent] = useState({
-    promo_image: '/api/placeholder/400/300',
+    promo_image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=800',
     promo_video: '',
     promo_video_poster: '',
     promo_title: 'FIND YOUR PERFECT LOOK AT EXQUISITE BOUTIQUE',
@@ -308,13 +308,13 @@ const Home = () => {
       <section className="py-24 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Angie's Plug Collections */}
+            {/* Exquisite Boutique Promotional */}
             <div className="glass-card rounded-[2rem] overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 <div className="relative h-64 md:h-full">
                   <img
-                    src={promoContent.promo_image}
-                    alt="Angie's Plug"
+                    src={promoContent.promo_image || 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=800'}
+                    alt="Exquisite Boutique Promotional"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-blue-600/20"></div>

@@ -7,7 +7,10 @@ import {
   Image as ImageIcon,
   Trash2,
   Video,
-  Play
+  Play,
+  Megaphone,
+  MonitorPlay,
+  LayoutTemplate
 } from 'lucide-react'
 import { supabase, isSupabaseConfigured, getStorageBucket } from '../../lib/supabase'
 
@@ -63,13 +66,11 @@ const AdminPromotionalSection = () => {
     const file = event.target.files[0]
     if (!file) return
 
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file')
       return
     }
 
-    // Validate file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
       alert('File size must be less than 5MB')
       return
@@ -78,20 +79,16 @@ const AdminPromotionalSection = () => {
     try {
       setUploadingImage(true)
 
-      // Guard: require configuration
       if (!isSupabaseConfigured) {
         alert('Image uploads are not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.')
         setUploadingImage(false)
         return
       }
 
-      // Create unique filename
       const fileExt = file.name.split('.').pop()
       const fileName = `promo-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
       const filePath = `promotional/${fileName}`
       const bucket = getStorageBucket()
-
-      console.log('Uploading promotional image:', { fileName, filePath, bucket, fileSize: file.size })
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from(bucket)
@@ -101,20 +98,9 @@ const AdminPromotionalSection = () => {
         })
 
       if (uploadError) {
-        console.error('Storage upload error:', uploadError)
-        if (uploadError.message.includes('Bucket not found')) {
-          alert('Storage bucket not found. Please check your Supabase storage configuration.')
-        } else if (uploadError.message.includes('permission')) {
-          alert('Permission denied. Please check your storage policies.')
-        } else {
-          alert(`Upload failed: ${uploadError.message}`)
-        }
-        return
+        throw uploadError
       }
 
-      console.log('Upload successful:', uploadData)
-
-      // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from(bucket)
         .getPublicUrl(filePath)
@@ -122,8 +108,6 @@ const AdminPromotionalSection = () => {
       if (!publicUrl) {
         throw new Error('Failed to get public URL for uploaded image')
       }
-
-      console.log('Public URL generated:', publicUrl)
 
       setPromoContent(prev => ({
         ...prev,
@@ -149,13 +133,11 @@ const AdminPromotionalSection = () => {
     const file = event.target.files[0]
     if (!file) return
 
-    // Validate file type
     if (!file.type.startsWith('video/')) {
       alert('Please select a video file')
       return
     }
 
-    // Validate file size (50MB limit)
     if (file.size > 50 * 1024 * 1024) {
       alert('File size must be less than 50MB')
       return
@@ -164,20 +146,16 @@ const AdminPromotionalSection = () => {
     try {
       setUploadingVideo(true)
 
-      // Guard: require configuration
       if (!isSupabaseConfigured) {
         alert('Video uploads are not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.')
         setUploadingVideo(false)
         return
       }
 
-      // Create unique filename
       const fileExt = file.name.split('.').pop()
       const fileName = `promo-video-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
       const filePath = `promotional/${fileName}`
       const bucket = getStorageBucket()
-
-      console.log('Uploading promotional video:', { fileName, filePath, bucket, fileSize: file.size })
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from(bucket)
@@ -187,20 +165,9 @@ const AdminPromotionalSection = () => {
         })
 
       if (uploadError) {
-        console.error('Storage upload error:', uploadError)
-        if (uploadError.message.includes('Bucket not found')) {
-          alert('Storage bucket not found. Please check your Supabase storage configuration.')
-        } else if (uploadError.message.includes('permission')) {
-          alert('Permission denied. Please check your storage policies.')
-        } else {
-          alert(`Upload failed: ${uploadError.message}`)
-        }
-        return
+        throw uploadError
       }
 
-      console.log('Upload successful:', uploadData)
-
-      // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from(bucket)
         .getPublicUrl(filePath)
@@ -208,8 +175,6 @@ const AdminPromotionalSection = () => {
       if (!publicUrl) {
         throw new Error('Failed to get public URL for uploaded video')
       }
-
-      console.log('Public URL generated:', publicUrl)
 
       setPromoContent(prev => ({
         ...prev,
@@ -228,13 +193,11 @@ const AdminPromotionalSection = () => {
     const file = event.target.files[0]
     if (!file) return
 
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file')
       return
     }
 
-    // Validate file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
       alert('File size must be less than 5MB')
       return
@@ -243,20 +206,16 @@ const AdminPromotionalSection = () => {
     try {
       setUploadingPoster(true)
 
-      // Guard: require configuration
       if (!isSupabaseConfigured) {
-        alert('Image uploads are not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.')
+        alert('Image uploads are not configured.')
         setUploadingPoster(false)
         return
       }
 
-      // Create unique filename
       const fileExt = file.name.split('.').pop()
       const fileName = `promo-poster-${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
       const filePath = `promotional/${fileName}`
       const bucket = getStorageBucket()
-
-      console.log('Uploading promotional poster:', { fileName, filePath, bucket, fileSize: file.size })
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from(bucket)
@@ -266,20 +225,9 @@ const AdminPromotionalSection = () => {
         })
 
       if (uploadError) {
-        console.error('Storage upload error:', uploadError)
-        if (uploadError.message.includes('Bucket not found')) {
-          alert('Storage bucket not found. Please check your Supabase storage configuration.')
-        } else if (uploadError.message.includes('permission')) {
-          alert('Permission denied. Please check your storage policies.')
-        } else {
-          alert(`Upload failed: ${uploadError.message}`)
-        }
-        return
+        throw uploadError
       }
 
-      console.log('Upload successful:', uploadData)
-
-      // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from(bucket)
         .getPublicUrl(filePath)
@@ -287,8 +235,6 @@ const AdminPromotionalSection = () => {
       if (!publicUrl) {
         throw new Error('Failed to get public URL for uploaded poster')
       }
-
-      console.log('Public URL generated:', publicUrl)
 
       setPromoContent(prev => ({
         ...prev,
@@ -321,7 +267,6 @@ const AdminPromotionalSection = () => {
         return
       }
 
-      // Check if record exists
       const { data: existingData } = await supabase
         .from('promotional_section')
         .select('id')
@@ -329,13 +274,11 @@ const AdminPromotionalSection = () => {
 
       let result
       if (existingData) {
-        // Update existing record
         result = await supabase
           .from('promotional_section')
           .update(promoContent)
           .eq('id', existingData.id)
       } else {
-        // Insert new record
         result = await supabase
           .from('promotional_section')
           .insert([promoContent])
@@ -345,7 +288,7 @@ const AdminPromotionalSection = () => {
         throw result.error
       }
 
-      alert('Promotional section updated successfully!')
+      alert('Campaign broadcast updated successfully!')
     } catch (error) {
       console.error('Error saving promotional content:', error)
       alert('Error saving content. Please try again.')
@@ -363,277 +306,335 @@ const AdminPromotionalSection = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-300 rounded w-1/3 mb-6"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="h-48 bg-gray-300 rounded"></div>
-            </div>
-            <div className="space-y-4">
-              <div className="h-4 bg-gray-300 rounded"></div>
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            </div>
-          </div>
-        </div>
+      <div className="flex flex-col items-center justify-center h-64">
+        <div className="w-12 h-12 rounded-full border-4 border-cyan-500/30 border-t-cyan-500 animate-spin mb-4"></div>
+        <p className="text-xs font-black tracking-widest uppercase text-cyan-500">Querying Broadcast Stream...</p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Promotional Section</h1>
-        <div className="flex space-x-3">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
+        <div>
+          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+            CAMPAIGN <span className="text-cyan-500">BROADCAST</span>
+          </h1>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage store promotions and visual assets</p>
+        </div>
+        <div className="flex mt-6 sm:mt-0">
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="btn-gradient shadow-cyan-500/20 from-cyan-600 to-cyan-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
-            <Save className="h-4 w-4 mr-2" />
-            {saving ? 'Saving...' : 'Save Changes'}
+            <MonitorPlay className="w-4 h-4 mr-2" />
+            {saving ? 'TRANSMITTING...' : 'PUSH TO MAINFRAME'}
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Image Upload Section */}
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Promotional Image</h2>
+        
+        {/* Media Upload Section */}
+        <div className="space-y-8">
           
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
-            {promoContent.promo_image ? (
-              <div className="relative">
-                <img
-                  src={promoContent.promo_image}
-                  alt="Promotional"
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-                <button
-                  onClick={handleRemoveImage}
-                  className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            ) : (
-              <div className="text-center">
-                <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
-                <div className="mt-4">
-                  <label
-                    htmlFor="promo-image-upload"
-                    className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    {uploadingImage ? 'Uploading...' : 'Upload Image'}
-                  </label>
-                  <input
-                    id="promo-image-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                    disabled={uploadingImage}
-                  />
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  PNG, JPG, GIF up to 5MB
-                </p>
-              </div>
-            )}
-          </div>
+          {/* Static Banner */}
+          <div className="glass-card rounded-[2rem] p-6 lg:p-10 relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+                <ImageIcon size={120} className="text-cyan-500" />
+             </div>
+             <div className="flex items-center space-x-4 mb-8">
+                 <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                   <Megaphone className="w-5 h-5 text-cyan-500" />
+                 </div>
+                 <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">STATIC BANNER PAYLOAD</h2>
+             </div>
+
+             <div className="relative z-10">
+               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+                 Primary Promotional Image
+               </label>
+               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
+                   ${promoContent.promo_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
+                   ${uploadingImage ? 'border-cyan-500/50 bg-cyan-500/5 cursor-wait' : 'hover:border-cyan-500/50 hover:bg-cyan-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+               >
+                 <input
+                   type="file"
+                   accept="image/*"
+                   onChange={handleImageUpload}
+                   className="hidden"
+                   id="promo-image-upload"
+                   disabled={uploadingImage}
+                 />
+                 <label
+                   htmlFor="promo-image-upload"
+                   className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
+                 >
+                   {promoContent.promo_image ? (
+                     <div className="relative group w-full">
+                       <img
+                         src={promoContent.promo_image}
+                         alt="Promotional payload"
+                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
+                       />
+                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                         <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Swap Asset</span>
+                       </div>
+                       <button
+                         type="button"
+                         onClick={(e) => { e.preventDefault(); handleRemoveImage(); }}
+                         className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg transform translate-y-2 group-hover:translate-y-0"
+                       >
+                         <X className="w-4 h-4" />
+                       </button>
+                     </div>
+                   ) : uploadingImage ? (
+                      <>
+                         <div className="w-12 h-12 rounded-full border-4 border-cyan-500/30 border-t-cyan-500 animate-spin mb-4"></div>
+                         <span className="text-[10px] font-black tracking-widest uppercase text-cyan-500 text-center">Uploading...</span>
+                       </>
+                   ) : (
+                     <>
+                       <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                         <ImageIcon className="w-6 h-6 text-cyan-500" />
+                       </div>
+                       <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Load Image Asset<br/><span className="text-[8px] text-slate-500 mt-1 block">5MB Limit</span></span>
+                     </>
+                   )}
+                 </label>
+               </div>
+             </div>
           </div>
 
-          {/* Video Upload Section */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Promotional Video</h2>
-            
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
-              {promoContent.promo_video ? (
-                <div className="relative">
-                  <video
-                    src={promoContent.promo_video}
-                    poster={promoContent.promo_video_poster}
-                    className="w-full h-64 object-cover rounded-lg"
-                    controls
-                  />
-                  <button
-                    onClick={handleRemoveVideo}
-                    className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <Video className="mx-auto h-12 w-12 text-gray-400" />
-                  <div className="mt-4">
-                    <label
-                      htmlFor="promo-video-upload"
-                      className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                    >
-                      <Upload className="h-4 w-4 mr-2" />
-                      {uploadingVideo ? 'Uploading...' : 'Upload Video'}
-                    </label>
-                    <input
-                      id="promo-video-upload"
-                      type="file"
-                      accept="video/*"
-                      onChange={handleVideoUpload}
-                      className="hidden"
-                      disabled={uploadingVideo}
-                    />
+          {/* Dynamic Media */}
+          <div className="glass-card rounded-[2rem] p-6 lg:p-10 relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+                <Video size={120} className="text-rose-500" />
+             </div>
+             <div className="flex items-center space-x-4 mb-8">
+                 <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center border border-rose-500/20">
+                   <Play className="w-5 h-5 text-rose-500" />
+                 </div>
+                 <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">DYNAMIC MEDIA STREAM</h2>
+             </div>
+
+             <div className="space-y-6 relative z-10">
+               <div>
+                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+                   Video Element
+                 </label>
+                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
+                     ${promoContent.promo_video ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
+                     ${uploadingVideo ? 'border-rose-500/50 bg-rose-500/5 cursor-wait' : 'hover:border-rose-500/50 hover:bg-rose-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                 >
+                   <input
+                     type="file"
+                     accept="video/*"
+                     onChange={handleVideoUpload}
+                     className="hidden"
+                     id="promo-video-upload"
+                     disabled={uploadingVideo}
+                   />
+                   <label
+                     htmlFor="promo-video-upload"
+                     className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
+                   >
+                     {promoContent.promo_video ? (
+                       <div className="relative group w-full">
+                         <video
+                           src={promoContent.promo_video}
+                           poster={promoContent.promo_video_poster}
+                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
+                           controls
+                         />
+                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center pointer-events-none">
+                           <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Swap Asset</span>
+                         </div>
+                         <button
+                           type="button"
+                           onClick={(e) => { e.preventDefault(); handleRemoveVideo(); }}
+                           className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg transform translate-y-2 group-hover:translate-y-0 z-20"
+                         >
+                           <X className="w-4 h-4" />
+                         </button>
+                       </div>
+                     ) : uploadingVideo ? (
+                        <>
+                           <div className="w-12 h-12 rounded-full border-4 border-rose-500/30 border-t-rose-500 animate-spin mb-4"></div>
+                           <span className="text-[10px] font-black tracking-widest uppercase text-rose-500 text-center">Transmitting...</span>
+                         </>
+                     ) : (
+                       <>
+                         <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                           <Video className="w-6 h-6 text-rose-500" />
+                         </div>
+                         <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Load Video Asset<br/><span className="text-[8px] text-slate-500 mt-1 block">50MB Limit</span></span>
+                       </>
+                     )}
+                   </label>
+                 </div>
+               </div>
+
+               {/* Video Poster */}
+               <div className="p-4 bg-black/20 rounded-[1.5rem] border border-white/5">
+                  <div className="flex items-center justify-between mb-4">
+                     <div>
+                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                         Video Poster (Thumbnail)
+                       </label>
+                       <p className="text-[8px] text-slate-600">Static fallback image for video</p>
+                     </div>
+                     {!promoContent.promo_video_poster && !uploadingPoster && (
+                        <div>
+                         <label
+                           htmlFor="promo-poster-upload"
+                           className="cursor-pointer inline-flex items-center px-4 py-2 text-[9px] font-black tracking-widest rounded-xl text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 uppercase transition-colors"
+                         >
+                           <Upload className="w-3 h-3 mr-2" />
+                           Inject Poster
+                         </label>
+                         <input
+                           id="promo-poster-upload"
+                           type="file"
+                           accept="image/*"
+                           onChange={handlePosterUpload}
+                           className="hidden"
+                           disabled={uploadingPoster}
+                         />
+                       </div>
+                     )}
                   </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    MP4, MOV, AVI up to 50MB
-                  </p>
-                </div>
-              )}
-            </div>
+                  
+                  {promoContent.promo_video_poster ? (
+                    <div className="relative group rounded-xl overflow-hidden border border-white/10">
+                      <img
+                        src={promoContent.promo_video_poster}
+                        alt="Video poster"
+                        className="w-full h-24 object-cover"
+                      />
+                      <button
+                        onClick={() => setPromoContent(prev => ({ ...prev, promo_video_poster: '' }))}
+                        className="absolute top-2 right-2 bg-red-600 text-white rounded-xl p-1.5 hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </div>
+                   ) : uploadingPoster && (
+                     <div className="h-24 flex items-center justify-center border border-white/5 rounded-xl border-dashed">
+                        <span className="text-[10px] font-black tracking-widest uppercase text-slate-500">Processing...</span>
+                     </div>
+                   )}
+               </div>
 
-            {/* Video Poster Upload */}
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Video Poster (Thumbnail)</h3>
-              {promoContent.promo_video_poster ? (
-                <div className="relative">
-                  <img
-                    src={promoContent.promo_video_poster}
-                    alt="Video poster"
-                    className="w-full h-32 object-cover rounded"
-                  />
-                  <button
-                    onClick={() => setPromoContent(prev => ({ ...prev, promo_video_poster: '' }))}
-                    className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 hover:bg-red-700"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <label
-                    htmlFor="promo-poster-upload"
-                    className="cursor-pointer inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    {uploadingPoster ? 'Uploading...' : 'Upload Poster'}
-                  </label>
-                  <input
-                    id="promo-poster-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handlePosterUpload}
-                    className="hidden"
-                    disabled={uploadingPoster}
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    PNG, JPG up to 5MB
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
 
-        {/* Content Section */}
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Title
-            </label>
-            <input
-              type="text"
-              value={promoContent.promo_title}
-              onChange={(e) => handleInputChange('promo_title', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        {/* Text Variables */}
+        <div className="glass-card rounded-[2rem] p-6 lg:p-10 h-min">
+           <div className="flex items-center space-x-4 mb-8">
+               <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+                 <LayoutTemplate className="w-5 h-5 text-orange-500" />
+               </div>
+               <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">TYPOGRAPHIC OVERRIDES</h2>
+           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
-            <textarea
-              value={promoContent.promo_description}
-              onChange={(e) => handleInputChange('promo_description', e.target.value)}
-              rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Discount Text
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                Headline
               </label>
               <input
                 type="text"
-                value={promoContent.promo_discount_text}
-                onChange={(e) => handleInputChange('promo_discount_text', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={promoContent.promo_title}
+                onChange={(e) => handleInputChange('promo_title', e.target.value)}
+                className="input-glass w-full text-sm font-bold text-slate-200"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Discount Percentage
-              </label>
-              <input
-                type="text"
-                value={promoContent.promo_discount_percentage}
-                onChange={(e) => handleInputChange('promo_discount_percentage', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Button Text
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                Broadcast Description
               </label>
-              <input
-                type="text"
-                value={promoContent.promo_button_text}
-                onChange={(e) => handleInputChange('promo_button_text', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <textarea
+                value={promoContent.promo_description}
+                onChange={(e) => handleInputChange('promo_description', e.target.value)}
+                rows={4}
+                className="input-glass w-full text-sm resize-none"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Button Link
-              </label>
-              <input
-                type="text"
-                value={promoContent.promo_button_link}
-                onChange={(e) => handleInputChange('promo_button_link', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
 
-          <div className="border-t pt-4">
-            <h3 className="text-md font-medium text-gray-900 mb-4">Video Section Settings</h3>
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Video Button Text
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                  Urgency Metric (Text)
                 </label>
+                <input
+                  type="text"
+                  value={promoContent.promo_discount_text}
+                  onChange={(e) => handleInputChange('promo_discount_text', e.target.value)}
+                  className="input-glass w-full text-sm text-center"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block text-emerald-500">
+                  Value Highlight
+                </label>
+                <input
+                  type="text"
+                  value={promoContent.promo_discount_percentage}
+                  onChange={(e) => handleInputChange('promo_discount_percentage', e.target.value)}
+                  className="input-glass w-full text-xl font-black text-emerald-400 text-center tracking-tighter"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/20 border border-white/5">
+              <div className="col-span-2 text-[10px] font-black text-orange-500 uppercase tracking-widest">
+                 Static Target Endpoint
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Label</label>
+                <input
+                  type="text"
+                  value={promoContent.promo_button_text}
+                  onChange={(e) => handleInputChange('promo_button_text', e.target.value)}
+                  className="input-glass w-full text-xs box-border"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">URL Vector</label>
+                <input
+                  type="text"
+                  value={promoContent.promo_button_link}
+                  onChange={(e) => handleInputChange('promo_button_link', e.target.value)}
+                  className="input-glass w-full text-xs text-blue-400 font-mono box-border"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/20 border border-white/5">
+              <div className="col-span-2 text-[10px] font-black text-rose-500 uppercase tracking-widest flex items-center justify-between">
+                 <span>Dynamic Target Endpoint</span>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Label</label>
                 <input
                   type="text"
                   value={promoContent.promo_video_button_text}
                   onChange={(e) => handleInputChange('promo_video_button_text', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="input-glass w-full text-xs box-border"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Video Button Link
-                </label>
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">URL Vector</label>
                 <input
                   type="text"
                   value={promoContent.promo_video_button_link}
                   onChange={(e) => handleInputChange('promo_video_button_link', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="input-glass w-full text-xs text-blue-400 font-mono box-border"
                 />
               </div>
             </div>
@@ -641,75 +642,87 @@ const AdminPromotionalSection = () => {
         </div>
       </div>
 
-      {/* Preview Section */}
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview</h3>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Image Section Preview */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative">
-                {promoContent.promo_image ? (
-                  <img
-                    src={promoContent.promo_image}
-                    alt="Promotional"
-                    className="w-full h-64 object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">No image uploaded</span>
-                  </div>
-                )}
+       {/* Diagnostics Overlay (Preview) */}
+       <div className="glass-card rounded-[2rem] p-6 border-cyan-500/20 bg-cyan-900/5 mt-8">
+         <h3 className="text-[10px] font-black text-cyan-500 tracking-widest uppercase mb-4 flex items-center">
+            <Eye className="w-3 h-3 mr-2" />
+            VIRTUAL DEPLOYMENT RENDER
+         </h3>
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 opacity-80 pointer-events-none filter grayscale-[30%]">
+           {/* Image Promo Preview */}
+           <div className="bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+              <div className="absolute top-0 right-0 p-4 z-20">
+                 <span className="text-[9px] font-black tracking-widest text-white/50 uppercase bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Component A</span>
               </div>
-              <div className="p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  {promoContent.promo_title}
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  {promoContent.promo_description}
-                </p>
-                <div className="mb-6">
-                  <p className="text-sm text-gray-600">{promoContent.promo_discount_text}</p>
-                  <p className="text-4xl font-bold text-gray-900">{promoContent.promo_discount_percentage}</p>
-                </div>
-                <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                  {promoContent.promo_button_text}
-                </button>
-              </div>
-            </div>
-          </div>
+             <div className="grid grid-cols-1 md:grid-cols-2">
+               <div className="relative">
+                 {promoContent.promo_image ? (
+                   <img
+                     src={promoContent.promo_image}
+                     alt="Promotional"
+                     className="w-full h-full min-h-[16rem] object-cover"
+                   />
+                 ) : (
+                   <div className="w-full h-64 bg-slate-800 flex items-center justify-center">
+                     <span className="text-xs font-black tracking-widest text-slate-600 uppercase">NO PAYLOAD DETECTED</span>
+                   </div>
+                 )}
+               </div>
+               <div className="p-8 flex flex-col justify-center">
+                 <h2 className="text-xl font-black italic tracking-tighter text-white uppercase mb-4 leading-snippet">
+                   {promoContent.promo_title || 'NO TITLE DEFINED'}
+                 </h2>
+                 <p className="text-xs text-slate-400 mb-6 line-clamp-3">
+                   {promoContent.promo_description || 'No description body detected in signal...'}
+                 </p>
+                 <div className="mb-6">
+                   <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">{promoContent.promo_discount_text}</p>
+                   <p className="text-4xl font-black tracking-tighter text-emerald-400">{promoContent.promo_discount_percentage}</p>
+                 </div>
+                 <div className="inline-flex">
+                   <button className="bg-white text-black px-6 py-2 rounded-xl text-[10px] font-black tracking-widest uppercase">
+                     {promoContent.promo_button_text || 'UNKNOWN TARGET'}
+                   </button>
+                 </div>
+               </div>
+             </div>
+           </div>
 
-          {/* Video Section Preview */}
-          <div className="relative rounded-lg overflow-hidden">
-            {promoContent.promo_video ? (
-              <video
-                src={promoContent.promo_video}
-                poster={promoContent.promo_video_poster}
-                className="w-full h-64 object-cover"
-                controls
-              />
-            ) : (
-              <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                <div className="text-center">
-                  <Video className="mx-auto h-12 w-12 text-gray-400 mb-2" />
-                  <span className="text-gray-500">No video uploaded</span>
-                </div>
+           {/* Video Promo Preview */}
+           <div className="bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
+              <div className="absolute top-0 right-0 p-4 z-20">
+                 <span className="text-[9px] font-black tracking-widest text-white/50 uppercase bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Component B</span>
               </div>
-            )}
-            <div className="absolute top-4 left-4">
-              <h3 className="text-lg font-bold text-white bg-black bg-opacity-50 px-2 py-1 rounded">EXQUISITE BOUTIQUE</h3>
-            </div>
-            <div className="absolute bottom-4 right-4">
-              <button className="bg-gray-900 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-                {promoContent.promo_video_button_text}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+             {promoContent.promo_video ? (
+               <video
+                 src={promoContent.promo_video}
+                 poster={promoContent.promo_video_poster}
+                 className="w-full h-full min-h-[16rem] object-cover"
+               />
+             ) : (
+               <div className="w-full h-full min-h-[16rem] bg-slate-800 flex items-center justify-center">
+                 <div className="text-center">
+                   <MonitorPlay className="mx-auto h-8 w-8 text-slate-600 mb-2" />
+                   <span className="text-xs font-black tracking-widest text-slate-600 uppercase">NO STREAM DETECTED</span>
+                 </div>
+               </div>
+             )}
+             <div className="absolute top-6 left-6 max-w-[60%]">
+               <h3 className="text-lg font-black italic text-white uppercase leading-none drop-shadow-md">
+                 {promoContent.promo_title}
+               </h3>
+             </div>
+             <div className="absolute bottom-6 right-6">
+               <button className="bg-white text-black px-6 py-2 rounded-xl text-[10px] font-black tracking-widest uppercase shadow-lg hover:bg-slate-200 transition-colors">
+                 {promoContent.promo_video_button_text || 'UNKNOWN TARGET'}
+               </button>
+             </div>
+           </div>
+         </div>
+       </div>
+
     </div>
   )
 }
 
 export default AdminPromotionalSection
-

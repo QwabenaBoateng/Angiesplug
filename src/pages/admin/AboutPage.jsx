@@ -4,7 +4,10 @@ import {
   X,
   Save,
   Eye,
-  Image as ImageIcon
+  Image as ImageIcon,
+  PenTool,
+  ScrollText,
+  UserCircle
 } from 'lucide-react'
 import { supabase, isSupabaseConfigured, getStorageBucket } from '../../lib/supabase'
 
@@ -40,7 +43,6 @@ Stay fresh,
       setIsLoading(true)
       
       if (!isSupabaseConfigured) {
-        // Use default content if Supabase not configured
         setIsLoading(false)
         return
       }
@@ -50,7 +52,7 @@ Stay fresh,
         .select('*')
         .single()
 
-      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+      if (error && error.code !== 'PGRST116') {
         console.error('Error fetching about content:', error)
       } else if (data) {
         setAboutContent(prev => ({ ...prev, ...data }))
@@ -83,7 +85,6 @@ Stay fresh,
       const filePath = `about/${fileName}`
       const bucket = getStorageBucket()
 
-      // Delete old image if it exists
       if (aboutContent[field]) {
         await deleteImageFromStorage(aboutContent[field])
       }
@@ -93,7 +94,6 @@ Stay fresh,
         .upload(filePath, file, { contentType: file.type, upsert: true })
 
       if (uploadError) {
-        console.error('Storage upload error:', uploadError)
         throw new Error(`Upload failed: ${uploadError.message}`)
       }
 
@@ -105,11 +105,6 @@ Stay fresh,
         throw new Error('Failed to get public URL for uploaded image')
       }
 
-      console.log(`Image uploaded for ${field}:`, publicUrl)
-      console.log(`Full storage URL:`, publicUrl)
-      console.log(`Bucket:`, bucket)
-      console.log(`File path:`, filePath)
-      
       setAboutContent(prev => ({
         ...prev,
         [field]: publicUrl
@@ -162,7 +157,6 @@ Stay fresh,
         return
       }
 
-      // First, check if a record exists
       const { data: existingData } = await supabase
         .from('about_page')
         .select('id')
@@ -170,13 +164,11 @@ Stay fresh,
 
       let result
       if (existingData && existingData.length > 0) {
-        // Update existing record
         result = await supabase
           .from('about_page')
           .update(aboutContent)
           .eq('id', existingData[0].id)
       } else {
-        // Insert new record
         result = await supabase
           .from('about_page')
           .insert(aboutContent)
@@ -184,7 +176,7 @@ Stay fresh,
 
       if (result.error) throw result.error
 
-      alert('About page content saved successfully!')
+      alert('Brand identity content pushed successfully!')
     } catch (error) {
       console.error('Error saving about content:', error)
       alert(`Error saving content: ${error.message}. Please try again.`)
@@ -202,53 +194,66 @@ Stay fresh,
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-        <p className="ml-2 text-gray-600">Loading about page content...</p>
+      <div className="flex flex-col items-center justify-center h-64">
+        <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
+        <p className="text-xs font-black tracking-widest uppercase text-fuchsia-500">Decrypting Narrative...</p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">About Page Management</h1>
-          <p className="text-gray-600">Manage content and images for the About page</p>
+          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+            BRAND <span className="text-fuchsia-500">NARRATIVE</span>
+          </h1>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Control company identity and story</p>
         </div>
-        <div className="flex space-x-4 mt-4 sm:mt-0">
+        <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
           <a
             href="/about"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary flex items-center"
+            className="btn-glass flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
-            <Eye className="w-4 h-4 mr-2" />
-            Preview Page
+            <Eye className="w-4 h-4 mr-2 text-fuchsia-400" />
+            INSPECT FRONTEND
           </a>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="btn-primary flex items-center"
+            className="btn-gradient shadow-fuchsia-500/20 from-fuchsia-600 to-fuchsia-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <Save className="w-4 h-4 mr-2" />
-            {isSaving ? 'Saving...' : 'Save Changes'}
+            {isSaving ? 'TRANSMITTING...' : 'PUSH NARRATIVE'}
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Hero Section */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Hero Section</h2>
+        <div className="glass-card rounded-[2rem] p-6 lg:p-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+            <ImageIcon className="text-fuchsia-500" size={120} />
+          </div>
+          <div className="flex items-center space-x-4 mb-8">
+             <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 flex items-center justify-center border border-fuchsia-500/20">
+               <PenTool className="w-5 h-5 text-fuchsia-500" />
+             </div>
+             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">PRIMARY OVERRIDE</h2>
+          </div>
           
-          <div className="space-y-4">
+          <div className="space-y-6 relative z-10">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hero Image
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+                Hero Visual Asset
               </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
+              <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
+                  ${aboutContent.hero_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
+                  ${uploadingImages.hero_image ? 'border-fuchsia-500/50 bg-fuchsia-500/5 cursor-wait' : 'hover:border-fuchsia-500/50 hover:bg-fuchsia-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+              >
                 <input
                   type="file"
                   accept="image/*"
@@ -259,75 +264,92 @@ Stay fresh,
                 />
                 <label
                   htmlFor="hero-image-upload"
-                  className={`cursor-pointer flex flex-col items-center justify-center ${
-                    uploadingImages.hero_image ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
                 >
                   {aboutContent.hero_image ? (
-                    <div className="relative">
+                    <div className="relative group w-full">
                       <img
                         src={aboutContent.hero_image}
-                        alt="Hero"
-                        className="w-full h-32 object-cover rounded-lg"
+                        alt="Hero Payload"
+                        className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Asset</span>
+                      </div>
                       <button
                         type="button"
-                        onClick={() => removeImage('hero_image')}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                        onClick={(e) => { e.preventDefault(); removeImage('hero_image'); }}
+                        className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg transform translate-y-2 group-hover:translate-y-0"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
+                  ) : uploadingImages.hero_image ? (
+                     <>
+                        <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
+                        <span className="text-[10px] font-black tracking-widest uppercase text-fuchsia-500 text-center">Transmitting...</span>
+                      </>
                   ) : (
                     <>
-                      <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-600">
-                        {uploadingImages.hero_image ? 'Uploading...' : 'Click to upload hero image'}
-                      </span>
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <ImageIcon className="w-6 h-6 text-fuchsia-500" />
+                      </div>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Inject Hero Graphic</span>
                     </>
                   )}
                 </label>
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hero Title
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                Primary Header
               </label>
               <input
                 type="text"
                 value={aboutContent.hero_title}
                 onChange={(e) => handleInputChange('hero_title', e.target.value)}
-                className="input-field"
-                placeholder="About Us"
+                className="input-glass w-full text-sm"
+                placeholder="Exquisite Boutique"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hero Subtitle
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                Secondary Descriptor
               </label>
               <input
                 type="text"
                 value={aboutContent.hero_subtitle}
                 onChange={(e) => handleInputChange('hero_subtitle', e.target.value)}
-                className="input-field"
-                placeholder="Your Plug for the Freshest Threads. No Cap."
+                className="input-glass w-full text-sm"
+                placeholder="The freshest threads..."
               />
             </div>
           </div>
         </div>
 
         {/* Curator Section */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Meet Our Curator</h2>
+        <div className="glass-card rounded-[2rem] p-6 lg:p-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+            <UserCircle size={120} className="text-orange-500" />
+          </div>
+          <div className="flex items-center space-x-4 mb-8">
+             <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+               <UserCircle className="w-5 h-5 text-orange-500" />
+             </div>
+             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">SUBJECT IDENTITY</h2>
+          </div>
           
-          <div className="space-y-4">
+          <div className="space-y-6 relative z-10">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Curator's Photo
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+                Subject Portrait
               </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
+              <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
+                  ${aboutContent.angie_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
+                  ${uploadingImages.angie_image ? 'border-orange-500/50 bg-orange-500/5 cursor-wait' : 'hover:border-orange-500/50 hover:bg-orange-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+              >
                 <input
                   type="file"
                   accept="image/*"
@@ -338,47 +360,53 @@ Stay fresh,
                 />
                 <label
                   htmlFor="angie-image-upload"
-                  className={`cursor-pointer flex flex-col items-center justify-center ${
-                    uploadingImages.angie_image ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
                 >
                   {aboutContent.angie_image ? (
-                    <div className="relative">
+                    <div className="relative group w-full">
                       <img
                         src={aboutContent.angie_image}
-                        alt="Angie"
-                        className="w-full h-32 object-cover rounded-lg"
+                        alt="Subject"
+                        className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Portrait</span>
+                      </div>
                       <button
                         type="button"
-                        onClick={() => removeImage('angie_image')}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                        onClick={(e) => { e.preventDefault(); removeImage('angie_image'); }}
+                        className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg transform translate-y-2 group-hover:translate-y-0"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
+                  ) : uploadingImages.angie_image ? (
+                     <>
+                        <div className="w-12 h-12 rounded-full border-4 border-orange-500/30 border-t-orange-500 animate-spin mb-4"></div>
+                        <span className="text-[10px] font-black tracking-widest uppercase text-orange-500 text-center">Transmitting...</span>
+                      </>
                   ) : (
                     <>
-                      <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-600">
-                        {uploadingImages.angie_image ? 'Uploading...' : 'Click to upload curator\'s photo'}
-                      </span>
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <UserCircle className="w-6 h-6 text-orange-500" />
+                      </div>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Load Subject Profile</span>
                     </>
                   )}
                 </label>
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Curator's Quote
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                Personal Transcript (Quote)
               </label>
               <textarea
                 rows={8}
                 value={aboutContent.angie_quote}
                 onChange={(e) => handleInputChange('angie_quote', e.target.value)}
-                className="input-field"
-                placeholder="Angie's quote..."
+                className="input-glass w-full text-sm resize-none"
+                placeholder="Log transcription here..."
               />
             </div>
           </div>
@@ -386,33 +414,41 @@ Stay fresh,
       </div>
 
       {/* Content Sections */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Content Sections</h2>
+      <div className="glass-card rounded-[2rem] p-6 lg:p-10 relative overflow-hidden mt-8">
+        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+          <ScrollText size={180} className="text-emerald-500" />
+        </div>
+        <div className="flex items-center space-x-4 mb-8">
+           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+             <ScrollText className="w-5 h-5 text-emerald-500" />
+           </div>
+           <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">ADDITIONAL MANIFESTOS</h2>
+        </div>
         
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              "What's the Plug?" Section
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+              Log Block 1: "What's the Plug?"
             </label>
             <textarea
-              rows={6}
+              rows={8}
               value={aboutContent.whats_the_plug}
               onChange={(e) => handleInputChange('whats_the_plug', e.target.value)}
-              className="input-field"
-              placeholder="What's the Plug content..."
+              className="input-glass w-full text-sm resize-none"
+              placeholder="Inject first body block..."
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              "Our Vibe" Section
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+              Log Block 2: "Our Vibe"
             </label>
             <textarea
-              rows={4}
+              rows={8}
               value={aboutContent.our_vibe}
               onChange={(e) => handleInputChange('our_vibe', e.target.value)}
-              className="input-field"
-              placeholder="Our Vibe content..."
+              className="input-glass w-full text-sm resize-none"
+              placeholder="Inject second body block..."
             />
           </div>
         </div>

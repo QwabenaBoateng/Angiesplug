@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, X, Upload, Image as ImageIcon } from 'lucide-react'
+import { createPortal } from 'react-dom'
+import { Plus, Edit, Trash2, X, Upload, Image as ImageIcon, LayoutGrid } from 'lucide-react'
 import { supabase, isSupabaseConfigured, getStorageBucket } from '../../lib/supabase'
 
 const AdminCategories = () => {
@@ -49,7 +50,6 @@ const AdminCategories = () => {
     
     try {
       if (editingCategory) {
-        // Update existing category
         const { error } = await supabase
           .from('categories')
           .update({
@@ -62,7 +62,6 @@ const AdminCategories = () => {
 
         if (error) throw error
       } else {
-        // Create new category
         const { error } = await supabase
           .from('categories')
           .insert({
@@ -148,7 +147,6 @@ const AdminCategories = () => {
       const filePath = `categories/${fileName}`
       const bucket = getStorageBucket()
 
-      // Delete old image if it exists
       if (categoryForm.image_url) {
         await deleteImageFromStorage(categoryForm.image_url)
       }
@@ -158,7 +156,6 @@ const AdminCategories = () => {
         .upload(filePath, file, { contentType: file.type, upsert: true })
 
       if (uploadError) {
-        console.error('Storage upload error:', uploadError)
         throw new Error(`Upload failed: ${uploadError.message}`)
       }
 
@@ -167,10 +164,9 @@ const AdminCategories = () => {
         .getPublicUrl(filePath)
 
       if (!publicUrl) {
-        throw new Error('Failed to get public URL for uploaded image')
+        throw new Error('Failed to get public URL')
       }
 
-      console.log(`Category image uploaded:`, publicUrl)
       setCategoryForm(prev => ({
         ...prev,
         image_url: publicUrl
@@ -199,7 +195,7 @@ const AdminCategories = () => {
           .remove([filePath])
       }
     } catch (error) {
-      console.error('Error deleting image from storage:', error)
+      console.error('Error deleting image:', error)
     }
   }
 
@@ -215,102 +211,103 @@ const AdminCategories = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Categories</h1>
-          <p className="text-gray-600">Manage product categories</p>
+          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+            TAXONOMY <span className="text-indigo-500">REGISTRY</span>
+          </h1>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Establish logical asset groups</p>
         </div>
         <button
           onClick={openModal}
-          className="mt-4 sm:mt-0 btn-primary flex items-center"
+          className="mt-4 sm:mt-0 btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 flex items-center text-[10px] tracking-widest"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Category
+          ESTABLISH GROUP
         </button>
       </div>
 
       {/* Categories List */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="glass-card rounded-[2rem] overflow-hidden">
         {isLoading ? (
-          <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Loading categories...</p>
+          <div className="p-12 text-center flex flex-col items-center justify-center">
+            <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
+            <p className="text-xs font-black tracking-widest uppercase text-indigo-500">Reading Catalog...</p>
           </div>
         ) : categories.length === 0 ? (
-          <div className="p-8 text-center">
-            <p className="text-gray-500">No categories found. Create your first category!</p>
+          <div className="p-16 text-center flex flex-col items-center justify-center">
+             <LayoutGrid className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
+            <p className="text-sm font-black text-slate-500 tracking-widest uppercase">No groups established</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Image
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/5 bg-black/20">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Marker
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Identity
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Slug
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Directive Slug
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Description
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Definition
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Created
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Timestamp
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="divide-y divide-white/5">
                 {categories.map((category) => (
-                  <tr key={category.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex-shrink-0 h-12 w-12">
+                  <tr key={category.id} className="hover:bg-white-[0.02] transition-colors group">
+                    <td className="px-6 py-4">
+                      <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 rounded-xl overflow-hidden border border-white/10 bg-black/50">
                         <img
-                          className="h-12 w-12 rounded-lg object-cover"
-                          src={category.image_url || '/api/placeholder/100/100'}
+                          className="h-full w-full object-cover group-hover:scale-110 transition-transform"
+                          src={category.image_url || '/placeholder-image.jpg'}
                           alt={category.name}
-                          onError={(e) => {
-                            e.target.src = '/api/placeholder/100/100'
-                          }}
+                          onError={(e) => { e.target.src = '/placeholder-image.jpg' }}
                         />
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4">
+                      <div className="text-sm font-bold text-white tracking-wide">
                         {category.name}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
-                        {category.slug}
+                    <td className="px-6 py-4">
+                      <div className="inline-flex px-2 py-1 bg-white/5 border border-white/10 rounded font-mono text-[10px] text-slate-400">
+                        /{category.slug}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 max-w-xs truncate">
-                        {category.description || 'No description'}
+                      <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest max-w-xs truncate">
+                        {category.description || 'UNASSIGNED'}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 text-[10px] font-bold text-slate-500 tracking-widest">
                       {new Date(category.created_at).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end space-x-2">
                         <button
                           onClick={() => handleEdit(category)}
-                          className="text-primary-600 hover:text-primary-900"
+                          className="p-2 rounded-xl bg-white/5 hover:bg-indigo-500/10 text-slate-400 hover:text-indigo-500 border border-transparent hover:border-indigo-500/20 transition-all"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(category.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -325,72 +322,83 @@ const AdminCategories = () => {
       </div>
 
       {/* Category Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 lg:w-1/3 shadow-lg rounded-md bg-white">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {editingCategory ? 'Edit Category' : 'Add New Category'}
-              </h3>
+      {showModal && createPortal(
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+            <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+              <LayoutGrid size={120} className="text-indigo-500" />
+            </div>
+
+            <div className="flex items-center justify-between mb-10 relative z-10">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 flex-shrink-0">
+                  <LayoutGrid className="w-6 h-6 text-indigo-500" />
+                </div>
+                <div>
+                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
+                     {editingCategory ? 'EDIT ' : 'ESTABLISH '} <span className="text-indigo-500">GROUP</span>
+                   </h3>
+                </div>
+              </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category Name *
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Taxonomy Identity
                 </label>
                 <input
                   type="text"
                   required
                   value={categoryForm.name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="input-field"
-                  placeholder="Enter category name"
+                  className="input-glass w-full text-sm"
+                  placeholder="Designate Nomenclature"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Slug *
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 flex items-center">
+                  Pathing Slug <span className="ml-2 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px]">AUTO-ENCODED</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={categoryForm.slug}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, slug: e.target.value }))}
-                  className="input-field"
-                  placeholder="category-slug"
+                  className="input-glass w-full text-sm text-slate-400"
+                  placeholder="group-slug"
                 />
-                <p className="text-xs text-gray-500 mt-1">
-                  URL-friendly version of the name (auto-generated)
-                </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Descriptor
                 </label>
                 <textarea
                   rows={3}
                   value={categoryForm.description}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, description: e.target.value }))}
-                  className="input-field"
-                  placeholder="Enter category description (optional)"
+                  className="input-glass w-full text-sm resize-none"
+                  placeholder="Outline purpose and boundaries..."
                 />
               </div>
 
               {/* Category Image Upload */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category Image
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  Identity Marker
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
+                    ${categoryForm.image_url ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
+                    ${uploadingImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                >
                   <input
                     type="file"
                     accept="image/*"
@@ -401,59 +409,65 @@ const AdminCategories = () => {
                   />
                   <label
                     htmlFor="category-image-upload"
-                    className={`cursor-pointer flex flex-col items-center justify-center ${
-                      uploadingImage ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className="w-full h-full flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
                   >
                     {categoryForm.image_url ? (
-                      <div className="relative">
+                      <div className="relative group w-full">
                         <img
                           src={categoryForm.image_url}
-                          alt="Category"
-                          className="w-full h-32 object-cover rounded-lg"
+                          alt="Category Marker"
+                          className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Asset</span>
+                        </div>
                         <button
                           type="button"
-                          onClick={removeImage}
-                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                          onClick={(e) => { e.preventDefault(); removeImage(); }}
+                          className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg transform translate-y-2 group-hover:translate-y-0"
                         >
-                          <X className="w-3 h-3" />
+                          <X className="w-4 h-4" />
                         </button>
                       </div>
+                    ) : uploadingImage ? (
+                      <>
+                        <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
+                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Transmitting...</span>
+                      </>
                     ) : (
                       <>
-                        <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-                        <span className="text-sm text-gray-600">
-                          {uploadingImage ? 'Uploading...' : 'Click to upload category image'}
-                        </span>
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                          <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Load Asset</span>
                       </>
                     )}
                   </label>
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="btn-secondary"
+                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Cancel
+                  Abort
                 </button>
                 <button
                   type="submit"
-                  className="btn-primary"
+                  className="btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 text-[10px] sm:text-xs tracking-widest"
                 >
-                  {editingCategory ? 'Update Category' : 'Create Category'}
+                  {editingCategory ? 'APPLY CONFIGURATION' : 'INITIALIZE GROUP'}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
 }
 
 export default AdminCategories
-

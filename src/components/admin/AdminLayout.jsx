@@ -13,7 +13,8 @@ import {
   Home,
   FileText,
   Megaphone,
-  Building2
+  Building2,
+  ShieldCheck
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useStore } from '../../store/useStore'
@@ -31,7 +32,6 @@ const AdminLayout = ({ children }) => {
       navigate('/')
     } catch (error) {
       console.error('Error signing out:', error)
-      // Still navigate to home even if logout fails
       setUser(null)
       navigate('/')
     }
@@ -43,53 +43,57 @@ const AdminLayout = ({ children }) => {
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Categories', href: '/admin/categories', icon: Tag },
     { name: 'About Page', href: '/admin/about', icon: FileText },
-    { name: 'Promotional Section', href: '/admin/promotional', icon: Megaphone },
-    { name: 'User Management', href: '/admin/users', icon: Users },
+    { name: 'Promo Section', href: '/admin/promotional', icon: Megaphone },
+    { name: 'Users', href: '/admin/users', icon: Users },
     { name: 'Brands', href: '/admin/brands', icon: Building2 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ]
 
   const isActive = (href) => {
     if (href === '/admin') {
-      return location.pathname === '/admin'
+      return location.pathname === '/admin' // exact match for dashboard
     }
     return location.pathname.startsWith(href)
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-950 text-slate-300 selection:bg-blue-500/30 font-sans">
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
-        <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
+        <div className="relative flex-1 flex flex-col max-w-xs w-full bg-slate-900 border-r border-white/5 h-full">
           <div className="absolute top-0 right-0 -mr-12 pt-2">
             <button
               type="button"
-              className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="ml-1 flex items-center justify-center h-10 w-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               onClick={() => setSidebarOpen(false)}
             >
               <X className="h-6 w-6 text-white" />
             </button>
           </div>
-          <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-            <div className="flex-shrink-0 flex items-center px-4">
-              <h1 className="text-xl font-bold text-primary-600">Admin Panel</h1>
+          <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto no-scrollbar">
+            <div className="flex-shrink-0 flex items-center px-6">
+               <ShieldCheck className="w-6 h-6 text-blue-500 mr-3" />
+               <h1 className="text-lg font-black italic tracking-tighter text-white uppercase">
+                 EXQUISITE <span className="text-blue-500">ADMIN</span>
+               </h1>
             </div>
-            <nav className="mt-5 px-2 space-y-1">
+            <nav className="mt-8 px-4 space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon
+                const active = isActive(item.href)
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-                      isActive(item.href)
-                        ? 'bg-primary-100 text-primary-900'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    className={`group flex items-center px-4 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${
+                      active
+                        ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
+                        : 'text-slate-500 hover:bg-white/5 hover:text-white border border-transparent'
                     }`}
                     onClick={() => setSidebarOpen(false)}
                   >
-                    <Icon className="mr-4 h-6 w-6" />
+                    <Icon className={`mr-4 h-5 w-5 ${active ? 'text-blue-500' : 'text-slate-600 group-hover:text-slate-400'}`} />
                     {item.name}
                   </Link>
                 )
@@ -100,46 +104,49 @@ const AdminLayout = ({ children }) => {
       </div>
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:flex lg:flex-shrink-0">
-        <div className="flex flex-col w-64">
-          <div className="flex flex-col h-0 flex-1 bg-white border-r border-gray-200">
-            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-              <div className="flex items-center flex-shrink-0 px-4">
-                <h1 className="text-xl font-bold text-primary-600">Admin Panel</h1>
+      <div className="hidden lg:flex lg:flex-shrink-0 fixed inset-y-0 z-20">
+        <div className="flex flex-col w-72">
+          <div className="flex flex-col h-full bg-slate-950/50 backdrop-blur-xl border-r border-white/5">
+            <div className="flex-1 flex flex-col pt-8 pb-4 overflow-y-auto no-scrollbar">
+              <div className="flex items-center flex-shrink-0 px-8 mb-8">
+                <ShieldCheck className="w-8 h-8 text-blue-500 mr-3" />
+                <div>
+                  <h1 className="text-xl font-black italic tracking-tighter text-white uppercase leading-none">
+                    EXQUISITE
+                  </h1>
+                  <span className="text-[10px] text-blue-500 font-black tracking-[0.3em] uppercase block mt-1">Command Center</span>
+                </div>
               </div>
-              <nav className="mt-5 flex-1 px-2 space-y-1">
+              <nav className="flex-1 px-4 space-y-2">
                 {navigation.map((item) => {
                   const Icon = item.icon
+                  const active = isActive(item.href)
                   return (
                     <Link
                       key={item.name}
                       to={item.href}
-                      className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
-                        isActive(item.href)
-                          ? 'bg-primary-100 text-primary-900'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      className={`group flex items-center px-4 py-3.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all ${
+                        active
+                          ? 'bg-blue-500/10 text-blue-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.1)] border border-blue-500/20'
+                          : 'text-slate-500 hover:bg-white/5 hover:text-white border border-transparent'
                       }`}
                     >
-                      <Icon className="mr-3 h-5 w-5" />
+                      <Icon className={`mr-4 h-5 w-5 transition-colors ${active ? 'text-blue-500' : 'text-slate-600 group-hover:text-slate-400'}`} />
                       {item.name}
                     </Link>
                   )
                 })}
               </nav>
             </div>
-            <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+            <div className="flex-shrink-0 flex border-t border-white/5 p-4">
               <button
                 onClick={handleLogout}
-                className="flex-shrink-0 w-full group block"
+                className="flex items-center w-full group px-4 py-3 rounded-xl hover:bg-white/5 transition-colors"
               >
-                <div className="flex items-center">
-                  <LogOut className="inline-block h-5 w-5 text-gray-400 group-hover:text-gray-500" />
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                      Sign out
-                    </p>
-                  </div>
-                </div>
+                <LogOut className="h-5 w-5 text-red-500/70 group-hover:text-red-500 transition-colors" />
+                <span className="ml-4 text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-white transition-colors">
+                  Terminate Session
+                </span>
               </button>
             </div>
           </div>
@@ -147,47 +154,43 @@ const AdminLayout = ({ children }) => {
       </div>
 
       {/* Main content */}
-      <div className="lg:pl-64 flex flex-col flex-1">
+      <div className="lg:pl-72 flex flex-col flex-1 min-h-screen">
         {/* Top bar */}
-        <div className="sticky top-0 z-10 lg:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-50">
-          <button
-            type="button"
-            className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Page header */}
-        <div className="bg-white shadow">
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-6">
-              <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-gray-900">
-                  {navigation.find(item => isActive(item.href))?.name || 'Admin'}
-                </h1>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Link
-                  to="/"
-                  className="flex items-center text-gray-600 hover:text-gray-900"
-                >
-                  <Home className="w-5 h-5 mr-2" />
-                  View Site
-                </Link>
-              </div>
+        <div className="sticky top-0 z-10 bg-slate-950/70 backdrop-blur-xl border-b border-white/5 transition-all">
+          <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center">
+              <button
+                type="button"
+                className="lg:hidden -ml-2 mr-4 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+              <h2 className="text-lg font-black text-white italic tracking-tighter uppercase hidden sm:block">
+                {navigation.find(item => isActive(item.href))?.name || 'Dashboard'}
+              </h2>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Link
+                to="/"
+                className="flex items-center px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
+              >
+                <Home className="w-4 h-4 mr-2 text-blue-500" />
+                View Frontend
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Page content */}
-        <main className="flex-1">
-          <div className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
-          </div>
+        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative">
+           {/* Decorative Background Elements */}
+           <div className="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+           <div className="fixed bottom-0 right-1/4 w-[30rem] h-[30rem] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+           
+           <div className="relative z-10 w-full">
+             {children}
+           </div>
         </main>
       </div>
     </div>
@@ -195,7 +198,3 @@ const AdminLayout = ({ children }) => {
 }
 
 export default AdminLayout
-
-
-
-
