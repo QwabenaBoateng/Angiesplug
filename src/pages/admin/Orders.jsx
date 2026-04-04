@@ -100,10 +100,10 @@ const AdminOrders = () => {
       </div>
 
       {/* Filters */}
-      <div className="glass-card rounded-3xl p-6 sm:p-8">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
               Status Array
             </label>
             <div className="relative group">
@@ -111,13 +111,13 @@ const AdminOrders = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="input-glass w-full pl-12 text-sm appearance-none bg-slate-900"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
               >
-                <option value="">All Directives</option>
-                <option value="pending">Pending Review</option>
-                <option value="processing">Processing</option>
-                <option value="shipped">In Transit (Shipped)</option>
-                <option value="completed">Completed Route</option>
+                <option value="" className="bg-slate-950">All Directives</option>
+                <option value="pending" className="bg-slate-950">Pending Review</option>
+                <option value="processing" className="bg-slate-950">Processing</option>
+                <option value="shipped" className="bg-slate-950">In Transit (Shipped)</option>
+                <option value="completed" className="bg-slate-950">Completed Route</option>
               </select>
             </div>
           </div>
@@ -125,7 +125,7 @@ const AdminOrders = () => {
       </div>
 
       {/* Orders List */}
-      <div className="glass-card rounded-[2rem] overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
@@ -135,26 +135,26 @@ const AdminOrders = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 bg-black/20">
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <tr className="border-b border-white/10 bg-slate-950/30">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Directive ID
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Identity
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Volume
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Value
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Condition
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Timestamp
                   </th>
-                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Inspect
                   </th>
                 </tr>
@@ -218,7 +218,7 @@ const AdminOrders = () => {
       {/* Order Detail Modal */}
       {selectedOrder && createPortal(
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-4xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+          <div className="relative w-full max-w-full sm:max-w-4xl bg-slate-900 border border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Package size={120} className="text-blue-500" />
             </div>
@@ -248,28 +248,28 @@ const AdminOrders = () => {
             <div className="space-y-8 relative z-10">
               {/* Order Status */}
               <div>
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
                   Transaction State Force
                 </label>
                 <div className="relative">
                   <select
                     value={selectedOrder.status}
                     onChange={(e) => updateOrderStatus(selectedOrder.id, e.target.value)}
-                    className="input-glass w-full text-sm appearance-none bg-slate-900 border-blue-500/30 focus:border-blue-500 transition-colors"
+                    className="w-full bg-slate-950 border border-blue-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
                   >
-                    <option value="pending">PENDING (Awaiting Review)</option>
-                    <option value="processing">PROCESSING (Packaging)</option>
-                    <option value="shipped">SHIPPED (In Transit)</option>
-                    <option value="completed">COMPLETED (Delivered)</option>
+                    <option value="pending" className="bg-slate-950">PENDING (Awaiting Review)</option>
+                    <option value="processing" className="bg-slate-950">PROCESSING (Packaging)</option>
+                    <option value="shipped" className="bg-slate-950">SHIPPED (In Transit)</option>
+                    <option value="completed" className="bg-slate-950">COMPLETED (Delivered)</option>
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Customer Info */}
-                <div>
-                  <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 pl-2">Client Intelligence</h4>
-                  <div className="glass-card bg-black/20 p-6 rounded-3xl border border-white/5 space-y-3">
+                 <div>
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 pl-2">Client Intelligence</h4>
+                  <div className="bg-slate-950/40 p-6 rounded-3xl border border-white/5 space-y-3 shadow-inner">
                     <div>
                       <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Network Address</p>
                       <p className="text-sm font-bold text-slate-200 mt-1">{selectedOrder.email}</p>
@@ -286,9 +286,9 @@ const AdminOrders = () => {
                 </div>
 
                 {/* Shipping Address */}
-                <div>
-                  <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 pl-2">Routing Destination</h4>
-                  <div className="glass-card bg-black/20 p-6 rounded-3xl border border-white/5 space-y-3">
+                 <div>
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 pl-2">Routing Destination</h4>
+                  <div className="bg-slate-950/40 p-6 rounded-3xl border border-white/5 space-y-3 shadow-inner">
                     <div>
                       <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Drop Point</p>
                       <p className="text-sm font-bold text-slate-200 mt-1">{selectedOrder.shipping_address?.address}</p>
@@ -309,9 +309,9 @@ const AdminOrders = () => {
               <div>
                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 pl-2">Manifest Contents</h4>
                 <div className="space-y-4">
-                  {selectedOrder.order_items?.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-6 p-4 glass-card bg-black/20 rounded-3xl border border-white/5 group">
-                      <div className="h-16 w-16 flex-shrink-0 rounded-2xl overflow-hidden bg-black/50 border border-white/10">
+                   {selectedOrder.order_items?.map((item, index) => (
+                    <div key={index} className="flex items-center space-x-6 p-4 bg-slate-950/40 rounded-3xl border border-white/5 group shadow-inner">
+                      <div className="h-16 w-16 flex-shrink-0 rounded-2xl overflow-hidden bg-black border border-white/10">
                          <img
                           src={item.products?.image_urls?.[0] || '/placeholder-image.jpg'}
                           alt={item.products?.name}

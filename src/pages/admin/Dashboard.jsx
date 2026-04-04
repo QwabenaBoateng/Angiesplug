@@ -73,8 +73,8 @@ const Dashboard = () => {
   }
 
   const StatCard = ({ title, value, icon: Icon, colorClass, borderClass, change }) => (
-    <div className={`glass-card rounded-3xl p-6 relative overflow-hidden group`}>
-      <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity ${colorClass}`}></div>
+    <div className={`bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 rounded-3xl p-6 relative overflow-hidden group shadow-[0_0_30px_-10px_rgba(0,0,0,0.4)]`}>
+      <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity ${colorClass}`}></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-4">
           <div className={`w-12 h-12 rounded-2xl bg-slate-900/50 flex items-center justify-center border ${borderClass}`}>
@@ -87,7 +87,7 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">{title}</p>
+        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{title}</p>
         <p className="text-3xl font-black text-white tracking-tighter">{value}</p>
       </div>
     </div>
@@ -98,7 +98,7 @@ const Dashboard = () => {
       <div className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="glass-card rounded-3xl p-6 h-36 flex items-center justify-center">
+            <div key={i} className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 h-36 flex items-center justify-center">
                <div className="w-8 h-8 rounded-full border-t-2 border-blue-500 animate-spin"></div>
             </div>
           ))}
@@ -173,16 +173,16 @@ const Dashboard = () => {
             </Link>
           </div>
           
-          <div className="glass-card rounded-[2rem] overflow-hidden">
+          <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/5">
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Order ID</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Client</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Value</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Status</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">Timestamp</th>
+                  <tr className="border-b border-white/10 bg-slate-950/30">
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Order ID</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Client</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Value</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Timestamp</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -238,27 +238,27 @@ const Dashboard = () => {
           </h2>
           
           <div className="space-y-4">
-            <Link to="/admin/products" className="glass-card rounded-2xl p-5 flex items-center group block">
+            <Link to="/admin/products" className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-blue-500/30 transition-all rounded-2xl p-5 flex items-center group block">
               <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                 <Package className="w-6 h-6 text-blue-500" />
               </div>
               <div>
                 <h3 className="text-sm font-black text-white tracking-widest uppercase">Inventory Config</h3>
-                <p className="text-[10px] font-bold text-slate-500 mt-1">Deploy or modify products</p>
+                <p className="text-[10px] font-bold text-slate-400 mt-1">Deploy or modify products</p>
               </div>
             </Link>
             
-            <Link to="/admin/categories" className="glass-card rounded-2xl p-5 flex items-center group block">
+            <Link to="/admin/categories" className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-indigo-500/30 transition-all rounded-2xl p-5 flex items-center group block">
               <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                 <Plus className="w-6 h-6 text-indigo-400" />
               </div>
               <div>
                 <h3 className="text-sm font-black text-white tracking-widest uppercase">Taxonomy</h3>
-                <p className="text-[10px] font-bold text-slate-500 mt-1">Manage categories & logic</p>
+                <p className="text-[10px] font-bold text-slate-400 mt-1">Manage categories & logic</p>
               </div>
             </Link>
 
-            <div className="glass-card rounded-2xl p-6 border-indigo-500/20 bg-indigo-500/5 relative overflow-hidden mt-8">
+            <div className="bg-indigo-500/5 backdrop-blur-3xl border border-indigo-500/20 rounded-2xl p-6 relative overflow-hidden mt-8">
               <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-[30px]"></div>
               <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-2 relative z-10">System Status</h3>
               <p className="text-sm font-bold text-slate-300 relative z-10 leading-relaxed">

@@ -84,7 +84,7 @@ const AdminLogin = () => {
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/5 blur-[100px] rounded-full"></div>
       </div>
 
-      <div className="relative w-full max-w-xl glass-card rounded-[3rem] overflow-hidden border-white/5 shadow-2xl">
+      <div className="relative w-full max-w-xl bg-slate-900/60 backdrop-blur-3xl rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-blue-600 to-indigo-600"></div>
         
         <div className="p-8 sm:p-12">
@@ -101,37 +101,37 @@ const AdminLogin = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Admin Identifier</label>
+              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Admin Identifier</label>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 transition-colors" size={18} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                 <input
                   type="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="input-glass pl-12 border-white/5 bg-white/2 hover:bg-white/5"
+                  className="w-full bg-slate-950/50 border border-white/10 rounded-2xl px-4 py-3.5 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-sans"
                   placeholder="admin@exquisite.com"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Security Key</label>
+              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Security Key</label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-red-500 transition-colors" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-red-500 transition-colors" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="input-glass pl-12 pr-12 border-white/5 bg-white/2 hover:bg-white/5"
+                  className="w-full bg-slate-950/50 border border-white/10 rounded-2xl px-4 py-3.5 pl-12 pr-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-sans"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

@@ -197,10 +197,10 @@ const UserManagement = () => {
       </div>
 
       {/* Filters */}
-      <div className="glass-card rounded-3xl p-6 sm:p-8">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
               Identity Search
             </label>
             <div className="relative group">
@@ -210,24 +210,24 @@ const UserManagement = () => {
                 placeholder="Query by nomenclature or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input-glass pl-12 w-full text-sm"
+                className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
               />
             </div>
           </div>
           
           <div>
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
               Clearance Level
             </label>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="input-glass w-full text-sm appearance-none bg-slate-900"
+              className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm appearance-none"
             >
-              <option value="">Global Array</option>
-              <option value="user">Standard Agent (User)</option>
-              <option value="admin">Administrator</option>
-              <option value="super_admin">Prime Directive (Super Admin)</option>
+              <option value="" className="bg-slate-950">Global Array</option>
+              <option value="user" className="bg-slate-950">Standard Agent (User)</option>
+              <option value="admin" className="bg-slate-950">Administrator</option>
+              <option value="super_admin" className="bg-slate-950">Prime Directive (Super Admin)</option>
             </select>
           </div>
           
@@ -247,21 +247,21 @@ const UserManagement = () => {
       </div>
 
       {/* Users Table */}
-      <div className="glass-card rounded-[2rem] overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/5 bg-black/20">
-                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+              <tr className="border-b border-white/10 bg-slate-950/30">
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Personnel Identity
                 </th>
-                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Clearance Level
                 </th>
-                <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Initialization Date
                 </th>
-                <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Directives
                 </th>
               </tr>
@@ -329,7 +329,7 @@ const UserManagement = () => {
       {/* User Modal */}
       {showModal && createPortal(
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+          <div className="relative w-full max-w-full sm:max-w-xl bg-slate-900 border border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
               <Users size={120} className="text-amber-500" />
             </div>
@@ -356,7 +356,7 @@ const UserManagement = () => {
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {!editingUser && (
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
                     Network Address (Email) <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -364,14 +364,14 @@ const UserManagement = () => {
                     required
                     value={userForm.email}
                     onChange={(e) => setUserForm(prev => ({ ...prev, email: e.target.value }))}
-                    className="input-glass w-full text-sm"
+                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
                     placeholder="agent@exquisite.boutique"
                   />
                 </div>
               )}
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+               <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
                   Nomenclature (Full Name) <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -379,24 +379,24 @@ const UserManagement = () => {
                   required
                   value={userForm.full_name}
                   onChange={(e) => setUserForm(prev => ({ ...prev, full_name: e.target.value }))}
-                  className="input-glass w-full text-sm"
+                  className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
                   placeholder="Subject Full Name"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
                   Authorization Clearance <span className="text-rose-500">*</span>
                 </label>
                 <select
                   required
                   value={userForm.role}
                   onChange={(e) => setUserForm(prev => ({ ...prev, role: e.target.value }))}
-                  className="input-glass w-full text-sm appearance-none bg-slate-900 border-amber-500/30 focus:border-amber-500 transition-colors text-amber-500"
+                  className="w-full bg-slate-950 border border-amber-500/30 rounded-xl px-4 py-3 text-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm appearance-none"
                 >
-                  <option value="user">Standard Agent (User)</option>
-                  <option value="admin">Administrator</option>
-                  {isSuperAdmin() && <option value="super_admin">Prime Directive (Super Admin)</option>}
+                  <option value="user" className="bg-slate-950">Standard Agent (User)</option>
+                  <option value="admin" className="bg-slate-950">Administrator</option>
+                  {isSuperAdmin() && <option value="super_admin" className="bg-slate-950">Prime Directive (Super Admin)</option>}
                 </select>
               </div>
 

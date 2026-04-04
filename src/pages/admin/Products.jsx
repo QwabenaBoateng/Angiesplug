@@ -636,27 +636,27 @@ const AdminProducts = () => {
     <div className="space-y-8">
       {/* Analytics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-blue-500"></div>
+        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-blue-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Products by Category</h3>
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Products by Category</h3>
             <span className="text-[10px] font-black text-blue-500 tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
           </div>
           <div className="relative z-10">
             <PieChart counts={countsByCat} />
           </div>
         </div>
-        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-indigo-500"></div>
-          <h3 className="relative z-10 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Category Distribution</h3>
+        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-indigo-500"></div>
+          <h3 className="relative z-10 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Category Distribution</h3>
           <div className="relative z-10">
             <BarChart counts={countsByCat} />
           </div>
         </div>
-        <div className="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity bg-emerald-500"></div>
+        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-emerald-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">New Deployment (7 Days)</h3>
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">New Deployment (7 Days)</h3>
             <span className="text-[10px] font-black text-emerald-400 tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
           </div>
           <div className="relative z-10">
@@ -697,10 +697,10 @@ const AdminProducts = () => {
       </div>
 
       {/* Filters */}
-      <div className="glass-card rounded-3xl p-6 sm:p-8">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
               Search Parameters
             </label>
             <div className="relative group">
@@ -710,23 +710,23 @@ const AdminProducts = () => {
                 placeholder="Query by nomenclature..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input-glass pl-12 w-full text-sm"
+                className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
               />
             </div>
           </div>
           
           <div>
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
               Taxonomy Filter
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="input-glass w-full text-sm appearance-none bg-slate-900"
+              className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
             >
-              <option value="">Global Array</option>
+              <option value="" className="bg-slate-950">Global Array</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option key={category.id} value={category.id} className="bg-slate-950">
                   {category.name}
                 </option>
               ))}
@@ -749,7 +749,7 @@ const AdminProducts = () => {
       </div>
 
       {/* Products Table */}
-      <div className="glass-card rounded-[2rem] overflow-hidden">
+      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
@@ -759,23 +759,23 @@ const AdminProducts = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 bg-black/20">
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                <tr className="border-b border-white/10 bg-slate-950/30">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Asset
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Taxonomy
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Value
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Status
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Timestamp
                   </th>
-                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Directives
                   </th>
                 </tr>
@@ -860,7 +860,7 @@ const AdminProducts = () => {
       {/* Product Modal */}
       {showModal && createPortal(
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-4xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+          <div className="relative w-full max-w-full sm:max-w-4xl bg-slate-900 border border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Package size={120} className="text-blue-500" />
             </div>
@@ -930,18 +930,18 @@ const AdminProducts = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
                     Taxonomy Binding
                   </label>
                   <select
                     required
                     value={productForm.category_id}
                     onChange={(e) => setProductForm(prev => ({ ...prev, category_id: e.target.value }))}
-                    className="input-glass w-full text-sm appearance-none bg-slate-900"
+                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
                   >
-                    <option value="">Select logical group</option>
+                    <option value="" className="bg-slate-950">Select logical group</option>
                     {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
+                      <option key={category.id} value={category.id} className="bg-slate-950">
                         {category.name}
                       </option>
                     ))}
