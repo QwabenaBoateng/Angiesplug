@@ -102,7 +102,7 @@ const UserManagement = () => {
   }
 
   const handleDelete = async (userId) => {
-    if (!confirm('WARNING: Deleting personnel access is irreversible. Proceed?')) return
+    if (!confirm('WARNING: Deleting this user will permanently remove their account. Proceed?')) return
 
     try {
       const { error } = await supabase.auth.admin.deleteUser(userId)
@@ -132,10 +132,16 @@ const UserManagement = () => {
       user: 'bg-slate-500/10 text-slate-400 border-slate-500/20'
     }
 
+    const roleLabels = {
+      super_admin: 'Owner',
+      admin: 'Admin',
+      user: 'User'
+    }
+
     return (
       <span className={`inline-flex items-center px-3 py-1 text-[10px] uppercase tracking-widest font-black rounded border ${styles[role]}`}>
         {getRoleIcon(role)}
-        <span className="ml-2">{role.replace('_', ' ')}</span>
+        <span className="ml-2">{roleLabels[role] || role.replace('_', ' ')}</span>
       </span>
     )
   }
@@ -151,7 +157,7 @@ const UserManagement = () => {
     return (
       <div className="flex flex-col items-center justify-center p-24">
         <div className="w-12 h-12 rounded-full border-4 border-amber-500/30 border-t-amber-500 animate-spin mb-4"></div>
-        <p className="text-xs font-black tracking-widest uppercase text-amber-500">Decrypting Access Logs...</p>
+        <p className="text-xs font-black tracking-widest uppercase text-amber-500">Loading Users...</p>
       </div>
     )
   }
@@ -160,12 +166,12 @@ const UserManagement = () => {
     return (
       <div className="flex flex-col items-center justify-center p-24 text-center">
         <Shield className="w-24 h-24 text-rose-500 mx-auto mb-6 opacity-80" />
-        <h2 className="text-2xl font-black italic tracking-tighter text-rose-500 uppercase">ACCESS DENIED</h2>
+        <h2 className="text-2xl font-black italic tracking-tighter text-rose-500 uppercase">ACCESS RESTRICTED</h2>
         <p className="text-xs font-black text-rose-400/70 tracking-widest uppercase mt-2 max-w-md">
-          Insufficient clearance. You require Administrative authorization to view personnel logs.
+          You don't have permission to view the user management page. Please contact a store owner if you believe this is an error.
         </p>
         <div className="mt-8 px-6 py-3 bg-red-500/5 my-2 border border-rose-500/10 rounded-xl inline-block">
-           <p className="text-[10px] font-black tracking-widest text-white uppercase">Detected Clearance Level: <span className="text-rose-500">{userProfile?.role || 'UNKNOWN'}</span></p>
+           <p className="text-[10px] font-black tracking-widest text-white uppercase">User Role: <span className="text-rose-500">{userProfile?.role || 'UNKNOWN'}</span></p>
         </div>
       </div>
     )
@@ -177,9 +183,9 @@ const UserManagement = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            PERSONNEL <span className="text-amber-500">ACCESS LOGS</span>
+            USER <span className="text-amber-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Administer roles, clearance, and accounts</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store's users and their roles</p>
         </div>
         {(isSuperAdmin() || hasPermission('create_users')) && (
           <button
@@ -191,7 +197,7 @@ const UserManagement = () => {
             className="mt-4 sm:mt-0 btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <UserPlus className="w-4 h-4 mr-2" />
-            Provision Access
+            Add User
           </button>
         )}
       </div>
@@ -201,13 +207,13 @@ const UserManagement = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
-              Identity Search
+              Search Users
             </label>
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 group-focus-within:text-amber-500 transition-colors" size={18} />
               <input
                 type="text"
-                placeholder="Query by nomenclature or email..."
+                placeholder="Search by name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
@@ -217,17 +223,17 @@ const UserManagement = () => {
           
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
-              Clearance Level
+              User Role
             </label>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
               className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm appearance-none"
             >
-              <option value="" className="bg-slate-950">Global Array</option>
-              <option value="user" className="bg-slate-950">Standard Agent (User)</option>
-              <option value="admin" className="bg-slate-950">Administrator</option>
-              <option value="super_admin" className="bg-slate-950">Prime Directive (Super Admin)</option>
+              <option value="" className="bg-slate-950">All Roles</option>
+              <option value="user" className="bg-slate-950">Customer (User)</option>
+              <option value="admin" className="bg-slate-950">Admin</option>
+              <option value="super_admin" className="bg-slate-950">Owner (Super Admin)</option>
             </select>
           </div>
           
@@ -240,7 +246,7 @@ const UserManagement = () => {
               className="w-full btn-glass flex items-center justify-center text-xs tracking-widest uppercase"
             >
               <Filter className="w-4 h-4 mr-2 text-slate-400" />
-              Flush Filters
+              Clear Filters
             </button>
           </div>
         </div>
@@ -253,16 +259,16 @@ const UserManagement = () => {
             <thead>
               <tr className="border-b border-white/10 bg-slate-950/30">
                 <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Personnel Identity
+                  User
                 </th>
                 <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Clearance Level
+                  Role
                 </th>
                 <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Initialization Date
+                  Join Date
                 </th>
                 <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Directives
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -276,7 +282,7 @@ const UserManagement = () => {
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-bold text-white tracking-wide">
-                          {user.full_name || 'UNVERIFIED ENTITY'}
+                          {user.full_name || 'NO NAME PROVIDED'}
                         </div>
                         <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">
                           {user.email}
@@ -317,7 +323,7 @@ const UserManagement = () => {
               {filteredUsers.length === 0 && (
                 <tr>
                    <td colSpan="4" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
-                     No personnel active under current parameters
+                     No users found
                    </td>
                 </tr>
               )}
@@ -341,7 +347,7 @@ const UserManagement = () => {
                 </div>
                 <div>
                    <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
-                     {editingUser ? 'MODIFY ' : 'PROVISION '} <span className="text-amber-500">ACCESS</span>
+                     {editingUser ? 'EDIT ' : 'ADD '} <span className="text-amber-500">USER</span>
                    </h3>
                 </div>
               </div>
@@ -357,7 +363,7 @@ const UserManagement = () => {
               {!editingUser && (
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
-                    Network Address (Email) <span className="text-rose-500">*</span>
+                    Email Address <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -365,14 +371,14 @@ const UserManagement = () => {
                     value={userForm.email}
                     onChange={(e) => setUserForm(prev => ({ ...prev, email: e.target.value }))}
                     className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
-                    placeholder="agent@exquisite.boutique"
+                    placeholder="user@example.com"
                   />
                 </div>
               )}
 
                <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
-                  Nomenclature (Full Name) <span className="text-rose-500">*</span>
+                  Full Name <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -380,13 +386,13 @@ const UserManagement = () => {
                   value={userForm.full_name}
                   onChange={(e) => setUserForm(prev => ({ ...prev, full_name: e.target.value }))}
                   className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm"
-                  placeholder="Subject Full Name"
+                  placeholder="Enter user's name"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
-                  Authorization Clearance <span className="text-rose-500">*</span>
+                  Assign Role <span className="text-rose-500">*</span>
                 </label>
                 <select
                   required
@@ -394,9 +400,9 @@ const UserManagement = () => {
                   onChange={(e) => setUserForm(prev => ({ ...prev, role: e.target.value }))}
                   className="w-full bg-slate-950 border border-amber-500/30 rounded-xl px-4 py-3 text-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all text-sm appearance-none"
                 >
-                  <option value="user" className="bg-slate-950">Standard Agent (User)</option>
-                  <option value="admin" className="bg-slate-950">Administrator</option>
-                  {isSuperAdmin() && <option value="super_admin" className="bg-slate-950">Prime Directive (Super Admin)</option>}
+                  <option value="user" className="bg-slate-950">Customer (User)</option>
+                  <option value="admin" className="bg-slate-950">Admin</option>
+                  {isSuperAdmin() && <option value="super_admin" className="bg-slate-950">Owner (Super Admin)</option>}
                 </select>
               </div>
 
@@ -406,13 +412,13 @@ const UserManagement = () => {
                   onClick={() => setShowModal(false)}
                   className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Abort
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 text-[10px] sm:text-xs tracking-widest uppercase"
                 >
-                  {editingUser ? 'CONFIRM MODIFICATION' : 'DISPATCH INVITATION'}
+                  {editingUser ? 'SAVE CHANGES' : 'SEND INVITE'}
                 </button>
               </div>
             </form>

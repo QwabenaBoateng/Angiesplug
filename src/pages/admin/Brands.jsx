@@ -167,7 +167,7 @@ const Brands = () => {
   }
 
   const handleDelete = async (brand) => {
-    if (!window.confirm('WARNING: Deleting this alliance will destroy its records. Proceed?')) return
+    if (!window.confirm('WARNING: Deleting this brand will remove it from your store. Proceed?')) return
 
     try {
       if (brand.image_url) {
@@ -195,7 +195,7 @@ const Brands = () => {
       fetchBrands()
     } catch (error) {
       console.error('Error deleting brand:', error)
-      setError('Failed to sever alliance')
+      setError('Failed to delete brand')
     }
   }
 
@@ -210,7 +210,7 @@ const Brands = () => {
     return (
        <div className="flex flex-col items-center justify-center p-24">
          <div className="w-12 h-12 rounded-full border-4 border-emerald-500/30 border-t-emerald-500 animate-spin mb-4"></div>
-         <p className="text-[10px] font-black tracking-widest uppercase text-emerald-500">Retrieving Allied Assets...</p>
+         <p className="text-[10px] font-black tracking-widest uppercase text-emerald-500">Loading Brands...</p>
        </div>
     )
   }
@@ -221,16 +221,16 @@ const Brands = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            CORPORATE <span className="text-emerald-500">PARTNERSHIPS</span>
+            BRAND <span className="text-emerald-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage external brand alliances</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the brands you collaborate with</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
           className="mt-4 sm:mt-0 btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
         >
           <Plus className="w-4 h-4 mr-2" />
-          ESTABLISH ALLIANCE
+          ADD NEW BRAND
         </button>
       </div>
 
@@ -272,7 +272,7 @@ const Brands = () => {
             <div className="p-6 relative z-20 -mt-6">
               <h3 className="font-black italic tracking-tighter text-xl text-white uppercase truncate drop-shadow-md">{brand.name}</h3>
               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest truncate max-w-full">
-                {brand.description || 'UNDEFINED PARTNERSHIP'}
+                {brand.description || 'NO DESCRIPTION'}
               </p>
             </div>
           </div>
@@ -282,13 +282,13 @@ const Brands = () => {
       {brands.length === 0 && (
         <div className="text-center py-24 flex flex-col items-center justify-center glass-card rounded-[2rem] border-white/5">
           <Building2 className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
-          <h3 className="text-lg font-black text-slate-400 mb-2 uppercase tracking-widest">No Alliances Found</h3>
-          <p className="text-xs font-bold text-slate-600 mb-6 uppercase tracking-widest">Execute prompt to register a firm</p>
+          <h3 className="text-lg font-black text-slate-400 mb-2 uppercase tracking-widest">No Brands Found</h3>
+          <p className="text-xs font-bold text-slate-600 mb-6 uppercase tracking-widest">Add your first brand to the store</p>
           <button
             onClick={() => setIsModalOpen(true)}
             className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] tracking-widest uppercase"
           >
-            ESTABLISH ALLIANCE
+            ADD NEW BRAND
           </button>
         </div>
       )}
@@ -308,7 +308,7 @@ const Brands = () => {
                 </div>
                 <div>
                    <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
-                     {editingBrand ? 'MODIFY ' : 'ESTABLISH '} <span className="text-emerald-500">ALLIANCE</span>
+                     {editingBrand ? 'MODIFY ' : 'ADD '} <span className="text-emerald-500">BRAND</span>
                    </h3>
                 </div>
               </div>
@@ -323,35 +323,35 @@ const Brands = () => {
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                  Firm Name
+                  Brand Name
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="input-glass w-full text-sm font-bold text-white"
-                  placeholder="EX: NIKELAB"
+                  placeholder="E.g., Nike"
                   required
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                  Designation / Descriptor
+                  Brand Description
                 </label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   className="input-glass w-full text-sm resize-none"
                   rows="3"
-                  placeholder="Strategic description..."
+                  placeholder="Enter brand details..."
                 />
               </div>
 
               {/* Image Upload */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                  Brand Identity Mark
+                  Brand Logo
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
                     ${formData.image_url ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
@@ -377,7 +377,7 @@ const Brands = () => {
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Asset</span>
+                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -390,14 +390,14 @@ const Brands = () => {
                     ) : uploadingImage ? (
                        <>
                           <div className="w-12 h-12 rounded-full border-4 border-emerald-500/30 border-t-emerald-500 animate-spin mb-4"></div>
-                          <span className="text-[10px] font-black tracking-widest uppercase text-emerald-500 text-center">Transmitting...</span>
+                          <span className="text-[10px] font-black tracking-widest uppercase text-emerald-500 text-center">Uploading...</span>
                         </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Attach Partner Logo</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Brand Logo</span>
                       </>
                     )}
                   </label>
@@ -405,14 +405,14 @@ const Brands = () => {
 
                 <div className="mt-4 space-y-2">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                    Remote Overload (URL Vector)
+                    External Image URL
                   </label>
                   <input
                     type="url"
                     value={formData.image_url}
                     onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
                     className="input-glass w-full text-xs font-mono text-cyan-400"
-                    placeholder="https://server.com/payload.jpg"
+                    placeholder="https://example.com/logo.jpg"
                   />
                 </div>
               </div>
@@ -430,7 +430,7 @@ const Brands = () => {
                   disabled={isSubmitting}
                   className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] sm:text-xs tracking-widest uppercase"
                 >
-                  {isSubmitting ? 'PROCESSING...' : editingBrand ? 'COMMIT UPDATE' : 'INITIALIZE'}
+                  {isSubmitting ? 'PROCESSING...' : editingBrand ? 'SAVE CHANGES' : 'ADD BRAND'}
                 </button>
               </div>
             </form>

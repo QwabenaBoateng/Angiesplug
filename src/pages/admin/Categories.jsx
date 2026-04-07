@@ -216,16 +216,16 @@ const AdminCategories = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            TAXONOMY <span className="text-indigo-500">REGISTRY</span>
+            CATEGORY <span className="text-indigo-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Establish logical asset groups</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Organize your products into collections</p>
         </div>
         <button
           onClick={openModal}
           className="mt-4 sm:mt-0 btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 flex items-center text-[10px] tracking-widest"
         >
           <Plus className="w-4 h-4 mr-2" />
-          ESTABLISH GROUP
+          ADD NEW CATEGORY
         </button>
       </div>
 
@@ -234,12 +234,12 @@ const AdminCategories = () => {
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-            <p className="text-xs font-black tracking-widest uppercase text-indigo-500">Reading Catalog...</p>
+            <p className="text-xs font-black tracking-widest uppercase text-indigo-500">Loading Categories...</p>
           </div>
         ) : categories.length === 0 ? (
           <div className="p-16 text-center flex flex-col items-center justify-center">
              <LayoutGrid className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
-            <p className="text-sm font-black text-slate-500 tracking-widest uppercase">No groups established</p>
+            <p className="text-sm font-black text-slate-500 tracking-widest uppercase">No categories found</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -247,19 +247,19 @@ const AdminCategories = () => {
               <thead>
                 <tr className="border-b border-white/5 bg-black/20">
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Marker
+                    Image
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Identity
+                    Name
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Directive Slug
+                    URL Slug
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Definition
+                    Description
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Timestamp
+                    Date Added
                   </th>
                   <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
                     Actions
@@ -291,7 +291,7 @@ const AdminCategories = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest max-w-xs truncate">
-                        {category.description || 'UNASSIGNED'}
+                        {category.description || 'NO DESCRIPTION'}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-[10px] font-bold text-slate-500 tracking-widest">
@@ -336,7 +336,7 @@ const AdminCategories = () => {
                 </div>
                 <div>
                    <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
-                     {editingCategory ? 'EDIT ' : 'ESTABLISH '} <span className="text-indigo-500">GROUP</span>
+                     {editingCategory ? 'EDIT ' : 'ADD '} <span className="text-indigo-500">CATEGORY</span>
                    </h3>
                 </div>
               </div>
@@ -351,7 +351,7 @@ const AdminCategories = () => {
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Taxonomy Identity
+                  Category Name
                 </label>
                 <input
                   type="text"
@@ -359,13 +359,13 @@ const AdminCategories = () => {
                   value={categoryForm.name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   className="input-glass w-full text-sm"
-                  placeholder="Designate Nomenclature"
+                  placeholder="Enter category name"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 flex items-center">
-                  Pathing Slug <span className="ml-2 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px]">AUTO-ENCODED</span>
+                  URL Slug <span className="ml-2 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px]">GENERATED</span>
                 </label>
                 <input
                   type="text"
@@ -373,27 +373,27 @@ const AdminCategories = () => {
                   value={categoryForm.slug}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, slug: e.target.value }))}
                   className="input-glass w-full text-sm text-slate-400"
-                  placeholder="group-slug"
+                  placeholder="category-slug"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Descriptor
+                  Description
                 </label>
                 <textarea
                   rows={3}
                   value={categoryForm.description}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, description: e.target.value }))}
                   className="input-glass w-full text-sm resize-none"
-                  placeholder="Outline purpose and boundaries..."
+                  placeholder="Describe what kind of products belong in this category..."
                 />
               </div>
 
               {/* Category Image Upload */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Identity Marker
+                  Category Image
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
                     ${categoryForm.image_url ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
@@ -419,7 +419,7 @@ const AdminCategories = () => {
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Asset</span>
+                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -432,14 +432,14 @@ const AdminCategories = () => {
                     ) : uploadingImage ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Transmitting...</span>
+                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Load Asset</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Image</span>
                       </>
                     )}
                   </label>
@@ -452,13 +452,13 @@ const AdminCategories = () => {
                   onClick={() => setShowModal(false)}
                   className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Abort
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 text-[10px] sm:text-xs tracking-widest"
                 >
-                  {editingCategory ? 'APPLY CONFIGURATION' : 'INITIALIZE GROUP'}
+                  {editingCategory ? 'SAVE CHANGES' : 'ADD CATEGORY'}
                 </button>
               </div>
             </form>

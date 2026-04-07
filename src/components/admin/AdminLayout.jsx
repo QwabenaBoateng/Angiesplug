@@ -43,7 +43,7 @@ const AdminLayout = ({ children }) => {
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Categories', href: '/admin/categories', icon: Tag },
     { name: 'About Page', href: '/admin/about', icon: FileText },
-    { name: 'Promo Section', href: '/admin/promotional', icon: Megaphone },
+    { name: 'Promotions', href: '/admin/promotional', icon: Megaphone },
     { name: 'Users', href: '/admin/users', icon: Users },
     { name: 'Brands', href: '/admin/brands', icon: Building2 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
@@ -114,7 +114,7 @@ const AdminLayout = ({ children }) => {
                   <h1 className="text-xl font-black italic tracking-tighter text-white uppercase leading-none">
                     EXQUISITE
                   </h1>
-                  <span className="text-[10px] text-blue-500 font-black tracking-[0.3em] uppercase block mt-1">Command Center</span>
+                  <span className="text-[10px] text-blue-500 font-black tracking-[0.3em] uppercase block mt-1">Admin Panel</span>
                 </div>
               </div>
               <nav className="flex-1 px-4 space-y-2">
@@ -145,7 +145,7 @@ const AdminLayout = ({ children }) => {
               >
                 <LogOut className="h-5 w-5 text-red-500/70 group-hover:text-red-500 transition-colors" />
                 <span className="ml-4 text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-white transition-colors">
-                  Terminate Session
+                  Logout
                 </span>
               </button>
             </div>
@@ -176,7 +176,7 @@ const AdminLayout = ({ children }) => {
                 className="flex items-center px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
               >
                 <Home className="w-4 h-4 mr-2 text-blue-500" />
-                View Frontend
+                View Store
               </Link>
             </div>
           </div>

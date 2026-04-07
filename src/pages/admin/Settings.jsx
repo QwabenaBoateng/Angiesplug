@@ -27,7 +27,7 @@ const AdminSettings = () => {
     setSaving(true)
     setTimeout(() => {
       setSaving(false)
-      alert("GLOBAL PARAMETERS UPDATED.")
+      alert("Settings saved successfully.")
     }, 800)
   }
 
@@ -41,9 +41,9 @@ const AdminSettings = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            GLOBAL <span className="text-blue-500">PARAMETERS</span>
+            STORE <span className="text-blue-500">SETTINGS</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Configure system settings and environmental constants</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store configuration, notifications, and preferences</p>
         </div>
         <div className="flex mt-6 sm:mt-0">
           <button
@@ -52,7 +52,7 @@ const AdminSettings = () => {
             className="btn-gradient shadow-blue-500/20 from-blue-600 to-blue-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <Save className="w-4 h-4 mr-2" />
-            {saving ? 'TRANSMITTING...' : 'COMMIT PARAMETERS'}
+            {saving ? 'SAVING...' : 'SAVE SETTINGS'}
           </button>
         </div>
       </div>
@@ -70,7 +70,7 @@ const AdminSettings = () => {
               }`}
             >
               <Store className="w-4 h-4 mr-3" />
-              General Ops
+              General Settings
             </button>
             <button
               onClick={() => setActiveTab('notifications')}
@@ -81,7 +81,7 @@ const AdminSettings = () => {
               }`}
             >
               <Bell className="w-4 h-4 mr-3" />
-              Comms Array
+              Notifications
             </button>
             <button
               onClick={() => setActiveTab('security')}
@@ -92,7 +92,7 @@ const AdminSettings = () => {
               }`}
             >
               <ShieldCheck className="w-4 h-4 mr-3" />
-              Defense Systems
+              Security
             </button>
             <button
               onClick={() => setActiveTab('localization')}
@@ -117,12 +117,12 @@ const AdminSettings = () => {
                </div>
                <h2 className="text-lg font-black italic tracking-tighter text-white uppercase mb-8 flex items-center">
                  <Store className="w-5 h-5 text-blue-500 mr-3" />
-                 GENERAL OPERATIONS
+                 GENERAL SETTINGS
                </h2>
                <div className="space-y-6 relative z-10 w-full max-w-2xl">
                  <div className="space-y-2">
                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                     Platform Call-Sign
+                     Store Name
                    </label>
                    <input
                      type="text"
@@ -133,7 +133,7 @@ const AdminSettings = () => {
                  </div>
                  <div className="space-y-2">
                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                     Master Comm Link (Email)
+                     Contact Email
                    </label>
                    <input
                      type="email"
@@ -153,13 +153,13 @@ const AdminSettings = () => {
                </div>
                <h2 className="text-lg font-black italic tracking-tighter text-white uppercase mb-8 flex items-center">
                  <Bell className="w-5 h-5 text-emerald-500 mr-3" />
-                 COMMUNICATIONS ARRAY
+                 NOTIFICATION SETTINGS
                </h2>
                <div className="space-y-6 relative z-10">
                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5 group hover:border-emerald-500/20 transition-all">
                    <div>
-                     <p className="text-sm font-bold text-white tracking-wide">Automated Dispatch Signals</p>
-                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Enable system emails for order tracking</p>
+                     <p className="text-sm font-bold text-white tracking-wide">Order Notifications</p>
+                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Send automated emails to customers for their orders</p>
                    </div>
                    <button
                      onClick={() => handleToggle('notificationsEnabled')}
@@ -179,13 +179,13 @@ const AdminSettings = () => {
                </div>
                <h2 className="text-lg font-black italic tracking-tighter text-white uppercase mb-8 flex items-center">
                  <ShieldCheck className="w-5 h-5 text-rose-500 mr-3" />
-                 DEFENSE SYSTEMS
+                 SECURITY & MAINTENANCE
                </h2>
                <div className="space-y-6 relative z-10">
                  <div className="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5 group hover:border-rose-500/20 transition-all">
                    <div>
-                     <p className="text-sm font-bold text-white tracking-wide">Maintenance Lockdown</p>
-                     <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mt-1 drop-shadow-md">Engaging limits public routing entirely</p>
+                     <p className="text-sm font-bold text-white tracking-wide">Maintenance Mode</p>
+                     <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mt-1 drop-shadow-md">When enabled, the store will be offline for customers</p>
                    </div>
                    <button
                      onClick={() => handleToggle('maintenanceMode')}
@@ -205,12 +205,12 @@ const AdminSettings = () => {
                </div>
                <h2 className="text-lg font-black italic tracking-tighter text-white uppercase mb-8 flex items-center">
                  <Globe className="w-5 h-5 text-indigo-500 mr-3" />
-                 LOCALIZATION VECTORS
+                 LOCALIZATION
                </h2>
                <div className="space-y-6 relative z-10 w-full max-w-2xl">
                  <div className="space-y-2">
                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
-                     Base Economic Exchange Unit
+                     Store Currency
                    </label>
                    <select
                      value={settings.currency}

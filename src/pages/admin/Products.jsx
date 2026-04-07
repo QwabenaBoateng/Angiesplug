@@ -639,7 +639,7 @@ const AdminProducts = () => {
         <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-blue-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Products by Category</h3>
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Inventory by Collection</h3>
             <span className="text-[10px] font-black text-blue-500 tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
           </div>
           <div className="relative z-10">
@@ -648,7 +648,7 @@ const AdminProducts = () => {
         </div>
         <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-indigo-500"></div>
-          <h3 className="relative z-10 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Category Distribution</h3>
+          <h3 className="relative z-10 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Collection Distribution</h3>
           <div className="relative z-10">
             <BarChart counts={countsByCat} />
           </div>
@@ -656,7 +656,7 @@ const AdminProducts = () => {
         <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-emerald-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">New Deployment (7 Days)</h3>
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">New Arrivals (7 Days)</h3>
             <span className="text-[10px] font-black text-emerald-400 tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
           </div>
           <div className="relative z-10">
@@ -674,9 +674,9 @@ const AdminProducts = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            INVENTORY <span className="text-blue-500">CONTROL</span>
+            PRODUCT <span className="text-blue-500">INVENTORY</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage product database & assets</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store's products and collections</p>
         </div>
         <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
           <button
@@ -684,14 +684,14 @@ const AdminProducts = () => {
             className="btn-glass flex items-center justify-center text-xs tracking-widest"
           >
             <Plus className="w-4 h-4 mr-2 text-indigo-400" />
-            REGISTER BRAND
+            ADD NEW BRAND
           </button>
           <button
             onClick={openModal}
             className="btn-gradient flex items-center justify-center text-xs tracking-widest"
           >
             <Plus className="w-4 h-4 mr-2" />
-            DEPLOY PRODUCT
+            ADD NEW PRODUCT
           </button>
         </div>
       </div>
@@ -701,13 +701,13 @@ const AdminProducts = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
-              Search Parameters
+              Search Products
             </label>
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={18} />
               <input
                 type="text"
-                placeholder="Query by nomenclature..."
+                placeholder="Search by name or description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
@@ -717,14 +717,14 @@ const AdminProducts = () => {
           
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
-              Taxonomy Filter
+              Filter by Category
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
             >
-              <option value="" className="bg-slate-950">Global Array</option>
+              <option value="" className="bg-slate-950">All Categories</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id} className="bg-slate-950">
                   {category.name}
@@ -742,7 +742,7 @@ const AdminProducts = () => {
               className="w-full btn-glass flex items-center justify-center text-xs tracking-widest"
             >
               <Filter className="w-4 h-4 mr-2 text-slate-400" />
-              FLUSH FILTERS
+              CLEAR FILTERS
             </button>
           </div>
         </div>
@@ -753,7 +753,7 @@ const AdminProducts = () => {
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
-            <p className="text-xs font-black tracking-widest uppercase text-blue-500">Querying Database...</p>
+            <p className="text-xs font-black tracking-widest uppercase text-blue-500">Loading Products...</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -761,25 +761,26 @@ const AdminProducts = () => {
               <thead>
                 <tr className="border-b border-white/10 bg-slate-950/30">
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Asset
+                    Product
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Taxonomy
+                    Category
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Value
+                    Price
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Status
                   </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Timestamp
+                    Date Added
                   </th>
                   <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Directives
+                    Actions
                   </th>
                 </tr>
               </thead>
+
               <tbody className="divide-y divide-white/5">
                 {products.map((product) => (
                   <tr key={product.id} className="hover:bg-white-[0.02] transition-colors group">
@@ -804,7 +805,7 @@ const AdminProducts = () => {
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-xs font-bold text-slate-300">
-                         {product.categories?.name || 'Unbound'}
+                         {product.categories?.name || 'Unassigned'}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -847,7 +848,7 @@ const AdminProducts = () => {
                 {products.length === 0 && !isLoading && (
                   <tr>
                     <td colSpan="6" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
-                      No assets found
+                      No products found
                     </td>
                   </tr>
                 )}
@@ -871,7 +872,7 @@ const AdminProducts = () => {
                   <Package className="w-6 h-6 text-blue-500" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
-                  {editingProduct ? 'EDIT ' : 'DEPLOY '}<span className="text-blue-500">PRODUCT</span>
+                  {editingProduct ? 'EDIT ' : 'ADD '}<span className="text-blue-500">PRODUCT</span>
                 </h3>
               </div>
               <button
@@ -886,7 +887,7 @@ const AdminProducts = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                    Product Identifier
+                    Product Name
                   </label>
                   <input
                     type="text"
@@ -900,7 +901,7 @@ const AdminProducts = () => {
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                    Commercial Value (₵)
+                    Price (₵)
                   </label>
                   <input
                     type="number"
@@ -916,7 +917,7 @@ const AdminProducts = () => {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Detailed Specifications
+                  Description
                 </label>
                 <textarea
                   required
@@ -924,14 +925,14 @@ const AdminProducts = () => {
                   value={productForm.description}
                   onChange={(e) => setProductForm(prev => ({ ...prev, description: e.target.value }))}
                   className="input-glass w-full text-sm resize-none"
-                  placeholder="Outline product parameters and features..."
+                  placeholder="Describe your product's unique features..."
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
-                    Taxonomy Binding
+                    Category
                   </label>
                   <select
                     required
@@ -939,7 +940,7 @@ const AdminProducts = () => {
                     onChange={(e) => setProductForm(prev => ({ ...prev, category_id: e.target.value }))}
                     className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
                   >
-                    <option value="" className="bg-slate-950">Select logical group</option>
+                    <option value="" className="bg-slate-950">Choose a category</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id} className="bg-slate-950">
                         {category.name}
@@ -954,7 +955,7 @@ const AdminProducts = () => {
                   </div>
                   <div>
                     <p className="text-xs font-black text-slate-300 uppercase tracking-widest">Mark as Featured</p>
-                    <p className="text-[10px] font-bold text-slate-500">Prioritize in catalog</p>
+                    <p className="text-[10px] font-bold text-slate-500">Show on the home page</p>
                   </div>
                 </div>
               </div>
@@ -962,7 +963,7 @@ const AdminProducts = () => {
               {/* Enhanced Visual Asset Upload */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Visual Assets
+                  Product Images
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingImages ? 'border-blue-500/50 bg-blue-500/5 cursor-wait' : 'border-white/10 hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer bg-black/20'}`}>
                   <input
@@ -981,14 +982,14 @@ const AdminProducts = () => {
                     {uploadingImages ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-blue-500 text-center">Transmitting...</span>
+                        <span className="text-xs font-black tracking-widest uppercase text-blue-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Click to Interface</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Click to Upload</span>
                         <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG, WEBP</span>
                       </>
                     )}
@@ -1025,13 +1026,13 @@ const AdminProducts = () => {
                   onClick={() => setShowModal(false)}
                   className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Abort
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="btn-gradient shadow-blue-500/20 text-[10px] sm:text-xs tracking-widest"
                 >
-                  {editingProduct ? 'APPLY CONFIGURATION' : 'INITIALIZE ASSET'}
+                  {editingProduct ? 'SAVE CHANGES' : 'ADD PRODUCT'}
                 </button>
               </div>
             </form>
@@ -1054,7 +1055,7 @@ const AdminProducts = () => {
                   <Plus className="w-6 h-6 text-indigo-500" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
-                  REGISTER <span className="text-indigo-500">BRAND</span>
+                  ADD NEW <span className="text-indigo-500">BRAND</span>
                 </h3>
               </div>
               <button
@@ -1068,7 +1069,7 @@ const AdminProducts = () => {
             <form onSubmit={handleBrandSubmit} className="space-y-8 relative z-10">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Brand Distinction
+                  Brand Name
                 </label>
                 <input
                   type="text"
@@ -1082,7 +1083,7 @@ const AdminProducts = () => {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Brand Intelligence
+                  Brand Description
                 </label>
                 <textarea
                   required
@@ -1090,14 +1091,14 @@ const AdminProducts = () => {
                   value={brandForm.description}
                   onChange={(e) => setBrandForm(prev => ({ ...prev, description: e.target.value }))}
                   className="input-glass w-full text-sm resize-none"
-                  placeholder="Design ideology or mission statement..."
+                  placeholder="Tell us about the brand's history or mission..."
                 />
               </div>
 
               {/* Brand Image Upload */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                  Identity Marker (Logo/Banner)
+                  Brand Logo / Banner
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingBrandImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer bg-black/20'}`}>
                   <input
@@ -1115,15 +1116,15 @@ const AdminProducts = () => {
                     {uploadingBrandImage ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Transmitting...</span>
+                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Load Asset</span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">Raster graphics</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Logo</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG or WEBP</span>
                       </>
                     )}
                   </label>
@@ -1134,7 +1135,7 @@ const AdminProducts = () => {
                   <div className="mt-6 p-4 rounded-2xl border border-white/10 bg-black/30">
                     <img
                       src={brandForm.image_url}
-                      alt="Identity preview"
+                      alt="Brand preview"
                       className="w-full h-48 object-cover rounded-xl"
                     />
                   </div>
@@ -1147,13 +1148,13 @@ const AdminProducts = () => {
                   onClick={() => setShowBrandModal(false)}
                   className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  Abort
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-600/20 text-[10px] sm:text-xs tracking-widest uppercase"
                 >
-                  Register Identity
+                  Add Brand
                 </button>
               </div>
             </form>

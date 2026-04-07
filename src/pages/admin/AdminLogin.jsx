@@ -60,7 +60,7 @@ const AdminLogin = () => {
 
         if (profileError || profile?.role !== 'admin') {
           await supabase.auth.signOut()
-          setError('Access Denied: Administrative Clearance Required.')
+          setError('Access Denied: Admin privileges required.')
           setIsLoading(false)
           return
         }
@@ -70,14 +70,14 @@ const AdminLogin = () => {
       }
     } catch (err) {
       console.error('Admin login error:', err)
-      setError('System integrity error. Please check your credentials.')
+      setError('Incorrect login details. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden font-mono">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden font-sans">
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-red-600/5 blur-[120px] rounded-full animate-pulse-slow"></div>
@@ -90,18 +90,18 @@ const AdminLogin = () => {
         <div className="p-8 sm:p-12">
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/5 rounded-3xl border border-white/10 mb-6 shadow-2xl relative group">
-              <Terminal className="text-blue-500 group-hover:scale-110 transition-transform" size={40} />
+              <ShieldCheck className="text-blue-500 group-hover:scale-110 transition-transform" size={40} />
               <div className="absolute -top-1 -right-1">
                 <div className="w-4 h-4 bg-red-600 rounded-full animate-ping opacity-75"></div>
               </div>
             </div>
-            <h1 className="text-4xl font-black tracking-tighter text-white mb-2 italic">ADMIN <span className="text-blue-500">NEXUS</span></h1>
-            <p className="text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px]">Restricted Administrative Access Only</p>
+            <h1 className="text-4xl font-black tracking-tighter text-white mb-2 italic">ADMIN <span className="text-blue-500">LOGIN</span></h1>
+            <p className="text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px]">Authorized Personnel Only</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Admin Identifier</label>
+              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Admin Email</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                 <input
@@ -117,7 +117,7 @@ const AdminLogin = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Security Key</label>
+              <label className="text-xs font-black text-slate-300 uppercase tracking-widest pl-2">Password</label>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-red-500 transition-colors" size={18} />
                 <input
@@ -154,12 +154,12 @@ const AdminLogin = () => {
               {isLoading ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                  <span>AUTHENTICATING...</span>
+                  <span>LOGGING IN...</span>
                 </>
               ) : (
                 <>
                   <ShieldCheck size={18} />
-                  <span>INITIALIZE OVERRIDE</span>
+                  <span>SECURE LOGIN</span>
                 </>
               )}
             </button>
@@ -167,8 +167,7 @@ const AdminLogin = () => {
 
           <div className="mt-12 text-center border-t border-white/5 pt-8">
             <p className="text-[8px] font-black text-slate-700 uppercase tracking-[0.4em] leading-loose">
-              SYSTEM AUTO-LOGS ALL ACCESS ATTEMPTS.<br />
-              UNAUTHORIZED ENTRY IS STRICLY PROHIBITED.
+              Authorized store administrators only.
             </p>
           </div>
         </div>

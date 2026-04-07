@@ -176,7 +176,7 @@ Stay fresh,
 
       if (result.error) throw result.error
 
-      alert('Brand identity content pushed successfully!')
+      alert('About page updated successfully!')
     } catch (error) {
       console.error('Error saving about content:', error)
       alert(`Error saving content: ${error.message}. Please try again.`)
@@ -196,7 +196,7 @@ Stay fresh,
     return (
       <div className="flex flex-col items-center justify-center h-64">
         <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
-        <p className="text-xs font-black tracking-widest uppercase text-fuchsia-500">Decrypting Narrative...</p>
+        <p className="text-xs font-black tracking-widest uppercase text-fuchsia-500">Loading Content...</p>
       </div>
     )
   }
@@ -207,9 +207,9 @@ Stay fresh,
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
           <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
-            BRAND <span className="text-fuchsia-500">NARRATIVE</span>
+             ABOUT PAGE <span className="text-fuchsia-500">CONTENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Control company identity and story</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the 'About Us' page content and brand story</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
           <a
@@ -219,7 +219,7 @@ Stay fresh,
             className="btn-glass flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <Eye className="w-4 h-4 mr-2 text-fuchsia-400" />
-            INSPECT FRONTEND
+            PREVIEW PAGE
           </a>
           <button
             onClick={handleSave}
@@ -227,7 +227,7 @@ Stay fresh,
             className="btn-gradient shadow-fuchsia-500/20 from-fuchsia-600 to-fuchsia-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
           >
             <Save className="w-4 h-4 mr-2" />
-            {isSaving ? 'TRANSMITTING...' : 'PUSH NARRATIVE'}
+            {isSaving ? 'SAVING...' : 'SAVE CONTENT'}
           </button>
         </div>
       </div>
@@ -242,13 +242,13 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 flex items-center justify-center border border-fuchsia-500/20">
                <PenTool className="w-5 h-5 text-fuchsia-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">PRIMARY OVERRIDE</h2>
+             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">HERO SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
             <div>
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
-                Hero Visual Asset
+                Hero Image
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
                   ${aboutContent.hero_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
@@ -270,11 +270,11 @@ Stay fresh,
                     <div className="relative group w-full">
                       <img
                         src={aboutContent.hero_image}
-                        alt="Hero Payload"
+                        alt="Hero Image"
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Asset</span>
+                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                       </div>
                       <button
                         type="button"
@@ -287,14 +287,14 @@ Stay fresh,
                   ) : uploadingImages.hero_image ? (
                      <>
                         <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
-                        <span className="text-[10px] font-black tracking-widest uppercase text-fuchsia-500 text-center">Transmitting...</span>
+                        <span className="text-[10px] font-black tracking-widest uppercase text-fuchsia-500 text-center">Uploading...</span>
                       </>
                   ) : (
                     <>
                       <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                         <ImageIcon className="w-6 h-6 text-fuchsia-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Inject Hero Graphic</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Hero Image</span>
                     </>
                   )}
                 </label>
@@ -303,7 +303,7 @@ Stay fresh,
 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                Primary Header
+                Main Title
               </label>
               <input
                 type="text"
@@ -316,7 +316,7 @@ Stay fresh,
 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                Secondary Descriptor
+                Subtitle
               </label>
               <input
                 type="text"
@@ -338,13 +338,13 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
                <UserCircle className="w-5 h-5 text-orange-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">SUBJECT IDENTITY</h2>
+             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">FOUNDER SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
             <div>
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
-                Subject Portrait
+                Founder Photo
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
                   ${aboutContent.angie_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
@@ -366,11 +366,11 @@ Stay fresh,
                     <div className="relative group w-full">
                       <img
                         src={aboutContent.angie_image}
-                        alt="Subject"
+                        alt="Founder"
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Replace Portrait</span>
+                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Photo</span>
                       </div>
                       <button
                         type="button"
@@ -383,14 +383,14 @@ Stay fresh,
                   ) : uploadingImages.angie_image ? (
                      <>
                         <div className="w-12 h-12 rounded-full border-4 border-orange-500/30 border-t-orange-500 animate-spin mb-4"></div>
-                        <span className="text-[10px] font-black tracking-widest uppercase text-orange-500 text-center">Transmitting...</span>
+                        <span className="text-[10px] font-black tracking-widest uppercase text-orange-500 text-center">Uploading...</span>
                       </>
                   ) : (
                     <>
                       <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
                         <UserCircle className="w-6 h-6 text-orange-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Load Subject Profile</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Photo</span>
                     </>
                   )}
                 </label>
@@ -399,14 +399,14 @@ Stay fresh,
 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-                Personal Transcript (Quote)
+                Founder Message / Bio
               </label>
               <textarea
                 rows={8}
                 value={aboutContent.angie_quote}
                 onChange={(e) => handleInputChange('angie_quote', e.target.value)}
                 className="input-glass w-full text-sm resize-none"
-                placeholder="Log transcription here..."
+                placeholder="Enter founder message here..."
               />
             </div>
           </div>
@@ -422,33 +422,33 @@ Stay fresh,
            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
              <ScrollText className="w-5 h-5 text-emerald-500" />
            </div>
-           <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">ADDITIONAL MANIFESTOS</h2>
+           <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">STORY SECTIONS</h2>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
           <div className="space-y-2">
             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-              Log Block 1: "What's the Plug?"
+              Content Block 1: "What's the Plug?"
             </label>
             <textarea
               rows={8}
               value={aboutContent.whats_the_plug}
               onChange={(e) => handleInputChange('whats_the_plug', e.target.value)}
               className="input-glass w-full text-sm resize-none"
-              placeholder="Inject first body block..."
+              placeholder="Enter first content block..."
             />
           </div>
 
           <div className="space-y-2">
             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
-              Log Block 2: "Our Vibe"
+              Content Block 2: "Our Vibe"
             </label>
             <textarea
               rows={8}
               value={aboutContent.our_vibe}
               onChange={(e) => handleInputChange('our_vibe', e.target.value)}
               className="input-glass w-full text-sm resize-none"
-              placeholder="Inject second body block..."
+              placeholder="Enter second content block..."
             />
           </div>
         </div>
