@@ -31,7 +31,11 @@ Exquisite Boutique is my way of hooking you all up with the gear you really want
       if (data) {
         setAboutContent(prev => ({
           ...prev,
-          ...data,
+          hero_title: data.hero_title || prev.hero_title,
+          hero_subtitle: data.hero_subtitle || prev.hero_subtitle,
+          whats_the_plug: data.whats_the_plug || prev.whats_the_plug,
+          our_vibe: data.our_vibe || prev.our_vibe,
+          angie_quote: data.angie_quote || prev.angie_quote,
           hero_image: data.hero_image || prev.hero_image,
           angie_image: data.angie_image || prev.angie_image
         }))
