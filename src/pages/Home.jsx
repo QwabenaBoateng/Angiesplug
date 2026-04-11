@@ -387,20 +387,26 @@ const Home = () => {
           </div>
           
           {isLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="glass-card rounded-2xl h-64 animate-pulse"></div>
+                <div key={i} className="glass-card rounded-2xl aspect-[3/4] animate-pulse"></div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {brands.map((brand) => (
-                <div key={brand.id} className="glass-card rounded-2xl p-8 flex flex-col items-center justify-center text-center group cursor-pointer hover:bg-blue-600/5">
-                  <div className="w-20 h-20 bg-white/5 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <img src={brand.image_url} alt={brand.name} className="max-w-[70%] max-h-[70%] object-contain opacity-50 group-hover:opacity-100 transition-opacity" />
+                <div key={brand.id} className="glass-card rounded-2xl overflow-hidden group cursor-pointer hover:bg-blue-600/5 transition-colors">
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <img 
+                      src={brand.image_url} 
+                      alt={brand.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    />
                   </div>
-                  <h3 className="font-bold text-white mb-2">{brand.name}</h3>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{brand.description || 'Verified Partner'}</p>
+                  <div className="p-5 text-center">
+                    <h3 className="font-bold text-white mb-2">{brand.name}</h3>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{brand.description || 'Verified Partner'}</p>
+                  </div>
                 </div>
               ))}
             </div>
