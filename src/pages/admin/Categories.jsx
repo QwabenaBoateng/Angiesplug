@@ -215,7 +215,7 @@ const AdminCategories = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
             CATEGORY <span className="text-indigo-500">MANAGEMENT</span>
           </h1>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Organize your products into collections</p>
@@ -245,7 +245,7 @@ const AdminCategories = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 bg-black/20">
+                <tr className="border-b border-slate-200 bg-black/10">
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
                     Image
                   </th>
@@ -270,7 +270,7 @@ const AdminCategories = () => {
                 {categories.map((category) => (
                   <tr key={category.id} className="hover:bg-white-[0.02] transition-colors group">
                     <td className="px-6 py-4">
-                      <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                      <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 rounded-xl overflow-hidden border border-slate-200 bg-white/50">
                         <img
                           className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                           src={category.image_url || '/placeholder-image.jpg'}
@@ -280,12 +280,12 @@ const AdminCategories = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-bold text-white tracking-wide">
+                      <div className="text-sm font-bold text-slate-900 tracking-wide">
                         {category.name}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="inline-flex px-2 py-1 bg-white/5 border border-white/10 rounded font-mono text-[10px] text-slate-400">
+                      <div className="inline-flex px-2 py-1 bg-black/5 border border-slate-200 rounded font-mono text-[10px] text-slate-600">
                         /{category.slug}
                       </div>
                     </td>
@@ -301,13 +301,13 @@ const AdminCategories = () => {
                       <div className="flex items-center justify-end space-x-2">
                         <button
                           onClick={() => handleEdit(category)}
-                          className="p-2 rounded-xl bg-white/5 hover:bg-indigo-500/10 text-slate-400 hover:text-indigo-500 border border-transparent hover:border-indigo-500/20 transition-all"
+                          className="p-2 rounded-xl bg-black/5 hover:bg-indigo-500/10 text-slate-600 hover:text-indigo-500 border border-transparent hover:border-indigo-500/20 transition-all"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(category.id)}
-                          className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
+                          className="p-2 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -323,8 +323,8 @@ const AdminCategories = () => {
 
       {/* Category Modal */}
       {showModal && createPortal(
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+        <div className="fixed inset-0 bg-[#f8f8f6]/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-slate-200 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
               <LayoutGrid size={120} className="text-indigo-500" />
             </div>
@@ -335,14 +335,14 @@ const AdminCategories = () => {
                   <LayoutGrid className="w-6 h-6 text-indigo-500" />
                 </div>
                 <div>
-                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
+                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
                      {editingCategory ? 'EDIT ' : 'ADD '} <span className="text-indigo-500">CATEGORY</span>
                    </h3>
                 </div>
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
+                className="w-10 h-10 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-slate-200 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -365,14 +365,14 @@ const AdminCategories = () => {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 flex items-center">
-                  URL Slug <span className="ml-2 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px]">GENERATED</span>
+                  URL Slug <span className="ml-2 px-2 py-0.5 rounded bg-black/5 border border-slate-200 text-[9px]">GENERATED</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={categoryForm.slug}
                   onChange={(e) => setCategoryForm(prev => ({ ...prev, slug: e.target.value }))}
-                  className="input-glass w-full text-sm text-slate-400"
+                  className="input-glass w-full text-sm text-slate-600"
                   placeholder="category-slug"
                 />
               </div>
@@ -396,8 +396,8 @@ const AdminCategories = () => {
                   Category Image
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                    ${categoryForm.image_url ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                    ${uploadingImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                    ${categoryForm.image_url ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                    ${uploadingImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
                 >
                   <input
                     type="file"
@@ -418,8 +418,8 @@ const AdminCategories = () => {
                           alt="Category Marker"
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                        <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                          <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -436,21 +436,21 @@ const AdminCategories = () => {
                       </>
                     ) : (
                       <>
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Image</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Image</span>
                       </>
                     )}
                   </label>
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>

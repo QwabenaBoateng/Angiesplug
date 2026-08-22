@@ -65,23 +65,23 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden">
+    <div className="min-h-screen bg-[#f8f8f6] flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden">
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full"></div>
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/5 blur-[100px] rounded-full"></div>
       </div>
 
-      <div className="relative w-full max-w-5xl glass-card rounded-[3rem] overflow-hidden border-white/5 shadow-2xl">
+      <div className="relative w-full max-w-5xl glass-card rounded-[3rem] overflow-hidden border-slate-200 shadow-2xl">
         <div className="flex flex-col lg:flex-row min-h-[650px]">
           {/* Left Panel - Branding */}
-          <div className="lg:w-5/12 bg-slate-900 border-r border-white/5 p-12 flex flex-col items-center justify-center text-center relative">
+          <div className="lg:w-5/12 bg-white border-r border-slate-200 p-12 flex flex-col items-center justify-center text-center relative">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-50"></div>
             
             <div className="relative z-10">
               <div className="inline-flex items-center space-x-3 mb-12">
                 <div className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                  <ShieldCheck className="text-white" size={24} />
+                  <ShieldCheck className="text-slate-900" size={24} />
                 </div>
                 <span className="text-xl font-black tracking-tighter italic">EXQUISITE <span className="text-blue-500">BOUTIQUE</span></span>
               </div>
@@ -90,13 +90,13 @@ const Login = () => {
                 WELCOME <br /> <span className="text-gradient">BACK.</span>
               </h1>
               
-              <p className="text-slate-400 font-bold text-lg mb-12 tracking-tight">
+              <p className="text-slate-600 font-bold text-lg mb-12 tracking-tight">
                 Sign in to manage your drops, track orders, and stay connected.
               </p>
               
-              <div className="p-6 rounded-[2rem] bg-white/5 border border-white/5">
+              <div className="p-6 rounded-[2rem] bg-black/5 border border-slate-200">
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Member Perks</p>
-                <p className="text-sm font-bold text-slate-300 italic">Early Access & 5% Discount on every drop.</p>
+                <p className="text-sm font-bold text-slate-700 italic">Early Access & 5% Discount on every drop.</p>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@ const Login = () => {
                     />
                     <button
                       type="button"
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-900"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -158,12 +158,12 @@ const Login = () => {
                         onChange={(e) => setRememberMe(e.target.checked)}
                         className="sr-only"
                       />
-                      <div className={`w-10 h-5 rounded-full transition-colors ${rememberMe ? 'bg-blue-600' : 'bg-slate-800 border border-white/5'}`}></div>
+                      <div className={`w-10 h-5 rounded-full transition-colors ${rememberMe ? 'bg-blue-600' : 'bg-slate-800 border border-slate-200'}`}></div>
                       <div className={`absolute top-1 left-1 w-3 h-3 bg-white rounded-full transition-transform ${rememberMe ? 'translate-x-5' : 'translate-x-0'}`}></div>
                     </div>
-                    <span className="ml-3 text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-slate-200">Remember Me</span>
+                    <span className="ml-3 text-xs font-black text-slate-600 uppercase tracking-widest group-hover:text-slate-800">Remember Me</span>
                   </label>
-                  <Link to="/forgot-password" size="sm" className="text-xs font-black text-blue-500 uppercase tracking-widest hover:text-white transition-colors">
+                  <Link to="/forgot-password" size="sm" className="text-xs font-black text-blue-500 uppercase tracking-widest hover:text-slate-900 transition-colors">
                     Reset Key?
                   </Link>
                 </div>
@@ -186,7 +186,7 @@ const Login = () => {
                   <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-6">New to the mission?</p>
                   <Link
                     to="/signup"
-                    className="inline-block w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black tracking-[0.2em] text-xs hover:bg-white/10 transition-all uppercase"
+                    className="inline-block w-full py-4 rounded-2xl bg-black/5 border border-slate-200 text-slate-900 font-black tracking-[0.2em] text-xs hover:bg-black/5 transition-all uppercase"
                   >
                     Initiate Registration
                   </Link>

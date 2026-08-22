@@ -318,7 +318,7 @@ const AdminPromotionalSection = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
             PROMOTIONS <span className="text-cyan-500">& BANNERS</span>
           </h1>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Customize your homepage display, banners, and video features</p>
@@ -349,7 +349,7 @@ const AdminPromotionalSection = () => {
                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
                    <Megaphone className="w-5 h-5 text-cyan-500" />
                  </div>
-                 <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">MAIN STORE BANNER</h2>
+                 <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">MAIN STORE BANNER</h2>
              </div>
 
              <div className="relative z-10">
@@ -357,8 +357,8 @@ const AdminPromotionalSection = () => {
                  Banner Image
                </label>
                <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                   ${promoContent.promo_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                   ${uploadingImage ? 'border-cyan-500/50 bg-cyan-500/5 cursor-wait' : 'hover:border-cyan-500/50 hover:bg-cyan-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                   ${promoContent.promo_image ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                   ${uploadingImage ? 'border-cyan-500/50 bg-cyan-500/5 cursor-wait' : 'hover:border-cyan-500/50 hover:bg-cyan-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
                >
                  <input
                    type="file"
@@ -379,8 +379,8 @@ const AdminPromotionalSection = () => {
                          alt="Store Banner"
                          className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                        />
-                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                         <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                       <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                         <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                        </div>
                        <button
                          type="button"
@@ -397,10 +397,10 @@ const AdminPromotionalSection = () => {
                        </>
                    ) : (
                      <>
-                       <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                       <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                          <ImageIcon className="w-6 h-6 text-cyan-500" />
                        </div>
-                       <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Banner Image<br/><span className="text-[8px] text-slate-500 mt-1 block">5MB Limit</span></span>
+                       <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Banner Image<br/><span className="text-[8px] text-slate-500 mt-1 block">5MB Limit</span></span>
                      </>
                    )}
                  </label>
@@ -417,7 +417,7 @@ const AdminPromotionalSection = () => {
                  <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center border border-rose-500/20">
                    <Play className="w-5 h-5 text-rose-500" />
                  </div>
-                 <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">HOMEPAGE VIDEO SECTION</h2>
+                 <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">HOMEPAGE VIDEO SECTION</h2>
              </div>
 
              <div className="space-y-6 relative z-10">
@@ -426,8 +426,8 @@ const AdminPromotionalSection = () => {
                     Featured Video
                  </label>
                  <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                     ${promoContent.promo_video ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                     ${uploadingVideo ? 'border-rose-500/50 bg-rose-500/5 cursor-wait' : 'hover:border-rose-500/50 hover:bg-rose-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                     ${promoContent.promo_video ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                     ${uploadingVideo ? 'border-rose-500/50 bg-rose-500/5 cursor-wait' : 'hover:border-rose-500/50 hover:bg-rose-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
                  >
                    <input
                      type="file"
@@ -449,8 +449,8 @@ const AdminPromotionalSection = () => {
                            className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                            controls
                          />
-                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center pointer-events-none">
-                           <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Video</span>
+                         <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center pointer-events-none">
+                           <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Video</span>
                          </div>
                          <button
                            type="button"
@@ -467,10 +467,10 @@ const AdminPromotionalSection = () => {
                          </>
                      ) : (
                        <>
-                         <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                         <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                            <Video className="w-6 h-6 text-rose-500" />
                          </div>
-                         <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Featured Video<br/><span className="text-[8px] text-slate-500 mt-1 block">50MB Limit</span></span>
+                         <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Featured Video<br/><span className="text-[8px] text-slate-500 mt-1 block">50MB Limit</span></span>
                        </>
                      )}
                    </label>
@@ -478,7 +478,7 @@ const AdminPromotionalSection = () => {
                </div>
 
                {/* Video Poster */}
-               <div className="p-4 bg-black/20 rounded-[1.5rem] border border-white/5">
+               <div className="p-4 bg-black/10 rounded-[1.5rem] border border-slate-200">
                   <div className="flex items-center justify-between mb-4">
                      <div>
                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
@@ -490,7 +490,7 @@ const AdminPromotionalSection = () => {
                         <div>
                          <label
                            htmlFor="promo-poster-upload"
-                           className="cursor-pointer inline-flex items-center px-4 py-2 text-[9px] font-black tracking-widest rounded-xl text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 uppercase transition-colors"
+                           className="cursor-pointer inline-flex items-center px-4 py-2 text-[9px] font-black tracking-widest rounded-xl text-slate-700 bg-black/5 hover:bg-black/5 border border-slate-200 uppercase transition-colors"
                          >
                            <Upload className="w-3 h-3 mr-2" />
                            Add Thumbnail
@@ -508,7 +508,7 @@ const AdminPromotionalSection = () => {
                   </div>
                   
                   {promoContent.promo_video_poster ? (
-                    <div className="relative group rounded-xl overflow-hidden border border-white/10">
+                    <div className="relative group rounded-xl overflow-hidden border border-slate-200">
                       <img
                         src={promoContent.promo_video_poster}
                         alt="Video thumbnail"
@@ -522,7 +522,7 @@ const AdminPromotionalSection = () => {
                       </button>
                     </div>
                    ) : uploadingPoster && (
-                     <div className="h-24 flex items-center justify-center border border-white/5 rounded-xl border-dashed">
+                     <div className="h-24 flex items-center justify-center border border-slate-200 rounded-xl border-dashed">
                         <span className="text-[10px] font-black tracking-widest uppercase text-slate-500">Processing...</span>
                      </div>
                    )}
@@ -538,7 +538,7 @@ const AdminPromotionalSection = () => {
                <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
                  <LayoutTemplate className="w-5 h-5 text-orange-500" />
                </div>
-               <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">BANNER TEXT CONTENT</h2>
+               <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">BANNER TEXT CONTENT</h2>
            </div>
 
           <div className="space-y-6">
@@ -550,7 +550,7 @@ const AdminPromotionalSection = () => {
                 type="text"
                 value={promoContent.promo_title}
                 onChange={(e) => handleInputChange('promo_title', e.target.value)}
-                className="input-glass w-full text-sm font-bold text-slate-200"
+                className="input-glass w-full text-sm font-bold text-slate-800"
               />
             </div>
 
@@ -591,7 +591,7 @@ const AdminPromotionalSection = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/20 border border-white/5">
+            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/10 border border-slate-200">
               <div className="col-span-2 text-[10px] font-black text-orange-500 uppercase tracking-widest">
                  Banner Button Settings
               </div>
@@ -615,7 +615,7 @@ const AdminPromotionalSection = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/20 border border-white/5">
+            <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-black/10 border border-slate-200">
               <div className="col-span-2 text-[10px] font-black text-rose-500 uppercase tracking-widest flex items-center justify-between">
                  <span>Video Button Settings</span>
               </div>
@@ -650,9 +650,9 @@ const AdminPromotionalSection = () => {
          </h3>
          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 opacity-80 pointer-events-none filter grayscale-[30%]">
            {/* Image Promo Preview */}
-           <div className="bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+           <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-2xl relative">
               <div className="absolute top-0 right-0 p-4 z-20">
-                 <span className="text-[9px] font-black tracking-widest text-white/50 uppercase bg-black/50 px-2 py-1 rounded backdrop-blur-sm">IMAGE BANNER</span>
+                 <span className="text-[9px] font-black tracking-widest text-slate-900/50 uppercase bg-white/50 px-2 py-1 rounded backdrop-blur-sm">IMAGE BANNER</span>
               </div>
              <div className="grid grid-cols-1 md:grid-cols-2">
                <div className="relative">
@@ -669,10 +669,10 @@ const AdminPromotionalSection = () => {
                  )}
                </div>
                <div className="p-8 flex flex-col justify-center">
-                 <h2 className="text-xl font-black italic tracking-tighter text-white uppercase mb-4 leading-snippet">
+                 <h2 className="text-xl font-black italic tracking-tighter text-slate-900 uppercase mb-4 leading-snippet">
                     {promoContent.promo_title || 'NO TITLE DEFINED'}
                  </h2>
-                 <p className="text-xs text-slate-400 mb-6 line-clamp-3">
+                 <p className="text-xs text-slate-600 mb-6 line-clamp-3">
                    {promoContent.promo_description || 'No description provided...'}
                  </p>
                  <div className="mb-6">
@@ -689,9 +689,9 @@ const AdminPromotionalSection = () => {
            </div>
 
            {/* Video Promo Preview */}
-           <div className="bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
+           <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-2xl relative group">
               <div className="absolute top-0 right-0 p-4 z-20">
-                 <span className="text-[9px] font-black tracking-widest text-white/50 uppercase bg-black/50 px-2 py-1 rounded backdrop-blur-sm">VIDEO SECTION</span>
+                 <span className="text-[9px] font-black tracking-widest text-slate-900/50 uppercase bg-white/50 px-2 py-1 rounded backdrop-blur-sm">VIDEO SECTION</span>
               </div>
              {promoContent.promo_video ? (
                <video
@@ -708,7 +708,7 @@ const AdminPromotionalSection = () => {
                </div>
              )}
              <div className="absolute top-6 left-6 max-w-[60%]">
-               <h3 className="text-lg font-black italic text-white uppercase leading-none drop-shadow-md">
+               <h3 className="text-lg font-black italic text-slate-900 uppercase leading-none drop-shadow-md">
                  {promoContent.promo_title}
                </h3>
              </div>

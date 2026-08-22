@@ -24,7 +24,7 @@ const Contact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white overflow-hidden selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#f8f8f6] text-white overflow-hidden selection:bg-blue-500/30">
       {/* Background Decor */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full -mr-96 -mt-96 animate-pulse-slow"></div>
@@ -38,7 +38,7 @@ const Contact = () => {
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 italic animate-in fade-in slide-in-from-top-6 duration-700">
             CONNECT <span className="text-gradient">WITH US</span>
           </h1>
-          <p className="text-xl md:text-2xl text-slate-400 font-bold max-w-2xl mx-auto leading-snug tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <p className="text-xl md:text-2xl text-slate-600 font-bold max-w-2xl mx-auto leading-snug tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-1000">
             Have a question about a drop or an existing order? Our squad is on standby to help you out.
           </p>
         </div>
@@ -48,7 +48,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           {/* Contact Information */}
           <div className="lg:col-span-5 space-y-12">
-            <h2 className="text-4xl font-black tracking-tighter pb-4 border-b border-white/5 inline-block">THE <span className="text-blue-500">INTEL</span></h2>
+            <h2 className="text-4xl font-black tracking-tighter pb-4 border-b border-slate-200 inline-block">THE <span className="text-blue-500">INTEL</span></h2>
             
             <div className="space-y-10">
               <div className="flex items-start group">
@@ -57,7 +57,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Direct Intel</h3>
-                  <p className="text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">angelatyron251@gmail.com</p>
+                  <p className="text-2xl font-bold tracking-tight text-slate-900 group-hover:text-blue-400 transition-colors">angelatyron251@gmail.com</p>
                 </div>
               </div>
 
@@ -67,41 +67,41 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Voice Comms</h3>
-                  <p className="text-2xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">0549759032</p>
+                  <p className="text-2xl font-bold tracking-tight text-slate-900 group-hover:text-indigo-400 transition-colors">0549759032</p>
                   <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Support: Mon-Fri 9AM-4PM</p>
                 </div>
               </div>
 
               <div className="flex items-start group">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mr-6 border border-white/5 group-hover:bg-white/10 transition-all duration-500 group-hover:text-white text-slate-400 group-hover:scale-110">
+                <div className="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center mr-6 border border-slate-200 group-hover:bg-black/5 transition-all duration-500 group-hover:text-slate-900 text-slate-600 group-hover:scale-110">
                   <MapPin size={24} />
                 </div>
                 <div>
                   <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Base Operations</h3>
-                  <p className="text-2xl font-bold tracking-tight text-white">Madina ARS, Accra</p>
+                  <p className="text-2xl font-bold tracking-tight text-slate-900">Madina ARS, Accra</p>
                 </div>
               </div>
             </div>
 
             {/* Business Hours Card */}
-            <div className="glass-card rounded-[2.5rem] p-10 bg-white/5 border border-white/5 overflow-hidden relative group">
+            <div className="glass-card rounded-[2.5rem] p-10 bg-black/5 border border-slate-200 overflow-hidden relative group">
               <div className="absolute top-0 right-0 w-24 h-24 bg-blue-600/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="flex items-center space-x-4 mb-8">
                 <Clock className="text-blue-500" size={24} />
                 <h3 className="text-2xl font-black italic tracking-tighter">OPERATING <span className="text-blue-500">HOURS</span></h3>
               </div>
-              <div className="space-y-4 font-bold text-slate-300">
-                <div className="flex justify-between pb-3 border-b border-white/5">
+              <div className="space-y-4 font-bold text-slate-700">
+                <div className="flex justify-between pb-3 border-b border-slate-200">
                   <span className="text-slate-500 uppercase tracking-widest text-[10px]">Monday - Friday</span>
-                  <span className="text-white tracking-widest text-sm">09:00 — 16:00</span>
+                  <span className="text-slate-900 tracking-widest text-sm">09:00 — 16:00</span>
                 </div>
-                <div className="flex justify-between pb-3 border-b border-white/5">
+                <div className="flex justify-between pb-3 border-b border-slate-200">
                   <span className="text-slate-500 uppercase tracking-widest text-[10px]">Saturday</span>
-                  <span className="text-white tracking-widest text-sm">10:00 — 16:00</span>
+                  <span className="text-slate-900 tracking-widest text-sm">10:00 — 16:00</span>
                 </div>
                 <div className="flex justify-between py-1">
                   <span className="text-slate-500 uppercase tracking-widest text-[10px]">Sunday</span>
-                  <span className="text-slate-400/50 uppercase tracking-widest text-xs italic">Closed Terminal</span>
+                  <span className="text-slate-600/50 uppercase tracking-widest text-xs italic">Closed Terminal</span>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="glass-card rounded-[3rem] p-8 lg:p-14 bg-white/5 border border-white/5 animate-in fade-in slide-in-from-right-8 duration-1000">
+            <div className="glass-card rounded-[3rem] p-8 lg:p-14 bg-black/5 border border-slate-200 animate-in fade-in slide-in-from-right-8 duration-1000">
               <div className="flex items-center space-x-6 mb-12">
                 <div className="w-px h-12 bg-blue-500"></div>
                 <div>

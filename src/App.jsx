@@ -78,7 +78,7 @@ function App() {
         v7_relativeSplatPath: true
       }}
     >
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#f8f8f6] text-slate-900 dark:text-slate-50 transition-colors duration-300">
         <Routes>
           {/* Public routes */}
           <Route path="/" element={

@@ -145,7 +145,7 @@ const Shop = () => {
           >
             <ShoppingCart size={20} />
           </button>
-          <button className="p-3 bg-white/10 backdrop-blur-xl rounded-2xl text-white hover:bg-white/20 transition-all active:scale-90 border border-white/10">
+          <button className="p-3 bg-black/5 backdrop-blur-xl rounded-2xl text-slate-900 hover:bg-black/10 transition-all active:scale-90 border border-slate-200">
             <Heart size={20} />
           </button>
         </div>
@@ -156,17 +156,17 @@ const Shop = () => {
         </div>
       </div>
       <div className="p-6">
-        <h3 className="font-bold text-white text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
+        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-black text-white tracking-tighter">₵{product.price}</span>
+            <span className="text-2xl font-black text-slate-900 tracking-tighter">₵{product.price}</span>
             <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Available Now</span>
           </div>
           <div className="flex flex-col items-end">
             <div className="flex items-center text-amber-400 mb-1">
               {[...Array(5)].map((_, i) => <Star key={i} size={12} className={i < 4 ? 'fill-current' : 'text-slate-700'} />)}
             </div>
-            <span className="text-[10px] font-bold text-slate-400">4.8 (120+ reviews)</span>
+            <span className="text-[10px] font-bold text-slate-600">4.8 (120+ reviews)</span>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@ const Shop = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 overflow-hidden">
+    <div className="min-h-screen bg-[#f8f8f6] overflow-hidden">
       {/* Marketplace Hero Header */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
@@ -194,13 +194,13 @@ const Shop = () => {
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em]">Verified Marketplace</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
             MARKET<span className="text-gradient">PLACE</span>
           </h1>
           
           <div className="max-w-3xl mx-auto relative group animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
             <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-3xl group-focus-within:bg-blue-500/30 transition-all"></div>
-            <div className="relative flex items-center bg-slate-900/80 border border-slate-700/50 backdrop-blur-2xl rounded-[2.5rem] p-2 pr-4 shadow-2xl focus-within:border-blue-500/50 transition-all">
+            <div className="relative flex items-center bg-white/80 border border-slate-200 backdrop-blur-2xl rounded-[2.5rem] p-2 pr-4 shadow-2xl focus-within:border-blue-500/50 transition-all">
               <div className="pl-6 text-slate-500">
                 <Search size={24} />
               </div>
@@ -209,7 +209,7 @@ const Shop = () => {
                 placeholder="What are you looking for today?"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none text-white px-6 py-4 focus:ring-0 text-lg placeholder:text-slate-600"
+                className="flex-1 bg-transparent border-none text-slate-900 px-6 py-4 focus:ring-0 text-lg placeholder:text-slate-600"
               />
               <button className="btn-gradient px-8 py-3.5 text-sm">
                 Search
@@ -225,7 +225,7 @@ const Shop = () => {
           <div className="flex items-center space-x-4 min-w-max pb-4">
             <button
               onClick={() => handleFilterChange('category', '')}
-              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === '' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 active:scale-95'}`}
+              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === '' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
             >
               <Grid size={18} />
               <span>All Styles</span>
@@ -236,7 +236,7 @@ const Shop = () => {
                 <button
                   key={category.id}
                   onClick={() => handleFilterChange('category', category.id)}
-                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === category.id ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 active:scale-95'}`}
+                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === category.id ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
                 >
                   <Icon size={18} />
                   <span>{category.name}</span>
@@ -251,22 +251,22 @@ const Shop = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'}`}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
             >
               <Filter size={18} />
               <span>Advanced Filters</span>
             </button>
             
-            <div className="flex items-center bg-white/5 p-1 rounded-xl border border-white/10">
+            <div className="flex items-center bg-black/5 p-1 rounded-xl border border-slate-200">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 <Grid size={18} />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 <List size={18} />
               </button>
@@ -281,7 +281,7 @@ const Shop = () => {
                 handleFilterChange('sortBy', sortBy)
                 handleFilterChange('sortOrder', sortOrder)
               }}
-              className="w-full bg-slate-900 border border-slate-700/50 rounded-xl px-6 py-3 text-slate-200 font-bold focus:ring-2 focus:ring-blue-500/20 appearance-none pr-12"
+              className="w-full bg-white border border-slate-200 rounded-xl px-6 py-3 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500/20 appearance-none pr-12"
             >
               <option value="created_at-desc">Newest First</option>
               <option value="price-asc">Price: Low to High</option>
@@ -297,8 +297,8 @@ const Shop = () => {
         {showFilters && (
           <div className="mb-12 glass-card rounded-3xl p-8 animate-in fade-in slide-in-from-top-8 duration-500">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-black text-white">Refine <span className="text-blue-500">Search</span></h3>
-              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-widest hover:text-white transition-colors">Reset All</button>
+              <h3 className="text-xl font-black text-slate-900">Refine <span className="text-blue-500">Search</span></h3>
+              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-widest hover:text-slate-900 transition-colors">Reset All</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
@@ -310,9 +310,9 @@ const Shop = () => {
                   step="50"
                   value={filters.priceRange[1]}
                   onChange={(e) => handleFilterChange('priceRange', [0, parseInt(e.target.value)])}
-                  className="w-full accent-blue-500 h-2 bg-white/5 rounded-full appearance-none mb-4"
+                  className="w-full accent-blue-500 h-2 bg-black/5 rounded-full appearance-none mb-4"
                 />
-                <div className="flex justify-between text-slate-400 font-bold text-sm">
+                <div className="flex justify-between text-slate-600 font-bold text-sm">
                   <span>₵0</span>
                   <span className="text-blue-400 text-lg">₵{filters.priceRange[1]}</span>
                 </div>
@@ -337,10 +337,10 @@ const Shop = () => {
             </div>
           ) : (
             <div className="py-32 text-center">
-              <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-24 h-24 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search size={40} className="text-slate-700" />
               </div>
-              <h3 className="text-2xl font-black text-white mb-2">No items found</h3>
+              <h3 className="text-2xl font-black text-slate-900 mb-2">No items found</h3>
               <p className="text-slate-500 max-w-sm mx-auto">We couldn't find any items matching your search. Try adjusting your filters or searching for something else.</p>
               <button onClick={clearFilters} className="mt-8 btn-glass">Clear Search</button>
             </div>

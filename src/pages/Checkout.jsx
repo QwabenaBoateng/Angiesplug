@@ -130,16 +130,16 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 pt-24 pb-32">
+    <div className="min-h-screen bg-[#f8f8f6] pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/cart" className="inline-flex items-center space-x-2 text-slate-500 hover:text-white transition-colors mb-12 uppercase text-[10px] font-black tracking-widest">
+        <Link to="/cart" className="inline-flex items-center space-x-2 text-slate-500 hover:text-slate-900 transition-colors mb-12 uppercase text-[10px] font-black tracking-widest">
           <ChevronLeft size={16} />
           <span>Review Cart Selection</span>
         </Link>
         
         <div className="mb-16">
           <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Deployment Terminal</span>
-          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter italic uppercase leading-none">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">
             SECURE <span className="text-gradient">CHECKOUT</span>
           </h1>
         </div>
@@ -149,7 +149,7 @@ const Checkout = () => {
           <div className="lg:col-span-8 space-y-12">
             
             {/* Step 1: Destination */}
-            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 relative overflow-hidden">
+            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-slate-200 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-5">
                 <MapPin size={120} className="text-blue-500" />
               </div>
@@ -158,7 +158,7 @@ const Checkout = () => {
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
                   <MapPin size={20} />
                 </div>
-                <h2 className="text-2xl font-black italic tracking-tighter text-white">01. <span className="text-blue-500">DESTINATION</span> INTEL</h2>
+                <h2 className="text-2xl font-black italic tracking-tighter text-slate-900">01. <span className="text-blue-500">DESTINATION</span> INTEL</h2>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -254,7 +254,7 @@ const Checkout = () => {
             </div>
 
             {/* Step 2: Payment */}
-            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 relative overflow-hidden">
+            <div className="glass-card rounded-[3rem] p-8 sm:p-12 border-slate-200 relative overflow-hidden">
                <div className="absolute top-0 right-0 p-8 opacity-5">
                 <CreditCard size={120} className="text-indigo-500" />
               </div>
@@ -263,11 +263,11 @@ const Checkout = () => {
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20">
                   <CreditCard size={20} />
                 </div>
-                <h2 className="text-2xl font-black italic tracking-tighter text-white">02. <span className="text-indigo-500">SETTLEMENT</span> PROTOCOL</h2>
+                <h2 className="text-2xl font-black italic tracking-tighter text-slate-900">02. <span className="text-indigo-500">SETTLEMENT</span> PROTOCOL</h2>
               </div>
               
               <div className="space-y-6">
-                <label className="flex items-center p-6 rounded-[2rem] border-2 transition-all cursor-pointer group bg-white/5 border-white/5 hover:border-indigo-500/30">
+                <label className="flex items-center p-6 rounded-[2rem] border-2 transition-all cursor-pointer group bg-black/5 border-slate-200 hover:border-indigo-500/30">
                   <input
                     type="radio"
                     name="payment"
@@ -278,10 +278,10 @@ const Checkout = () => {
                   />
                   <div className="ml-6 flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-black text-white uppercase tracking-widest">Digital Credit Card</span>
+                      <span className="text-sm font-black text-slate-900 uppercase tracking-widest">Digital Credit Card</span>
                       <div className="flex space-x-2">
-                        <div className="w-8 h-5 bg-white/10 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
-                        <div className="w-8 h-5 bg-white/10 rounded flex items-center justify-center text-[8px] font-black">MASTERCARD</div>
+                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
+                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-black">MASTERCARD</div>
                       </div>
                     </div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Secure encrypted transmission</p>
@@ -289,7 +289,7 @@ const Checkout = () => {
                 </label>
                 
                 <div className="p-6 rounded-[2rem] bg-indigo-500/5 border border-indigo-500/10">
-                  <p className="text-xs font-bold text-slate-400 italic">
+                  <p className="text-xs font-bold text-slate-600 italic">
                     Note: Payment processing is isolated and encrypted. The production gateway (Stripe/Paystack) will be activated for live transactions.
                   </p>
                 </div>
@@ -299,7 +299,7 @@ const Checkout = () => {
           
           {/* Summary Sidebar */}
           <div className="lg:col-span-4">
-            <div className="glass-card rounded-[3rem] p-8 sm:p-10 sticky top-24 border-white/5 shadow-2xl overflow-hidden group">
+            <div className="glass-card rounded-[3rem] p-8 sm:p-10 sticky top-24 border-slate-200 shadow-2xl overflow-hidden group">
                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl group-hover:bg-blue-600/10 transition-all"></div>
                
               <div className="flex items-center space-x-4 mb-10">
@@ -308,10 +308,10 @@ const Checkout = () => {
               </div>
               
               {/* Mini Cart Feed */}
-              <div className="space-y-6 mb-10 max-h-60 overflow-y-auto no-scrollbar pr-2 border-b border-white/5 pb-8">
+              <div className="space-y-6 mb-10 max-h-60 overflow-y-auto no-scrollbar pr-2 border-b border-slate-200 pb-8">
                 {cart.map((item) => (
                   <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="flex items-center space-x-4 group">
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0 group-hover:border-blue-500/30 transition-all">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 flex-shrink-0 group-hover:border-blue-500/30 transition-all">
                       <img
                         src={item.image_urls?.[0] || item.image || '/placeholder-image.jpg'}
                         alt={item.name}
@@ -319,7 +319,7 @@ const Checkout = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-black text-white uppercase truncate tracking-widest leading-none mb-1">
+                      <p className="text-[10px] font-black text-slate-900 uppercase truncate tracking-widest leading-none mb-1">
                         {item.name}
                       </p>
                       <p className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.1em]">
@@ -334,7 +334,7 @@ const Checkout = () => {
               <div className="space-y-6">
                 <div className="flex justify-between items-end">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Subtotal</span>
-                  <span className="text-lg font-black text-white tracking-tighter">₵{subtotal.toFixed(2)}</span>
+                  <span className="text-lg font-black text-slate-900 tracking-tighter">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between items-end">
@@ -342,19 +342,19 @@ const Checkout = () => {
                     <Truck size={14} className="text-slate-500" />
                     <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
                   </div>
-                  <span className={`text-lg font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-white'}`}>
+                  <span className={`text-lg font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
                     {shipping === 0 ? 'FREE' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
-                <div className="flex justify-between items-end pb-8 border-b border-white/5">
+                <div className="flex justify-between items-end pb-8 border-b border-slate-200">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
-                  <span className="text-lg font-black text-white tracking-tighter">₵{tax.toFixed(2)}</span>
+                  <span className="text-lg font-black text-slate-900 tracking-tighter">₵{tax.toFixed(2)}</span>
                 </div>
                 
                 <div className="pt-2">
                   <div className="flex justify-between items-end mb-10">
-                    <span className="text-xs font-black text-white uppercase tracking-[0.3em]">Total Mission Cost</span>
+                    <span className="text-xs font-black text-slate-900 uppercase tracking-[0.3em]">Total Mission Cost</span>
                     <span className="text-4xl font-black text-blue-500 tracking-tighter">₵{total.toFixed(2)}</span>
                   </div>
                   

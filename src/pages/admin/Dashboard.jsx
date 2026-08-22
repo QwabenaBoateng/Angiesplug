@@ -73,11 +73,11 @@ const Dashboard = () => {
   }
 
   const StatCard = ({ title, value, icon: Icon, colorClass, borderClass, change }) => (
-    <div className={`bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 rounded-3xl p-6 relative overflow-hidden group shadow-[0_0_30px_-10px_rgba(0,0,0,0.4)]`}>
+    <div className={`bg-white/60 backdrop-blur-3xl border border-slate-200 hover:border-blue-500/30 transition-all duration-300 rounded-3xl p-6 relative overflow-hidden group shadow-[0_0_30px_-10px_rgba(0,0,0,0.4)]`}>
       <div className={`absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity ${colorClass}`}></div>
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-4">
-          <div className={`w-12 h-12 rounded-2xl bg-slate-900/50 flex items-center justify-center border ${borderClass}`}>
+          <div className={`w-12 h-12 rounded-2xl bg-white/50 flex items-center justify-center border ${borderClass}`}>
             <Icon className={`h-5 w-5 ${colorClass}`} />
           </div>
           {change && (
@@ -87,8 +87,8 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{title}</p>
-        <p className="text-3xl font-black text-white tracking-tighter">{value}</p>
+        <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] mb-1">{title}</p>
+        <p className="text-3xl font-black text-slate-900 tracking-tighter">{value}</p>
       </div>
     </div>
   )
@@ -98,7 +98,7 @@ const Dashboard = () => {
       <div className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 h-36 flex items-center justify-center">
+            <div key={i} className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 h-36 flex items-center justify-center">
                <div className="w-8 h-8 rounded-full border-t-2 border-blue-500 animate-spin"></div>
             </div>
           ))}
@@ -112,7 +112,7 @@ const Dashboard = () => {
       
       {/* Page Header Header */}
       <div>
-        <h1 className="text-4xl font-black text-white italic tracking-tighter uppercase mb-2">
+        <h1 className="text-4xl font-black text-slate-900 italic tracking-tighter uppercase mb-2">
           STORE <span className="text-blue-500">PERFORMANCE</span>
         </h1>
         <p className="text-xs font-black text-slate-500 uppercase tracking-widest">
@@ -161,40 +161,40 @@ const Dashboard = () => {
         {/* Main Panel: Recent Orders */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-black text-white italic tracking-tighter uppercase">
+            <h2 className="text-lg font-black text-slate-900 italic tracking-tighter uppercase">
               Recent <span className="text-blue-500">Orders</span>
             </h2>
             <Link
               to="/admin/orders"
-              className="group flex items-center text-[10px] font-black text-slate-400 hover:text-blue-400 uppercase tracking-widest transition-colors"
+              className="group flex items-center text-[10px] font-black text-slate-600 hover:text-blue-400 uppercase tracking-widest transition-colors"
             >
               View All Orders
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           
-          <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
+          <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-[2rem] overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10 bg-slate-950/30">
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Order #</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Customer</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Price</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Order Date</th>
+                  <tr className="border-b border-slate-200 bg-[#f8f8f6]/30">
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Order #</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Customer</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Total Price</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Status</th>
+                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest text-right">Order Date</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {recentOrders.map((order) => (
                     <tr key={order.id} className="hover:bg-white-[0.02] transition-colors">
                       <td className="py-4 px-6">
-                        <span className="text-xs font-black text-white tracking-widest bg-white/5 px-2 py-1 rounded">
+                        <span className="text-xs font-black text-slate-900 tracking-widest bg-black/5 px-2 py-1 rounded">
                           {order.id.slice(-6).toUpperCase()}
                         </span>
                       </td>
                       <td className="py-4 px-6">
-                        <div className="text-sm font-bold text-white">{order.email.split('@')[0]}</div>
+                        <div className="text-sm font-bold text-slate-900">{order.email.split('@')[0]}</div>
                         <div className="text-[10px] text-slate-500">{order.email}</div>
                       </td>
                       <td className="py-4 px-6">
@@ -206,9 +206,9 @@ const Dashboard = () => {
                         {order.status === 'completed' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">Delivered</span>}
                         {order.status === 'shipped' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest">On The Way</span>}
                         {order.status === 'processing' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/20 uppercase tracking-widest">Packing</span>}
-                        {order.status === 'pending' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-slate-500/10 text-slate-400 border border-slate-500/20 uppercase tracking-widest">Awaiting Payment</span>}
+                        {order.status === 'pending' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-slate-500/10 text-slate-600 border border-slate-500/20 uppercase tracking-widest">Awaiting Payment</span>}
                         {!['completed','shipped','processing','pending'].includes(order.status) && (
-                          <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-white/5 text-slate-400 border border-white/10 uppercase tracking-widest">{order.status}</span>
+                          <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-black/5 text-slate-600 border border-slate-200 uppercase tracking-widest">{order.status}</span>
                         )}
                       </td>
                       <td className="py-4 px-6 text-right">
@@ -233,35 +233,35 @@ const Dashboard = () => {
 
         {/* Side Panel: Quick Actions */}
         <div className="space-y-6">
-          <h2 className="text-lg font-black text-white italic tracking-tighter uppercase">
+          <h2 className="text-lg font-black text-slate-900 italic tracking-tighter uppercase">
             Quick <span className="text-indigo-400">Actions</span>
           </h2>
           
           <div className="space-y-4">
-            <Link to="/admin/products" className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-blue-500/30 transition-all rounded-2xl p-5 flex items-center group block">
+            <Link to="/admin/products" className="bg-white/60 backdrop-blur-3xl border border-slate-200 hover:border-blue-500/30 transition-all rounded-2xl p-5 flex items-center group block">
               <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                 <Package className="w-6 h-6 text-blue-500" />
               </div>
               <div>
-                <h3 className="text-sm font-black text-white tracking-widest uppercase">Manage Items</h3>
-                <p className="text-[10px] font-bold text-slate-400 mt-1">Add or edit products</p>
+                <h3 className="text-sm font-black text-slate-900 tracking-widest uppercase">Manage Items</h3>
+                <p className="text-[10px] font-bold text-slate-600 mt-1">Add or edit products</p>
               </div>
             </Link>
             
-            <Link to="/admin/categories" className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 hover:border-indigo-500/30 transition-all rounded-2xl p-5 flex items-center group block">
+            <Link to="/admin/categories" className="bg-white/60 backdrop-blur-3xl border border-slate-200 hover:border-indigo-500/30 transition-all rounded-2xl p-5 flex items-center group block">
               <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                 <Plus className="w-6 h-6 text-indigo-400" />
               </div>
               <div>
-                <h3 className="text-sm font-black text-white tracking-widest uppercase">Collections</h3>
-                <p className="text-[10px] font-bold text-slate-400 mt-1">Organize your shop</p>
+                <h3 className="text-sm font-black text-slate-900 tracking-widest uppercase">Collections</h3>
+                <p className="text-[10px] font-bold text-slate-600 mt-1">Organize your shop</p>
               </div>
             </Link>
 
             <div className="bg-indigo-500/5 backdrop-blur-3xl border border-indigo-500/20 rounded-2xl p-6 relative overflow-hidden mt-8">
               <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-[30px]"></div>
               <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-2 relative z-10">Store Status</h3>
-              <p className="text-sm font-bold text-slate-300 relative z-10 leading-relaxed">
+              <p className="text-sm font-bold text-slate-700 relative z-10 leading-relaxed">
                 Your boutique is running perfectly. All systems are online and ready for business!
               </p>
             </div>

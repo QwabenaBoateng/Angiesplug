@@ -220,7 +220,7 @@ const Brands = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
             BRAND <span className="text-emerald-500">MANAGEMENT</span>
           </h1>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the brands you collaborate with</p>
@@ -245,8 +245,8 @@ const Brands = () => {
       {/* Brands Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {brands.map((brand) => (
-          <div key={brand.id} className="glass-card rounded-[2rem] overflow-hidden group border border-white/5 relative">
-            <div className="relative h-48 w-full bg-black/50 overflow-hidden">
+          <div key={brand.id} className="glass-card rounded-[2rem] overflow-hidden group border border-slate-200 relative">
+            <div className="relative h-48 w-full bg-white/50 overflow-hidden">
                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10" />
                <img
                   src={brand.image_url || '/placeholder-image.jpg'}
@@ -257,20 +257,20 @@ const Brands = () => {
                <div className="absolute top-2 right-2 flex space-x-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
                  <button
                    onClick={() => handleEdit(brand)}
-                   className="p-2 bg-black/60 backdrop-blur-md rounded-xl hover:bg-blue-500/20 border border-white/10 hover:border-blue-500/50 transition-all text-slate-300 hover:text-blue-400"
+                   className="p-2 bg-white/60 backdrop-blur-md rounded-xl hover:bg-blue-500/20 border border-slate-200 hover:border-blue-500/50 transition-all text-slate-700 hover:text-blue-400"
                  >
                    <Edit className="w-4 h-4" />
                  </button>
                  <button
                    onClick={() => handleDelete(brand)}
-                   className="p-2 bg-black/60 backdrop-blur-md rounded-xl hover:bg-red-500/20 border border-white/10 hover:border-red-500/50 transition-all text-slate-300 hover:text-red-400"
+                   className="p-2 bg-white/60 backdrop-blur-md rounded-xl hover:bg-red-500/20 border border-slate-200 hover:border-red-500/50 transition-all text-slate-700 hover:text-red-400"
                  >
                    <Trash2 className="w-4 h-4" />
                  </button>
                </div>
             </div>
             <div className="p-6 relative z-20 -mt-6">
-              <h3 className="font-black italic tracking-tighter text-xl text-white uppercase truncate drop-shadow-md">{brand.name}</h3>
+              <h3 className="font-black italic tracking-tighter text-xl text-slate-900 uppercase truncate drop-shadow-md">{brand.name}</h3>
               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest truncate max-w-full">
                 {brand.description || 'NO DESCRIPTION'}
               </p>
@@ -280,9 +280,9 @@ const Brands = () => {
       </div>
 
       {brands.length === 0 && (
-        <div className="text-center py-24 flex flex-col items-center justify-center glass-card rounded-[2rem] border-white/5">
+        <div className="text-center py-24 flex flex-col items-center justify-center glass-card rounded-[2rem] border-slate-200">
           <Building2 className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
-          <h3 className="text-lg font-black text-slate-400 mb-2 uppercase tracking-widest">No Brands Found</h3>
+          <h3 className="text-lg font-black text-slate-600 mb-2 uppercase tracking-widest">No Brands Found</h3>
           <p className="text-xs font-bold text-slate-600 mb-6 uppercase tracking-widest">Add your first brand to the store</p>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -295,8 +295,8 @@ const Brands = () => {
 
       {/* Modal */}
       {isModalOpen && createPortal(
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+        <div className="fixed inset-0 bg-[#f8f8f6]/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-xl glass-card rounded-[3rem] p-8 sm:p-12 border-slate-200 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
               <Building2 size={120} className="text-emerald-500" />
             </div>
@@ -307,14 +307,14 @@ const Brands = () => {
                   <Building2 className="w-6 h-6 text-emerald-500" />
                 </div>
                 <div>
-                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase leading-none">
+                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
                      {editingBrand ? 'MODIFY ' : 'ADD '} <span className="text-emerald-500">BRAND</span>
                    </h3>
                 </div>
               </div>
               <button
                 onClick={handleCloseModal}
-                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
+                className="w-10 h-10 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-slate-200 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -329,7 +329,7 @@ const Brands = () => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="input-glass w-full text-sm font-bold text-white"
+                  className="input-glass w-full text-sm font-bold text-slate-900"
                   placeholder="E.g., Nike"
                   required
                 />
@@ -354,8 +354,8 @@ const Brands = () => {
                   Brand Logo
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                    ${formData.image_url ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                    ${uploadingImage ? 'border-emerald-500/50 bg-emerald-500/5 cursor-wait' : 'hover:border-emerald-500/50 hover:bg-emerald-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                    ${formData.image_url ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                    ${uploadingImage ? 'border-emerald-500/50 bg-emerald-500/5 cursor-wait' : 'hover:border-emerald-500/50 hover:bg-emerald-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
                 >
                   <input
                     type="file"
@@ -376,8 +376,8 @@ const Brands = () => {
                           alt="Brand Logo"
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                        <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                          <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -394,10 +394,10 @@ const Brands = () => {
                         </>
                     ) : (
                       <>
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Brand Logo</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Brand Logo</span>
                       </>
                     )}
                   </label>
@@ -417,11 +417,11 @@ const Brands = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>

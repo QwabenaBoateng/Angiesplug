@@ -100,7 +100,7 @@ const AdminTest = () => {
               </button>
               <button
                 onClick={() => navigate('/')}
-                className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+                className="bg-gray-600 text-slate-900 px-4 py-2 rounded hover:bg-gray-700"
               >
                 Go to Home
               </button>

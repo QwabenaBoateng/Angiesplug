@@ -12,18 +12,18 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f8f8f6] flex items-center justify-center p-4">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 blur-[100px] rounded-full animate-pulse-slow"></div>
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full animate-pulse-slow"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-lg">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-white/5 rounded-[2.5rem] border border-white/5 mb-8 shadow-2xl">
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-black/5 rounded-[2.5rem] border border-slate-200 mb-8 shadow-2xl">
             <ShoppingBag className="w-12 h-12 text-slate-700" />
           </div>
-          <h1 className="text-4xl font-black tracking-tighter text-white mb-4 italic">YOUR CART IS <span className="text-blue-500">VOID</span></h1>
-          <p className="text-slate-400 font-bold text-lg mb-12 tracking-tight leading-relaxed">
+          <h1 className="text-4xl font-black tracking-tighter text-slate-900 mb-4 italic">YOUR CART IS <span className="text-blue-500">VOID</span></h1>
+          <p className="text-slate-600 font-bold text-lg mb-12 tracking-tight leading-relaxed">
             Looks like you haven't secured any pieces for your collection yet. Start browsing our latest drops.
           </p>
           <Link to="/shop" className="btn-gradient px-12 py-5 text-sm font-black tracking-[0.2em] inline-block">
@@ -35,19 +35,19 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 pt-32 pb-32">
+    <div className="min-h-screen bg-[#f8f8f6] pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="text-left">
             <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Secure Procurement</span>
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter italic leading-none">
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic leading-none">
               SECURE <span className="text-gradient">CART</span>
             </h1>
           </div>
           <div className="flex items-center space-x-6">
             <div className="text-right hidden sm:block">
               <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Items In Bundle</p>
-              <p className="text-xl font-black text-white">{cart.length} PIECES</p>
+              <p className="text-xl font-black text-slate-900">{cart.length} PIECES</p>
             </div>
             <button
               onClick={clearCart}
@@ -64,7 +64,7 @@ const Cart = () => {
             {cart.map((item) => (
               <div 
                 key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} 
-                className="glass-card rounded-[2.5rem] overflow-hidden group border-white/5 hover:border-blue-500/20 transition-all duration-500"
+                className="glass-card rounded-[2.5rem] overflow-hidden group border-slate-200 hover:border-blue-500/20 transition-all duration-500"
               >
                 <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-8">
                   {/* Item Image */}
@@ -80,7 +80,7 @@ const Cart = () => {
                   {/* Item Details */}
                   <div className="flex-1 min-w-0 text-center sm:text-left space-y-2">
                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:space-x-4">
-                      <h3 className="text-2xl font-black text-white tracking-tighter truncate group-hover:text-blue-500 transition-colors">
+                      <h3 className="text-2xl font-black text-slate-900 tracking-tighter truncate group-hover:text-blue-500 transition-colors">
                         {item.name.toUpperCase()}
                       </h3>
                       <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
@@ -90,19 +90,19 @@ const Cart = () => {
                     
                     <div className="flex flex-wrap justify-center sm:justify-start gap-3 mt-4">
                       {item.selectedSize && (
-                        <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest">
+                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-widest">
                           SIZE: {item.selectedSize}
                         </span>
                       )}
                       {item.selectedColor && (
-                        <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-slate-300 uppercase tracking-widest">
+                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-widest">
                           COLOR: {item.selectedColor}
                         </span>
                       )}
                     </div>
                     
                     <div className="pt-4 flex items-center justify-center sm:justify-start space-x-6">
-                      <p className="text-2xl font-black text-white tracking-tighter">
+                      <p className="text-2xl font-black text-slate-900 tracking-tighter">
                         ₵{item.price}
                       </p>
                       <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full">
@@ -112,20 +112,20 @@ const Cart = () => {
                   </div>
                   
                   {/* Quantity & Actions */}
-                  <div className="flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-6 sm:pl-8 sm:border-l border-white/5 w-full sm:w-auto">
-                    <div className="flex items-center bg-slate-900 rounded-2xl border border-white/5 p-1 shrink-0">
+                  <div className="flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-6 sm:pl-8 sm:border-l border-slate-200 w-full sm:w-auto">
+                    <div className="flex items-center bg-white rounded-2xl border border-slate-200 p-1 shrink-0">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="p-2 text-slate-500 hover:text-white transition-colors"
+                        className="p-2 text-slate-500 hover:text-slate-900 transition-colors"
                       >
                         <Minus size={18} />
                       </button>
-                      <span className="w-10 text-center font-black text-white text-lg tabular-nums">
+                      <span className="w-10 text-center font-black text-slate-900 text-lg tabular-nums">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-2 text-slate-500 hover:text-white transition-colors"
+                        className="p-2 text-slate-500 hover:text-slate-900 transition-colors"
                       >
                         <Plus size={18} />
                       </button>
@@ -133,7 +133,7 @@ const Cart = () => {
                     
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="p-4 rounded-2xl bg-white/5 border border-white/10 text-slate-500 hover:bg-red-500 hover:text-white hover:border-transparent transition-all transition-colors active:scale-90"
+                      className="p-4 rounded-2xl bg-black/5 border border-slate-200 text-slate-500 hover:bg-red-500 hover:text-white hover:border-transparent transition-all transition-colors active:scale-90"
                       title="Remove Piece"
                     >
                       <Trash2 size={20} />
@@ -146,7 +146,7 @@ const Cart = () => {
           
           {/* Summary Sidebar */}
           <div className="lg:col-span-4">
-            <div className="glass-card rounded-[3rem] p-8 sm:p-10 sticky top-32 border-white/5 shadow-2xl relative overflow-hidden group">
+            <div className="glass-card rounded-[3rem] p-8 sm:p-10 sticky top-32 border-slate-200 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl group-hover:bg-blue-600/10 transition-all"></div>
               
               <div className="flex items-center space-x-4 mb-10">
@@ -157,7 +157,7 @@ const Cart = () => {
               <div className="space-y-6">
                 <div className="flex justify-between items-end">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Subtotal Payload</span>
-                  <span className="text-xl font-black text-white tracking-tighter">₵{subtotal.toFixed(2)}</span>
+                  <span className="text-xl font-black text-slate-900 tracking-tighter">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between items-end">
@@ -165,20 +165,20 @@ const Cart = () => {
                     <Truck size={14} className="text-slate-500" />
                     <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
                   </div>
-                  <span className={`text-xl font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-white'}`}>
+                  <span className={`text-xl font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
                     {shipping === 0 ? 'COMPLIMENTARY' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-end">
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
-                  <span className="text-xl font-black text-white tracking-tighter">₵{tax.toFixed(2)}</span>
+                  <span className="text-xl font-black text-slate-900 tracking-tighter">₵{tax.toFixed(2)}</span>
                 </div>
                 
-                <div className="pt-8 mt-4 border-t border-white/5">
+                <div className="pt-8 mt-4 border-t border-slate-200">
                   <div className="flex justify-between items-end mb-10">
-                    <span className="text-xs font-black text-white uppercase tracking-[0.3em]">Total Mission Cost</span>
-                    <span className="text-4xl font-black text-white tracking-tighter text-blue-500">₵{total.toFixed(2)}</span>
+                    <span className="text-xs font-black text-slate-900 uppercase tracking-[0.3em]">Total Mission Cost</span>
+                    <span className="text-4xl font-black text-slate-900 tracking-tighter text-blue-500">₵{total.toFixed(2)}</span>
                   </div>
                   
                   <div className="space-y-4">
@@ -203,7 +203,7 @@ const Cart = () => {
               {subtotal < 50 && (
                 <div className="mt-8 p-6 rounded-[2rem] bg-blue-500/5 border border-blue-500/10 text-center">
                   <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest leading-loose">
-                    SECURE ₵{(50 - subtotal).toFixed(2)} MORE FOR <br /> <span className="text-white">COMPLIMENTARY SHIPPING</span>
+                    SECURE ₵{(50 - subtotal).toFixed(2)} MORE FOR <br /> <span className="text-slate-900">COMPLIMENTARY SHIPPING</span>
                   </p>
                 </div>
               )}

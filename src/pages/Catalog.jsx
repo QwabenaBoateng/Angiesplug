@@ -109,7 +109,7 @@ const Catalog = () => {
           >
             <ShoppingCart size={20} />
           </button>
-          <button className="p-3 bg-white/10 backdrop-blur-xl rounded-2xl text-white hover:bg-white/20 transition-all active:scale-90 border border-white/10">
+          <button className="p-3 bg-black/5 backdrop-blur-xl rounded-2xl text-slate-900 hover:bg-black/10 transition-all active:scale-90 border border-slate-200">
             <Heart size={20} />
           </button>
         </div>
@@ -120,15 +120,15 @@ const Catalog = () => {
         </div>
       </div>
       <div className="p-6">
-        <h3 className="font-bold text-white text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
+        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-black text-white tracking-tighter">₵{product.price}</span>
+            <span className="text-2xl font-black text-slate-900 tracking-tighter">₵{product.price}</span>
             <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Available Now</span>
           </div>
           <div className="flex items-center text-amber-400">
             <Star size={14} className="fill-current mr-1" />
-            <span className="text-sm font-bold text-slate-400">4.8</span>
+            <span className="text-sm font-bold text-slate-600">4.8</span>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ const Catalog = () => {
   )
 
   return (
-    <div className="min-h-screen bg-slate-950 overflow-hidden">
+    <div className="min-h-screen bg-[#f8f8f6] overflow-hidden">
       {/* Catalog Hero Section */}
       <section className="relative pt-32 pb-20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
@@ -146,13 +146,13 @@ const Catalog = () => {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Our Collection</span>
-          <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 italic">
+          <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 italic">
             CATA<span className="text-gradient">LOG</span>
           </h1>
           
           <div className="max-w-2xl mx-auto relative group">
             <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-3xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
-            <div className="relative flex items-center bg-slate-900/60 border border-slate-800 backdrop-blur-2xl rounded-[2rem] p-2 pr-4 shadow-2xl">
+            <div className="relative flex items-center bg-white/60 border border-slate-200 backdrop-blur-2xl rounded-[2rem] p-2 pr-4 shadow-2xl">
               <div className="pl-6 text-slate-500">
                 <Search size={22} />
               </div>
@@ -161,7 +161,7 @@ const Catalog = () => {
                 placeholder="Search the collection..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none text-white px-6 py-4 focus:ring-0 text-lg placeholder:text-slate-600"
+                className="flex-1 bg-transparent border-none text-slate-900 px-6 py-4 focus:ring-0 text-lg placeholder:text-slate-600"
               />
               <button className="btn-gradient px-6 py-3 text-xs">Search</button>
             </div>
@@ -175,7 +175,7 @@ const Catalog = () => {
           <div className="flex items-center space-x-4 min-w-max pb-4">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === 'all' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}
+              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === 'all' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
             >
               <Grid size={18} />
               <span>Full Catalog</span>
@@ -186,7 +186,7 @@ const Catalog = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.name)}
-                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === category.name ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-white shadow-xl shadow-blue-500/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}
+                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === category.name ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
                 >
                   <Icon size={18} />
                   <span>{category.name}</span>
@@ -200,13 +200,13 @@ const Catalog = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'}`}
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
           >
             <Filter size={18} />
             <span>Refine Search</span>
           </button>
           
-          <div className="flex items-center bg-white/5 p-1 rounded-xl border border-white/10">
+          <div className="flex items-center bg-black/5 p-1 rounded-xl border border-slate-200">
             <button onClick={() => setViewMode('grid')} className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}><Grid size={18} /></button>
             <button onClick={() => setViewMode('list')} className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}><List size={18} /></button>
           </div>
@@ -223,7 +223,7 @@ const Catalog = () => {
               step="50"
               value={priceMax}
               onChange={(e) => setPriceMax(parseInt(e.target.value))}
-              className="w-full accent-blue-500 h-2 bg-white/5 rounded-full appearance-none mb-4"
+              className="w-full accent-blue-500 h-2 bg-black/5 rounded-full appearance-none mb-4"
             />
             <div className="flex justify-between text-blue-400 font-black text-xl">
               <span>₵0</span>
@@ -247,9 +247,9 @@ const Catalog = () => {
               ))}
             </div>
           ) : (
-            <div className="py-32 text-center bg-white/5 rounded-[3rem] border border-white/5">
+            <div className="py-32 text-center bg-black/5 rounded-[3rem] border border-slate-200">
               <Search size={48} className="mx-auto text-slate-700 mb-6" />
-              <h3 className="text-2xl font-black text-white">No items found</h3>
+              <h3 className="text-2xl font-black text-slate-900">No items found</h3>
               <p className="text-slate-500 mt-2">Try adjusting your filters or category choice.</p>
             </div>
           )}

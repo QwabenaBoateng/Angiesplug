@@ -636,27 +636,27 @@ const AdminProducts = () => {
     <div className="space-y-8">
       {/* Analytics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+        <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-blue-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Inventory by Collection</h3>
+            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Inventory by Collection</h3>
             <span className="text-[10px] font-black text-blue-500 tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
           </div>
           <div className="relative z-10">
             <PieChart counts={countsByCat} />
           </div>
         </div>
-        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+        <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-indigo-500"></div>
-          <h3 className="relative z-10 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Collection Distribution</h3>
+          <h3 className="relative z-10 text-[10px] font-black text-slate-600 uppercase tracking-widest mb-4">Collection Distribution</h3>
           <div className="relative z-10">
             <BarChart counts={countsByCat} />
           </div>
         </div>
-        <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+        <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-emerald-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">New Arrivals (7 Days)</h3>
+            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-widest">New Arrivals (7 Days)</h3>
             <span className="text-[10px] font-black text-emerald-400 tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
           </div>
           <div className="relative z-10">
@@ -673,7 +673,7 @@ const AdminProducts = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
             PRODUCT <span className="text-blue-500">INVENTORY</span>
           </h1>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store's products and collections</p>
@@ -697,10 +697,10 @@ const AdminProducts = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-3xl p-6 sm:p-8">
+      <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
               Search Products
             </label>
             <div className="relative group">
@@ -710,23 +710,23 @@ const AdminProducts = () => {
                 placeholder="Search by name or description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
+                className="w-full bg-[#f8f8f6]/50 border border-slate-200 rounded-xl px-4 py-3 pl-12 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm"
               />
             </div>
           </div>
           
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
               Filter by Category
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
+              className="w-full bg-[#f8f8f6] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
             >
-              <option value="" className="bg-slate-950">All Categories</option>
+              <option value="" className="bg-[#f8f8f6]">All Categories</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.id} className="bg-slate-950">
+                <option key={category.id} value={category.id} className="bg-[#f8f8f6]">
                   {category.name}
                 </option>
               ))}
@@ -741,7 +741,7 @@ const AdminProducts = () => {
               }}
               className="w-full btn-glass flex items-center justify-center text-xs tracking-widest"
             >
-              <Filter className="w-4 h-4 mr-2 text-slate-400" />
+              <Filter className="w-4 h-4 mr-2 text-slate-600" />
               CLEAR FILTERS
             </button>
           </div>
@@ -749,7 +749,7 @@ const AdminProducts = () => {
       </div>
 
       {/* Products Table */}
-      <div className="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] overflow-hidden shadow-xl">
+      <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-[2rem] overflow-hidden shadow-xl">
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
@@ -759,23 +759,23 @@ const AdminProducts = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/10 bg-slate-950/30">
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <tr className="border-b border-slate-200 bg-[#f8f8f6]/30">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Product
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Category
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Price
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Status
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Date Added
                   </th>
-                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     Actions
                   </th>
                 </tr>
@@ -786,7 +786,7 @@ const AdminProducts = () => {
                   <tr key={product.id} className="hover:bg-white-[0.02] transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-12 w-12 rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                        <div className="flex-shrink-0 h-12 w-12 rounded-xl overflow-hidden border border-slate-200 bg-white/50">
                           <img
                             className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                             src={product.image_urls?.[0] || '/placeholder-image.jpg'}
@@ -794,7 +794,7 @@ const AdminProducts = () => {
                           />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-bold text-white tracking-wide">
+                          <div className="text-sm font-bold text-slate-900 tracking-wide">
                             {product.name}
                           </div>
                           <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest truncate max-w-xs mt-1">
@@ -804,7 +804,7 @@ const AdminProducts = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-xs font-bold text-slate-300">
+                      <span className="text-xs font-bold text-slate-700">
                          {product.categories?.name || 'Unassigned'}
                       </span>
                     </td>
@@ -817,7 +817,7 @@ const AdminProducts = () => {
                       <span className={`inline-flex px-3 py-1 text-[10px] font-black rounded-lg border uppercase tracking-widest ${
                         product.featured
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                          : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                          : 'bg-slate-500/10 text-slate-600 border-slate-500/20'
                       }`}>
                         {product.featured ? 'Featured' : 'Standard'}
                       </span>
@@ -831,13 +831,13 @@ const AdminProducts = () => {
                       <div className="flex items-center justify-end space-x-2">
                         <button
                           onClick={() => handleEdit(product)}
-                          className="p-2 rounded-xl bg-white/5 hover:bg-blue-500/10 text-slate-400 hover:text-blue-500 border border-transparent hover:border-blue-500/20 transition-all"
+                          className="p-2 rounded-xl bg-black/5 hover:bg-blue-500/10 text-slate-600 hover:text-blue-500 border border-transparent hover:border-blue-500/20 transition-all"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
-                          className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
+                          className="p-2 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-transparent hover:border-red-500/20 transition-all"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -860,8 +860,8 @@ const AdminProducts = () => {
 
       {/* Product Modal */}
       {showModal && createPortal(
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-4xl bg-slate-900 border border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+        <div className="fixed inset-0 bg-[#f8f8f6]/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-4xl bg-white border border-slate-200 rounded-[3rem] p-8 sm:p-12 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Package size={120} className="text-blue-500" />
             </div>
@@ -871,13 +871,13 @@ const AdminProducts = () => {
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
                   <Package className="w-6 h-6 text-blue-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
+                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase">
                   {editingProduct ? 'EDIT ' : 'ADD '}<span className="text-blue-500">PRODUCT</span>
                 </h3>
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
+                className="w-10 h-10 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-slate-200 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -931,30 +931,30 @@ const AdminProducts = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2">
                     Category
                   </label>
                   <select
                     required
                     value={productForm.category_id}
                     onChange={(e) => setProductForm(prev => ({ ...prev, category_id: e.target.value }))}
-                    className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
+                    className="w-full bg-[#f8f8f6] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm appearance-none"
                   >
-                    <option value="" className="bg-slate-950">Choose a category</option>
+                    <option value="" className="bg-[#f8f8f6]">Choose a category</option>
                     {categories.map((category) => (
-                      <option key={category.id} value={category.id} className="bg-slate-950">
+                      <option key={category.id} value={category.id} className="bg-[#f8f8f6]">
                         {category.name}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                <div className="flex items-center space-x-4 bg-white/5 border border-white/5 rounded-2xl p-4 cursor-pointer hover:bg-white/10 transition-colors" onClick={() => setProductForm(prev => ({ ...prev, featured: !prev.featured }))}>
-                  <div className={`w-6 h-6 rounded border flex items-center justify-center transition-colors flex-shrink-0 ${productForm.featured ? 'bg-blue-500 border-blue-500' : 'border-slate-600 bg-slate-900'}`}>
-                     {productForm.featured && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                <div className="flex items-center space-x-4 bg-black/5 border border-slate-200 rounded-2xl p-4 cursor-pointer hover:bg-black/5 transition-colors" onClick={() => setProductForm(prev => ({ ...prev, featured: !prev.featured }))}>
+                  <div className={`w-6 h-6 rounded border flex items-center justify-center transition-colors flex-shrink-0 ${productForm.featured ? 'bg-blue-500 border-blue-500' : 'border-slate-600 bg-white'}`}>
+                     {productForm.featured && <svg className="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                   </div>
                   <div>
-                    <p className="text-xs font-black text-slate-300 uppercase tracking-widest">Mark as Featured</p>
+                    <p className="text-xs font-black text-slate-700 uppercase tracking-widest">Mark as Featured</p>
                     <p className="text-[10px] font-bold text-slate-500">Show on the home page</p>
                   </div>
                 </div>
@@ -965,7 +965,7 @@ const AdminProducts = () => {
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
                   Product Images
                 </label>
-                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingImages ? 'border-blue-500/50 bg-blue-500/5 cursor-wait' : 'border-white/10 hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer bg-black/20'}`}>
+                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingImages ? 'border-blue-500/50 bg-blue-500/5 cursor-wait' : 'border-slate-200 hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer bg-black/10'}`}>
                   <input
                     type="file"
                     multiple
@@ -986,10 +986,10 @@ const AdminProducts = () => {
                       </>
                     ) : (
                       <>
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Click to Upload</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Click to Upload</span>
                         <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG, WEBP</span>
                       </>
                     )}
@@ -1000,7 +1000,7 @@ const AdminProducts = () => {
                 {productForm.image_urls.length > 0 && (
                   <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {productForm.image_urls.map((url, index) => (
-                      <div key={index} className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-square bg-slate-900">
+                      <div key={index} className="group relative rounded-2xl overflow-hidden border border-slate-200 aspect-square bg-white">
                         <img
                           src={url}
                           alt={`Asset ${index + 1}`}
@@ -1020,11 +1020,11 @@ const AdminProducts = () => {
                 )}
               </div>
 
-              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
@@ -1043,8 +1043,8 @@ const AdminProducts = () => {
 
       {/* Brand Modal */}
       {showBrandModal && createPortal(
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
-          <div className="relative w-full max-w-full sm:max-w-2xl glass-card rounded-[3rem] p-8 sm:p-12 border-white/5 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
+        <div className="fixed inset-0 bg-[#f8f8f6]/80 backdrop-blur-sm overflow-x-hidden h-full w-full z-50 flex items-center pt-[10vh] pb-[10vh] justify-center p-4">
+          <div className="relative w-full max-w-full sm:max-w-2xl glass-card rounded-[3rem] p-8 sm:p-12 border-slate-200 shadow-2xl animate-in fade-in zoom-in duration-300 overflow-y-auto max-h-[85vh]">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Building2 size={120} className="text-indigo-500" />
             </div>
@@ -1054,13 +1054,13 @@ const AdminProducts = () => {
                 <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
                   <Plus className="w-6 h-6 text-indigo-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white uppercase">
+                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase">
                   ADD NEW <span className="text-indigo-500">BRAND</span>
                 </h3>
               </div>
               <button
                 onClick={() => setShowBrandModal(false)}
-                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/10 text-slate-400 hover:text-red-500 border border-white/5 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
+                className="w-10 h-10 rounded-xl bg-black/5 hover:bg-red-500/10 text-slate-600 hover:text-red-500 border border-slate-200 hover:border-red-500/20 flex items-center justify-center transition-all flex-shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1100,7 +1100,7 @@ const AdminProducts = () => {
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
                   Brand Logo / Banner
                 </label>
-                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingBrandImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer bg-black/20'}`}>
+                <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingBrandImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'border-slate-200 hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer bg-black/10'}`}>
                   <input
                     type="file"
                     accept="image/*"
@@ -1120,10 +1120,10 @@ const AdminProducts = () => {
                       </>
                     ) : (
                       <>
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-300 text-center">Upload Logo</span>
+                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Logo</span>
                         <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG or WEBP</span>
                       </>
                     )}
@@ -1132,7 +1132,7 @@ const AdminProducts = () => {
 
                 {/* Display uploaded brand image */}
                 {brandForm.image_url && (
-                  <div className="mt-6 p-4 rounded-2xl border border-white/10 bg-black/30">
+                  <div className="mt-6 p-4 rounded-2xl border border-slate-200 bg-white/30">
                     <img
                       src={brandForm.image_url}
                       alt="Brand preview"
@@ -1142,11 +1142,11 @@ const AdminProducts = () => {
                 )}
               </div>
 
-              <div className="flex justify-end space-x-4 pt-6 border-t border-white/5">
+              <div className="flex justify-end space-x-4 pt-6 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setShowBrandModal(false)}
-                  className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-black text-slate-300 uppercase tracking-widest border border-white/5 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>

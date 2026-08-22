@@ -215,7 +215,7 @@ Stay fresh,
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
              ABOUT PAGE <span className="text-fuchsia-500">CONTENT</span>
           </h1>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the 'About Us' page content and brand story</p>
@@ -251,7 +251,7 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 flex items-center justify-center border border-fuchsia-500/20">
                <PenTool className="w-5 h-5 text-fuchsia-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">HERO SECTION</h2>
+             <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">HERO SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
@@ -260,8 +260,8 @@ Stay fresh,
                 Hero Image
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                  ${aboutContent.hero_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                  ${uploadingImages.hero_image ? 'border-fuchsia-500/50 bg-fuchsia-500/5 cursor-wait' : 'hover:border-fuchsia-500/50 hover:bg-fuchsia-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                  ${aboutContent.hero_image ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                  ${uploadingImages.hero_image ? 'border-fuchsia-500/50 bg-fuchsia-500/5 cursor-wait' : 'hover:border-fuchsia-500/50 hover:bg-fuchsia-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
               >
                 <input
                   type="file"
@@ -282,8 +282,8 @@ Stay fresh,
                         alt="Hero Image"
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                      <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                        <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                       </div>
                       <button
                         type="button"
@@ -300,10 +300,10 @@ Stay fresh,
                       </>
                   ) : (
                     <>
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                      <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                         <ImageIcon className="w-6 h-6 text-fuchsia-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Hero Image</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Hero Image</span>
                     </>
                   )}
                 </label>
@@ -347,7 +347,7 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
                <UserCircle className="w-5 h-5 text-orange-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">FOUNDER SECTION</h2>
+             <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">FOUNDER SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
@@ -356,8 +356,8 @@ Stay fresh,
                 Founder Photo
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
-                  ${aboutContent.angie_image ? 'p-2 border-white/10 bg-black/30' : 'p-8'} 
-                  ${uploadingImages.angie_image ? 'border-orange-500/50 bg-orange-500/5 cursor-wait' : 'hover:border-orange-500/50 hover:bg-orange-500/5 cursor-pointer border-white/10 bg-black/20'}`}
+                  ${aboutContent.angie_image ? 'p-2 border-slate-200 bg-white/30' : 'p-8'} 
+                  ${uploadingImages.angie_image ? 'border-orange-500/50 bg-orange-500/5 cursor-wait' : 'hover:border-orange-500/50 hover:bg-orange-500/5 cursor-pointer border-slate-200 bg-black/10'}`}
               >
                 <input
                   type="file"
@@ -378,8 +378,8 @@ Stay fresh,
                         alt="Founder"
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-white uppercase bg-black/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Photo</span>
+                      <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
+                        <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Photo</span>
                       </div>
                       <button
                         type="button"
@@ -396,10 +396,10 @@ Stay fresh,
                       </>
                   ) : (
                     <>
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-4 border border-white/5 shadow-2xl">
+                      <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                         <UserCircle className="w-6 h-6 text-orange-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-300 text-center">Upload Photo</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Photo</span>
                     </>
                   )}
                 </label>
@@ -431,7 +431,7 @@ Stay fresh,
            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
              <ScrollText className="w-5 h-5 text-emerald-500" />
            </div>
-           <h2 className="text-lg font-black italic tracking-tighter text-white uppercase">STORY SECTIONS</h2>
+           <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">STORY SECTIONS</h2>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
