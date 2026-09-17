@@ -125,53 +125,111 @@ const Shop = () => {
     setSearchQuery('')
   }
 
-  const ProductCard = ({ product }) => (
-    <div className="glass-card rounded-[2rem] overflow-hidden group">
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <Link to={`/product/${product.id}`}>
-          <img
-            src={product.image_urls?.[0] || product.image || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'}
-            alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-        </Link>
-        <div className="absolute top-4 right-4 flex flex-col gap-2 translate-x-12 group-hover:translate-x-0 transition-transform duration-500">
-          <button 
-            onClick={(e) => {
-              e.preventDefault()
-              addToCart(product)
-            }}
-            className="p-3 bg-blue-600 rounded-2xl text-white shadow-xl shadow-blue-500/40 hover:bg-blue-500 transition-all active:scale-90"
-          >
-            <ShoppingCart size={20} />
-          </button>
-          <button className="p-3 bg-black/5 backdrop-blur-xl rounded-2xl text-slate-900 hover:bg-black/10 transition-all active:scale-90 border border-slate-200">
-            <Heart size={20} />
-          </button>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
-          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
-            {product.categories?.name || product.category || 'Exquisite Exclusive'}
-          </span>
-        </div>
-      </div>
-      <div className="p-6">
-        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <span className="text-2xl font-semibold text-slate-900 tracking-tight">₵{product.price}</span>
-            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-normal mt-1">Available Now</span>
-          </div>
-          <div className="flex flex-col items-end">
-            <div className="flex items-center text-amber-400 mb-1">
-              {[...Array(5)].map((_, i) => <Star key={i} size={12} className={i < 4 ? 'fill-current' : 'text-slate-700'} />)}
+  const ProductCard = ({ product }) => {
+    if (viewMode === 'list') {
+      return (
+        <div className="glass-card rounded-[2rem] overflow-hidden group flex flex-col sm:flex-row p-4 gap-6 items-center hover:border-[#652d23]/30 transition-all">
+          <Link to={`/product/${product.id}`} className="relative w-full sm:w-56 sm:h-56 flex-shrink-0 rounded-2xl overflow-hidden shadow-sm bg-slate-100">
+            <img
+              src={product.image_urls?.[0] || product.image || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute top-3 left-3">
+              <span className="text-[10px] font-bold text-white uppercase tracking-normal bg-[#652d23]/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm">
+                {product.categories?.name || product.category || 'Exclusive'}
+              </span>
             </div>
-            <span className="text-[10px] font-bold text-slate-600">4.8 (120+ reviews)</span>
+          </Link>
+          
+          <div className="flex-1 w-full flex flex-col sm:flex-row justify-between gap-4 py-2">
+            <div className="flex flex-col justify-center flex-1 pr-4">
+              <Link to={`/product/${product.id}`}>
+                <h3 className="font-bold text-slate-900 text-2xl mb-2 group-hover:text-[#652d23] transition-colors tracking-tight">{product.name}</h3>
+              </Link>
+              <div className="flex items-center text-amber-400 mb-4">
+                {[...Array(5)].map((_, i) => <Star key={i} size={14} className={i < 4 ? 'fill-current' : 'text-slate-300'} />)}
+                <span className="text-xs font-bold text-slate-500 ml-2">4.8 (120 reviews)</span>
+              </div>
+              <p className="text-slate-500 text-sm max-w-md line-clamp-2 mb-4 hidden md:block">
+                {product.description || "Experience premium quality and exquisite design. Crafted with the finest materials for lasting elegance and comfort."}
+              </p>
+            </div>
+            
+            <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 sm:border-l border-slate-200/80 sm:pl-8 min-w-[180px]">
+              <div className="flex flex-col items-start sm:items-end">
+                <span className="text-3xl font-bold text-slate-900 tracking-tight">₵{product.price}</span>
+                <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-normal bg-emerald-50 px-2 py-1 rounded-md mt-2 border border-emerald-100">Available Now</span>
+              </div>
+              <div className="flex gap-3 w-full sm:w-auto mt-2">
+                <button className="p-3.5 bg-black/5 hover:bg-black/10 rounded-xl text-slate-700 transition-colors flex-shrink-0">
+                  <Heart size={20} />
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault()
+                    addToCart(product)
+                  }}
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 bg-[#652d23] text-white font-semibold rounded-xl shadow-lg shadow-[#652d23]/30 hover:bg-[#7e3627] active:scale-95 transition-all"
+                >
+                  <ShoppingCart size={18} />
+                  <span>Add to Cart</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="glass-card rounded-[2rem] overflow-hidden group">
+        <div className="relative aspect-[3/4] overflow-hidden">
+          <Link to={`/product/${product.id}`}>
+            <img
+              src={product.image_urls?.[0] || product.image || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          </Link>
+          <div className="absolute top-4 right-4 flex flex-col gap-2 translate-x-12 group-hover:translate-x-0 transition-transform duration-500">
+            <button 
+              onClick={(e) => {
+                e.preventDefault()
+                addToCart(product)
+              }}
+              className="p-3 bg-[#652d23] rounded-2xl text-white shadow-xl shadow-[#652d23]/40 hover:bg-[#7e3627] transition-all active:scale-90"
+            >
+              <ShoppingCart size={20} />
+            </button>
+            <button className="p-3 bg-black/5 backdrop-blur-xl rounded-2xl text-slate-900 hover:bg-black/10 transition-all active:scale-90 border border-slate-200">
+              <Heart size={20} />
+            </button>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
+            <span className="text-[10px] font-semibold text-[#d38b6d] uppercase tracking-normal bg-[#652d23]/10 px-3 py-1 rounded-full border border-[#652d23]/20">
+              {product.categories?.name || product.category || 'Exquisite Exclusive'}
+            </span>
+          </div>
+        </div>
+        <div className="p-6">
+          <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-[#652d23] transition-colors tracking-tight">{product.name}</h3>
+          <div className="flex items-center justify-between mt-auto">
+            <div className="flex flex-col">
+              <span className="text-2xl font-semibold text-slate-900 tracking-tight">₵{product.price}</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-normal mt-1">Available Now</span>
+            </div>
+            <div className="flex flex-col items-end">
+              <div className="flex items-center text-amber-400 mb-1">
+                {[...Array(5)].map((_, i) => <Star key={i} size={12} className={i < 4 ? 'fill-current' : 'text-slate-700'} />)}
+              </div>
+              <span className="text-[10px] font-bold text-slate-600">4.8 (120+ reviews)</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   const categoryIcons = {
     'Ladies Wear': User,
@@ -185,22 +243,22 @@ const Shop = () => {
       {/* Marketplace Hero Header */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full animate-pulse-slow"></div>
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 blur-[100px] rounded-full animate-pulse-slow"></div>
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#652d23]/10 blur-[120px] rounded-full animate-pulse-slow"></div>
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#d38b6d]/10 blur-[100px] rounded-full animate-pulse-slow"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 animate-in fade-in slide-in-from-top-4 duration-700">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em]">Verified Marketplace</span>
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#652d23]/10 border border-[#652d23]/20 mb-6 animate-in fade-in slide-in-from-top-4 duration-700">
+            <span className="w-2 h-2 bg-[#652d23] rounded-full animate-pulse"></span>
+            <span className="text-[10px] font-bold text-[#652d23] uppercase tracking-normal">Verified Marketplace</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
             MARKET<span className="text-gradient">PLACE</span>
           </h1>
           
           <div className="max-w-3xl mx-auto relative group animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-            <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-3xl group-focus-within:bg-blue-500/30 transition-all"></div>
-            <div className="relative flex items-center bg-white/80 border border-slate-200 backdrop-blur-2xl rounded-[2.5rem] p-2 pr-4 shadow-2xl focus-within:border-blue-500/50 transition-all">
+            <div className="absolute inset-0 bg-[#652d23]/20 blur-2xl rounded-3xl group-focus-within:bg-[#652d23]/30 transition-all"></div>
+            <div className="relative flex items-center bg-white/80 border border-slate-200 backdrop-blur-2xl rounded-[2.5rem] p-2 pr-4 shadow-2xl focus-within:border-[#652d23]/50 transition-all">
               <div className="pl-6 text-slate-500">
                 <Search size={24} />
               </div>
@@ -225,7 +283,7 @@ const Shop = () => {
           <div className="flex items-center space-x-4 min-w-max pb-4">
             <button
               onClick={() => handleFilterChange('category', '')}
-              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === '' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
+              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === '' ? 'bg-gradient-to-r from-[#7e3627] to-[#652d23] border-transparent text-white shadow-xl shadow-[#652d23]/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
             >
               <Grid size={18} />
               <span>All Styles</span>
@@ -236,7 +294,7 @@ const Shop = () => {
                 <button
                   key={category.id}
                   onClick={() => handleFilterChange('category', category.id)}
-                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === category.id ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
+                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${filters.category === category.id ? 'bg-gradient-to-r from-[#7e3627] to-[#652d23] border-transparent text-white shadow-xl shadow-[#652d23]/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5 active:scale-95'}`}
                 >
                   <Icon size={18} />
                   <span>{category.name}</span>
@@ -251,7 +309,7 @@ const Shop = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-[#652d23] text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
             >
               <Filter size={18} />
               <span>Advanced Filters</span>
@@ -260,13 +318,13 @@ const Shop = () => {
             <div className="flex items-center bg-black/5 p-1 rounded-xl border border-slate-200">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-[#652d23] text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 <Grid size={18} />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
+                className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-[#652d23] text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 <List size={18} />
               </button>
@@ -297,12 +355,12 @@ const Shop = () => {
         {showFilters && (
           <div className="mb-12 glass-card rounded-3xl p-8 animate-in fade-in slide-in-from-top-8 duration-500">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-semibold text-slate-900">Refine <span className="text-blue-500">Search</span></h3>
-              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-normal hover:text-slate-900 transition-colors">Reset All</button>
+              <h3 className="text-xl font-semibold text-slate-900">Refine <span className="text-[#652d23]">Search</span></h3>
+              <button onClick={clearFilters} className="text-xs font-bold text-[#652d23] uppercase tracking-normal hover:text-slate-900 transition-colors">Reset All</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
-                <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Price Range (₵)</h4>
+                <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-normal mb-4">Price Range (₵)</h4>
                 <input
                   type="range"
                   min="0"
@@ -310,11 +368,11 @@ const Shop = () => {
                   step="50"
                   value={filters.priceRange[1]}
                   onChange={(e) => handleFilterChange('priceRange', [0, parseInt(e.target.value)])}
-                  className="w-full accent-blue-500 h-2 bg-black/5 rounded-full appearance-none mb-4"
+                  className="w-full accent-[#652d23] h-2 bg-black/5 rounded-full appearance-none mb-4"
                 />
                 <div className="flex justify-between text-slate-600 font-bold text-sm">
                   <span>₵0</span>
-                  <span className="text-blue-400 text-lg">₵{filters.priceRange[1]}</span>
+                  <span className="text-[#d38b6d] text-lg">₵{filters.priceRange[1]}</span>
                 </div>
               </div>
             </div>
@@ -324,13 +382,13 @@ const Shop = () => {
         {/* Main Product Grid */}
         <div className="relative">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" : "flex flex-col gap-6"}>
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="glass-card rounded-[2rem] aspect-[3/4] animate-pulse"></div>
+                <div key={i} className={`glass-card rounded-[2rem] ${viewMode === 'grid' ? 'aspect-[3/4]' : 'h-[200px] w-full'} animate-pulse`}></div>
               ))}
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000" : "flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000"}>
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

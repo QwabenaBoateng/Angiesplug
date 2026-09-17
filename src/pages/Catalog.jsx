@@ -13,7 +13,7 @@ const Catalog = () => {
   const [searchParams] = useSearchParams()
   
   const { searchQuery, setSearchQuery, addToCart } = useStore()
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedCategory, setSelectedCategory] = useState('')
   const [sortBy, setSortBy] = useState('newest')
   const [priceMax, setPriceMax] = useState(5000)
 
@@ -60,7 +60,12 @@ const Catalog = () => {
         
         let filtered = mockProducts
         if (searchQuery) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        if (selectedCategory !== 'all') filtered = filtered.filter(p => p.category === selectedCategory || p.categories?.name === selectedCategory)
+        if (selectedCategory) {
+          const catName = categories.find(c => c.id === selectedCategory)?.name
+          if (catName) {
+            filtered = filtered.filter(p => p.category === catName || p.categories?.name === catName)
+          }
+        }
         filtered = filtered.filter(p => p.price <= priceMax)
         
         setProducts(filtered)
@@ -70,7 +75,7 @@ const Catalog = () => {
 
       let query = supabase.from('products').select('*, categories(name)')
       if (searchQuery) query = query.or(`name.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
-      if (selectedCategory !== 'all') query = query.eq('category_id', selectedCategory)
+      if (selectedCategory) query = query.eq('category_id', selectedCategory)
       query = query.lte('price', priceMax)
       
       const { data } = await query
@@ -90,8 +95,8 @@ const Catalog = () => {
   }
 
   const ProductCard = ({ product }) => (
-    <div className="glass-card rounded-[2rem] overflow-hidden group">
-      <div className="relative aspect-[3/4] overflow-hidden">
+    <div className={`glass-card rounded-[2rem] overflow-hidden group ${viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''}`}>
+      <div className={`relative overflow-hidden ${viewMode === 'list' ? 'w-full sm:w-1/3 aspect-[4/3] sm:aspect-[3/4]' : 'aspect-[3/4]'}`}>
         <Link to={`/product/${product.id}`}>
           <img
             src={product.image_urls?.[0] || product.image || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'}
@@ -114,14 +119,14 @@ const Catalog = () => {
           </button>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
-          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+          <span className="text-[10px] font-semibold text-[#d38b6d] uppercase tracking-normal bg-[#652d23]/10 px-3 py-1 rounded-full border border-[#652d23]/20">
             {product.categories?.name || product.category || 'Exquisite Exclusive'}
           </span>
         </div>
       </div>
-      <div className="p-6">
-        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
-        <div className="flex items-center justify-between">
+      <div className={`p-6 ${viewMode === 'list' ? 'flex-1 flex flex-col justify-center' : ''}`}>
+        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-[#652d23] transition-colors tracking-tight">{product.name}</h3>
+        <div className="flex items-center justify-between mt-auto">
           <div className="flex flex-col">
             <span className="text-2xl font-semibold text-slate-900 tracking-tight">₵{product.price}</span>
             <span className="text-[10px] text-slate-500 font-bold uppercase tracking-normal mt-1">Available Now</span>
@@ -140,18 +145,18 @@ const Catalog = () => {
       {/* Catalog Hero Section */}
       <section className="relative pt-32 pb-20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
-          <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-blue-600/10 blur-[130px] rounded-full"></div>
-          <div className="absolute bottom-0 right-1/3 w-[500px] h-[500px] bg-indigo-600/10 blur-[110px] rounded-full"></div>
+          <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#652d23]/10 blur-[130px] rounded-full"></div>
+          <div className="absolute bottom-0 right-1/3 w-[500px] h-[500px] bg-[#d38b6d]/10 blur-[110px] rounded-full"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Our Collection</span>
+          <span className="text-[10px] font-semibold text-[#652d23] uppercase tracking-normal mb-4 block">Our Collection</span>
           <h1 className="text-6xl md:text-8xl font-semibold text-slate-900 tracking-tight mb-8 ">
             CATA<span className="text-gradient">LOG</span>
           </h1>
           
           <div className="max-w-2xl mx-auto relative group">
-            <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-3xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-[#652d23]/20 blur-2xl rounded-3xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
             <div className="relative flex items-center bg-white/60 border border-slate-200 backdrop-blur-2xl rounded-[2rem] p-2 pr-4 shadow-2xl">
               <div className="pl-6 text-slate-500">
                 <Search size={22} />
@@ -174,8 +179,8 @@ const Catalog = () => {
         <div className="mb-16 -mx-4 px-4 overflow-x-auto scrollbar-hide">
           <div className="flex items-center space-x-4 min-w-max pb-4">
             <button
-              onClick={() => setSelectedCategory('all')}
-              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === 'all' ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
+              onClick={() => setSelectedCategory('')}
+              className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${!selectedCategory ? 'bg-gradient-to-r from-[#7e3627] to-[#652d23] border-transparent text-white shadow-xl shadow-[#652d23]/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
             >
               <Grid size={18} />
               <span>Full Catalog</span>
@@ -185,8 +190,8 @@ const Catalog = () => {
               return (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.name)}
-                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === category.name ? 'bg-gradient-to-tr from-blue-600 to-indigo-600 border-transparent text-slate-900 shadow-xl shadow-blue-500/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-bold transition-all border ${selectedCategory === category.id ? 'bg-gradient-to-r from-[#7e3627] to-[#652d23] border-transparent text-white shadow-xl shadow-[#652d23]/20 scale-105' : 'bg-black/5 border-slate-200 text-slate-600 hover:bg-black/5'}`}
                 >
                   <Icon size={18} />
                   <span>{category.name}</span>
@@ -200,22 +205,22 @@ const Catalog = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-blue-600 text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-bold transition-all border ${showFilters ? 'bg-[#652d23] text-white border-transparent' : 'bg-black/5 border-slate-200 text-slate-700 hover:bg-black/5'}`}
           >
             <Filter size={18} />
             <span>Refine Search</span>
           </button>
           
           <div className="flex items-center bg-black/5 p-1 rounded-xl border border-slate-200">
-            <button onClick={() => setViewMode('grid')} className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}><Grid size={18} /></button>
-            <button onClick={() => setViewMode('list')} className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}><List size={18} /></button>
+            <button onClick={() => setViewMode('grid')} className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-[#652d23] text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}><Grid size={18} /></button>
+            <button onClick={() => setViewMode('list')} className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-[#652d23] text-white shadow-lg' : 'text-slate-500 hover:text-slate-700'}`}><List size={18} /></button>
           </div>
         </div>
 
         {/* Filters */}
         {showFilters && (
           <div className="mb-12 glass-card rounded-3xl p-8 animate-in fade-in slide-in-from-top-4 duration-500">
-            <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Max Price (₵)</h4>
+            <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-normal mb-4">Max Price (₵)</h4>
             <input
               type="range"
               min="0"
@@ -223,9 +228,9 @@ const Catalog = () => {
               step="50"
               value={priceMax}
               onChange={(e) => setPriceMax(parseInt(e.target.value))}
-              className="w-full accent-blue-500 h-2 bg-black/5 rounded-full appearance-none mb-4"
+              className="w-full accent-[#652d23] h-2 bg-black/5 rounded-full appearance-none mb-4"
             />
-            <div className="flex justify-between text-blue-400 font-semibold text-xl">
+            <div className="flex justify-between text-[#652d23] font-semibold text-xl">
               <span>₵0</span>
               <span>₵{priceMax}</span>
             </div>
@@ -235,13 +240,13 @@ const Catalog = () => {
         {/* Grid */}
         <div className="relative">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" : "flex flex-col gap-6"}>
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="glass-card rounded-[2rem] aspect-[3/4] animate-pulse"></div>
+                <div key={i} className={`glass-card rounded-[2rem] ${viewMode === 'grid' ? 'aspect-[3/4]' : 'h-[200px] w-full'} animate-pulse`}></div>
               ))}
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700" : "flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700"}>
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
