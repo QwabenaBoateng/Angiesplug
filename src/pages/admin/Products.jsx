@@ -639,8 +639,8 @@ const AdminProducts = () => {
         <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-blue-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Inventory by Collection</h3>
-            <span className="text-[10px] font-black text-blue-500 tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
+            <h3 className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Inventory by Collection</h3>
+            <span className="text-[10px] font-semibold text-blue-500 tracking-normal bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Total: {totalProducts}</span>
           </div>
           <div className="relative z-10">
             <PieChart counts={countsByCat} />
@@ -648,7 +648,7 @@ const AdminProducts = () => {
         </div>
         <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-indigo-500"></div>
-          <h3 className="relative z-10 text-[10px] font-black text-slate-600 uppercase tracking-widest mb-4">Collection Distribution</h3>
+          <h3 className="relative z-10 text-[10px] font-semibold text-slate-600 uppercase tracking-normal mb-4">Collection Distribution</h3>
           <div className="relative z-10">
             <BarChart counts={countsByCat} />
           </div>
@@ -656,8 +656,8 @@ const AdminProducts = () => {
         <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-[40px] opacity-10 group-hover:opacity-30 transition-opacity bg-emerald-500"></div>
           <div className="relative z-10 flex items-center justify-between mb-4">
-            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-widest">New Arrivals (7 Days)</h3>
-            <span className="text-[10px] font-black text-emerald-400 tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
+            <h3 className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal">New Arrivals (7 Days)</h3>
+            <span className="text-[10px] font-semibold text-emerald-400 tracking-normal bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">{sparkCounts.reduce((a,b)=>a+b,0)}</span>
           </div>
           <div className="relative z-10">
             <Sparkline values={sparkCounts} />
@@ -673,22 +673,22 @@ const AdminProducts = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
             PRODUCT <span className="text-blue-500">INVENTORY</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store's products and collections</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Manage your store's products and collections</p>
         </div>
         <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => setShowBrandModal(true)}
-            className="btn-glass flex items-center justify-center text-xs tracking-widest"
+            className="btn-glass flex items-center justify-center text-xs tracking-normal"
           >
             <Plus className="w-4 h-4 mr-2 text-indigo-400" />
             ADD NEW BRAND
           </button>
           <button
             onClick={openModal}
-            className="btn-gradient flex items-center justify-center text-xs tracking-widest"
+            className="btn-gradient flex items-center justify-center text-xs tracking-normal"
           >
             <Plus className="w-4 h-4 mr-2" />
             ADD NEW PRODUCT
@@ -700,7 +700,7 @@ const AdminProducts = () => {
       <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2 block mb-2">
               Search Products
             </label>
             <div className="relative group">
@@ -716,7 +716,7 @@ const AdminProducts = () => {
           </div>
           
           <div>
-            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2 block mb-2">
               Filter by Category
             </label>
             <select
@@ -739,7 +739,7 @@ const AdminProducts = () => {
                 setSearchQuery('')
                 setSelectedCategory('')
               }}
-              className="w-full btn-glass flex items-center justify-center text-xs tracking-widest"
+              className="w-full btn-glass flex items-center justify-center text-xs tracking-normal"
             >
               <Filter className="w-4 h-4 mr-2 text-slate-600" />
               CLEAR FILTERS
@@ -753,29 +753,29 @@ const AdminProducts = () => {
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
-            <p className="text-xs font-black tracking-widest uppercase text-blue-500">Loading Products...</p>
+            <p className="text-xs font-semibold tracking-normal uppercase text-blue-500">Loading Products...</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 bg-[#f8f8f6]/30">
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Product
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Category
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Price
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Status
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Date Added
                   </th>
-                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-right text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                     Actions
                   </th>
                 </tr>
@@ -797,7 +797,7 @@ const AdminProducts = () => {
                           <div className="text-sm font-bold text-slate-900 tracking-wide">
                             {product.name}
                           </div>
-                          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest truncate max-w-xs mt-1">
+                          <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal truncate max-w-xs mt-1">
                             {product.description}
                           </div>
                         </div>
@@ -809,12 +809,12 @@ const AdminProducts = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm font-black text-blue-400 tracking-wider">
+                      <span className="text-sm font-semibold text-blue-400 tracking-wider">
                          ₵{product.price}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex px-3 py-1 text-[10px] font-black rounded-lg border uppercase tracking-widest ${
+                      <span className={`inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg border uppercase tracking-normal ${
                         product.featured
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                           : 'bg-slate-500/10 text-slate-600 border-slate-500/20'
@@ -823,7 +823,7 @@ const AdminProducts = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-[10px] font-bold text-slate-500 tracking-widest">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-normal">
                         {new Date(product.created_at).toLocaleDateString()}
                       </span>
                     </td>
@@ -847,7 +847,7 @@ const AdminProducts = () => {
                 ))}
                 {products.length === 0 && !isLoading && (
                   <tr>
-                    <td colSpan="6" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
+                    <td colSpan="6" className="py-12 text-center text-slate-500 text-sm font-semibold tracking-normal uppercase">
                       No products found
                     </td>
                   </tr>
@@ -871,7 +871,7 @@ const AdminProducts = () => {
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
                   <Package className="w-6 h-6 text-blue-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase">
+                <h3 className="text-xl sm:text-2xl font-semibold  tracking-tight text-slate-900 uppercase">
                   {editingProduct ? 'EDIT ' : 'ADD '}<span className="text-blue-500">PRODUCT</span>
                 </h3>
               </div>
@@ -886,7 +886,7 @@ const AdminProducts = () => {
             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                     Product Name
                   </label>
                   <input
@@ -900,7 +900,7 @@ const AdminProducts = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                     Price (₵)
                   </label>
                   <input
@@ -916,7 +916,7 @@ const AdminProducts = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Description
                 </label>
                 <textarea
@@ -931,7 +931,7 @@ const AdminProducts = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2">
                     Category
                   </label>
                   <select
@@ -954,7 +954,7 @@ const AdminProducts = () => {
                      {productForm.featured && <svg className="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                   </div>
                   <div>
-                    <p className="text-xs font-black text-slate-700 uppercase tracking-widest">Mark as Featured</p>
+                    <p className="text-xs font-semibold text-slate-700 uppercase tracking-normal">Mark as Featured</p>
                     <p className="text-[10px] font-bold text-slate-500">Show on the home page</p>
                   </div>
                 </div>
@@ -962,7 +962,7 @@ const AdminProducts = () => {
 
               {/* Enhanced Visual Asset Upload */}
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Product Images
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingImages ? 'border-blue-500/50 bg-blue-500/5 cursor-wait' : 'border-slate-200 hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer bg-black/10'}`}>
@@ -982,15 +982,15 @@ const AdminProducts = () => {
                     {uploadingImages ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-blue-500 text-center">Uploading...</span>
+                        <span className="text-xs font-semibold tracking-normal uppercase text-blue-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Click to Upload</span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG, WEBP</span>
+                        <span className="text-xs sm:text-sm font-semibold tracking-normal uppercase text-slate-700 text-center">Click to Upload</span>
+                        <span className="text-[10px] font-bold uppercase tracking-normal text-slate-500 mt-2 text-center">JPG, PNG, WEBP</span>
                       </>
                     )}
                   </label>
@@ -1024,13 +1024,13 @@ const AdminProducts = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn-gradient shadow-blue-500/20 text-[10px] sm:text-xs tracking-widest"
+                  className="btn-gradient shadow-blue-500/20 text-[10px] sm:text-xs tracking-normal"
                 >
                   {editingProduct ? 'SAVE CHANGES' : 'ADD PRODUCT'}
                 </button>
@@ -1054,7 +1054,7 @@ const AdminProducts = () => {
                 <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
                   <Plus className="w-6 h-6 text-indigo-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase">
+                <h3 className="text-xl sm:text-2xl font-semibold  tracking-tight text-slate-900 uppercase">
                   ADD NEW <span className="text-indigo-500">BRAND</span>
                 </h3>
               </div>
@@ -1068,7 +1068,7 @@ const AdminProducts = () => {
 
             <form onSubmit={handleBrandSubmit} className="space-y-8 relative z-10">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Brand Name
                 </label>
                 <input
@@ -1082,7 +1082,7 @@ const AdminProducts = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Brand Description
                 </label>
                 <textarea
@@ -1097,7 +1097,7 @@ const AdminProducts = () => {
 
               {/* Brand Image Upload */}
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Brand Logo / Banner
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] p-10 transition-all duration-300 flex flex-col items-center justify-center ${uploadingBrandImage ? 'border-indigo-500/50 bg-indigo-500/5 cursor-wait' : 'border-slate-200 hover:border-indigo-500/50 hover:bg-indigo-500/5 cursor-pointer bg-black/10'}`}>
@@ -1116,15 +1116,15 @@ const AdminProducts = () => {
                     {uploadingBrandImage ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Uploading...</span>
+                        <span className="text-xs font-semibold tracking-normal uppercase text-indigo-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Logo</span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-2 text-center">JPG, PNG or WEBP</span>
+                        <span className="text-xs sm:text-sm font-semibold tracking-normal uppercase text-slate-700 text-center">Upload Logo</span>
+                        <span className="text-[10px] font-bold uppercase tracking-normal text-slate-500 mt-2 text-center">JPG, PNG or WEBP</span>
                       </>
                     )}
                   </label>
@@ -1146,13 +1146,13 @@ const AdminProducts = () => {
                 <button
                   type="button"
                   onClick={() => setShowBrandModal(false)}
-                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-xs font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-600/20 text-[10px] sm:text-xs tracking-widest uppercase"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-600/20 text-[10px] sm:text-xs tracking-normal uppercase"
                 >
                   Add Brand
                 </button>
@@ -1168,4 +1168,5 @@ const AdminProducts = () => {
 }
 
 export default AdminProducts
+
 

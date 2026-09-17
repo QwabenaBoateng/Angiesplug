@@ -205,7 +205,7 @@ Stay fresh,
     return (
       <div className="flex flex-col items-center justify-center h-64">
         <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
-        <p className="text-xs font-black tracking-widest uppercase text-fuchsia-500">Loading Content...</p>
+        <p className="text-xs font-semibold tracking-normal uppercase text-fuchsia-500">Loading Content...</p>
       </div>
     )
   }
@@ -215,17 +215,17 @@ Stay fresh,
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
              ABOUT PAGE <span className="text-fuchsia-500">CONTENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the 'About Us' page content and brand story</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Manage the 'About Us' page content and brand story</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
           <a
             href="/about"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-glass flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
+            className="btn-glass flex items-center justify-center text-[10px] sm:text-xs tracking-normal uppercase"
           >
             <Eye className="w-4 h-4 mr-2 text-fuchsia-400" />
             PREVIEW PAGE
@@ -233,7 +233,7 @@ Stay fresh,
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="btn-gradient shadow-fuchsia-500/20 from-fuchsia-600 to-fuchsia-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
+            className="btn-gradient shadow-fuchsia-500/20 from-fuchsia-600 to-fuchsia-800 flex items-center justify-center text-[10px] sm:text-xs tracking-normal uppercase"
           >
             <Save className="w-4 h-4 mr-2" />
             {isSaving ? 'SAVING...' : 'SAVE CONTENT'}
@@ -251,12 +251,12 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 flex items-center justify-center border border-fuchsia-500/20">
                <PenTool className="w-5 h-5 text-fuchsia-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">HERO SECTION</h2>
+             <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase">HERO SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
             <div>
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block mb-2">
                 Hero Image
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
@@ -283,7 +283,7 @@ Stay fresh,
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
                       <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                        <span className="text-xs font-semibold tracking-normal text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                       </div>
                       <button
                         type="button"
@@ -296,14 +296,14 @@ Stay fresh,
                   ) : uploadingImages.hero_image ? (
                      <>
                         <div className="w-12 h-12 rounded-full border-4 border-fuchsia-500/30 border-t-fuchsia-500 animate-spin mb-4"></div>
-                        <span className="text-[10px] font-black tracking-widest uppercase text-fuchsia-500 text-center">Uploading...</span>
+                        <span className="text-[10px] font-semibold tracking-normal uppercase text-fuchsia-500 text-center">Uploading...</span>
                       </>
                   ) : (
                     <>
                       <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                         <ImageIcon className="w-6 h-6 text-fuchsia-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Hero Image</span>
+                      <span className="text-[10px] font-semibold tracking-normal uppercase text-slate-700 text-center">Upload Hero Image</span>
                     </>
                   )}
                 </label>
@@ -311,7 +311,7 @@ Stay fresh,
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                 Main Title
               </label>
               <input
@@ -324,7 +324,7 @@ Stay fresh,
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                 Subtitle
               </label>
               <input
@@ -347,12 +347,12 @@ Stay fresh,
              <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
                <UserCircle className="w-5 h-5 text-orange-500" />
              </div>
-             <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">FOUNDER SECTION</h2>
+             <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase">FOUNDER SECTION</h2>
           </div>
           
           <div className="space-y-6 relative z-10">
             <div>
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-2">
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block mb-2">
                 Founder Photo
               </label>
               <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
@@ -379,7 +379,7 @@ Stay fresh,
                         className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                       />
                       <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                        <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Photo</span>
+                        <span className="text-xs font-semibold tracking-normal text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Photo</span>
                       </div>
                       <button
                         type="button"
@@ -392,14 +392,14 @@ Stay fresh,
                   ) : uploadingImages.angie_image ? (
                      <>
                         <div className="w-12 h-12 rounded-full border-4 border-orange-500/30 border-t-orange-500 animate-spin mb-4"></div>
-                        <span className="text-[10px] font-black tracking-widest uppercase text-orange-500 text-center">Uploading...</span>
+                        <span className="text-[10px] font-semibold tracking-normal uppercase text-orange-500 text-center">Uploading...</span>
                       </>
                   ) : (
                     <>
                       <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                         <UserCircle className="w-6 h-6 text-orange-500" />
                       </div>
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-700 text-center">Upload Photo</span>
+                      <span className="text-[10px] font-semibold tracking-normal uppercase text-slate-700 text-center">Upload Photo</span>
                     </>
                   )}
                 </label>
@@ -407,7 +407,7 @@ Stay fresh,
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+              <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                 Founder Message / Bio
               </label>
               <textarea
@@ -431,12 +431,12 @@ Stay fresh,
            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
              <ScrollText className="w-5 h-5 text-emerald-500" />
            </div>
-           <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">STORY SECTIONS</h2>
+           <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase">STORY SECTIONS</h2>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+            <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
               Content Block 1: "What's the Plug?"
             </label>
             <textarea
@@ -449,7 +449,7 @@ Stay fresh,
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+            <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
               Content Block 2: "Our Vibe"
             </label>
             <textarea
@@ -467,3 +467,4 @@ Stay fresh,
 }
 
 export default AdminAboutPage
+

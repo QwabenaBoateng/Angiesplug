@@ -4,17 +4,17 @@
 
 @layer base {
   :root {
-    --primary: 37, 99, 235;
+    --primary: 92, 64, 51;
     --primary-foreground: 255, 255, 255;
-    --secondary: 79, 70, 229;
-    --accent: 6, 182, 212;
-    --background: 248, 250, 252;
-    --foreground: 2, 6, 23;
+    --secondary: 189, 154, 122;
+    --accent: 160, 82, 45;
+    --background: 255, 255, 255;
+    --foreground: 44, 25, 18;
   }
 
   .dark {
-    --background: 2, 6, 23;
-    --foreground: 248, 250, 252;
+    --background: 44, 25, 18;
+    --foreground: 255, 255, 255;
   }
 
   html {
@@ -26,7 +26,7 @@
   }
 
   body {
-    @apply antialiased selection:bg-blue-500/30;
+    @apply antialiased selection:bg-[#652d23]/30;
   }
 }
 
@@ -37,11 +37,11 @@
   
   .glass-card {
     /* Hardcoded dark translucent styling for maximum contrast against deep backgrounds */
-    @apply bg-white/60 backdrop-blur-3xl border border-slate-200 hover:border-blue-500/30 transition-all duration-300 shadow-[0_0_30px_-10px_rgba(0,0,0,0.5)];
+    @apply bg-white/60 backdrop-blur-3xl border border-slate-200 hover:border-[#652d23]/30 transition-all duration-300 shadow-[0_0_30px_-10px_rgba(0,0,0,0.5)];
   }
 
   .btn-gradient {
-    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 active:scale-95;
+    @apply bg-gradient-to-r from-[#7e3627] to-[#652d23] hover:from-[#993f2d] hover:to-[#7e3627] text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-[#652d23]/20 active:scale-95;
   }
   
   .btn-glass {
@@ -50,11 +50,11 @@
   
   .input-glass {
     /* Enhanced dark theme inputs for readability */
-    @apply bg-[#f8f8f6]/50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 border-blue-500/20 transition-all duration-300;
+    @apply bg-[#f8f8f6]/50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#652d23]/50 border-[#652d23]/20 transition-all duration-300;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#993f2d] via-[#7e3627] to-[#652d23] dark:from-[#d38b6d] dark:via-[#e2b19b] dark:to-[#eed1c3];
   }
 
   .nav-blur {
@@ -82,3 +82,12 @@
   animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes infinite-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 25s linear infinite;
+  width: max-content;
+}

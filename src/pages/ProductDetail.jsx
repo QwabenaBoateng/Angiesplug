@@ -92,23 +92,23 @@ const ProductDetail = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
           <div className="absolute top-4 right-4">
-            <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20 backdrop-blur-md">
+            <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-normal bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20 backdrop-blur-md">
               NEW DROP
             </span>
           </div>
         </div>
         <div className="p-6">
-          <h3 className="font-black text-lg text-slate-900 tracking-tighter uppercase truncate mb-1">{product.name}</h3>
-          <p className="text-slate-500 text-[10px] uppercase font-black tracking-widest mb-4">
+          <h3 className="font-semibold text-lg text-slate-900 tracking-tight uppercase truncate mb-1">{product.name}</h3>
+          <p className="text-slate-500 text-[10px] uppercase font-semibold tracking-normal mb-4">
             {product.categories?.name || 'EXQUISITE SELECTION'}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-black text-slate-900 tracking-tighter">
+            <span className="text-xl font-semibold text-slate-900 tracking-tight">
               ₵{product.price}
             </span>
             <div className="flex items-center space-x-1">
               <Star className="w-3 h-3 text-blue-500 fill-current" />
-              <span className="text-[10px] font-black text-slate-600">4.8</span>
+              <span className="text-[10px] font-semibold text-slate-600">4.8</span>
             </div>
           </div>
         </div>
@@ -133,9 +133,9 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-[#f8f8f6] flex flex-col items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <h1 className="text-4xl font-black text-slate-900 tracking-tighter mb-6 italic uppercase">PRODUCT <span className="text-red-500">OFFLINE</span></h1>
+          <h1 className="text-4xl font-semibold text-slate-900 tracking-tight mb-6  uppercase">PRODUCT <span className="text-red-500">OFFLINE</span></h1>
           <p className="text-slate-600 font-bold text-lg mb-12 tracking-tight">The requested item has been delisted or does not exist in our current database.</p>
-          <Link to="/shop" className="btn-gradient px-12 py-5 text-sm font-black tracking-[0.2em] inline-block">
+          <Link to="/shop" className="btn-gradient px-12 py-5 text-sm font-semibold tracking-[0.2em] inline-block">
             RETURN TO STORE
           </Link>
         </div>
@@ -158,11 +158,11 @@ const ProductDetail = () => {
             <div className="w-10 h-10 rounded-full bg-black/5 border border-slate-200 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
               <ArrowLeft size={18} />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Back to catalog</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em]">Back to catalog</span>
           </Link>
           
           <nav className="glass py-2 px-6 rounded-full border border-slate-200">
-            <ol className="flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest overflow-x-auto no-scrollbar whitespace-nowrap">
+            <ol className="flex items-center space-x-3 text-[10px] font-semibold uppercase tracking-normal overflow-x-auto no-scrollbar whitespace-nowrap">
               <li><Link to="/" className="text-slate-500 hover:text-slate-900 transition-colors">HOME</Link></li>
               <li className="text-slate-700">/</li>
               <li><Link to="/shop" className="text-slate-500 hover:text-slate-900 transition-colors">SHOP</Link></li>
@@ -186,7 +186,7 @@ const ProductDetail = () => {
               {/* Product Badge */}
               <div className="absolute top-8 left-8">
                 <div className="glass px-6 py-3 rounded-2xl border border-slate-200">
-                  <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em]">EXQUISITE SELECTION</p>
+                  <p className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em]">EXQUISITE SELECTION</p>
                 </div>
               </div>
             </div>
@@ -214,11 +214,11 @@ const ProductDetail = () => {
             )}
           </div>
 
-          {/* Product Intel Section */}
+          {/* Product Details Section */}
           <div className="flex flex-col justify-center">
             <div className="mb-10 space-y-4">
-              <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.5em] block">In Stock & Verified</span>
-              <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">{product.name}</h1>
+              <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.5em] block">In Stock & Verified</span>
+              <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight uppercase  leading-none">{product.name}</h1>
               
               <div className="flex items-center space-x-6 pt-2">
                 <div className="flex items-center space-x-1">
@@ -226,19 +226,19 @@ const ProductDetail = () => {
                     <Star key={i} className={`w-4 h-4 ${i < 4 ? 'text-blue-500 fill-current' : 'text-slate-800'}`} />
                   ))}
                 </div>
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] italic underline decoration-blue-500/30">124 Elite Reviews</span>
+                <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]  underline decoration-blue-500/30">124 Elite Reviews</span>
               </div>
             </div>
 
             <div className="mb-12">
               <div className="flex items-baseline space-x-4">
-                <span className="text-5xl font-black text-slate-900 tracking-tight italic">₵{product.price}</span>
-                <span className="text-slate-600 font-bold uppercase tracking-widest text-[10px] line-through">₵{Math.round(product.price * 1.3)}</span>
+                <span className="text-5xl font-semibold text-slate-900 tracking-tight ">₵{product.price}</span>
+                <span className="text-slate-600 font-bold uppercase tracking-normal text-[10px] line-through">₵{Math.round(product.price * 1.3)}</span>
               </div>
             </div>
 
             <div className="glass-card rounded-[2.5rem] p-8 sm:p-10 border-slate-200 mb-10">
-              <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-4">Product Intel</h3>
+              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-[0.3em] mb-4">Product Details</h3>
               <p className="text-slate-700 font-bold text-lg leading-relaxed tracking-tight">
                 {product.description || "A masterfully crafted piece designed for those who demand excellence. Every detail is meticulously curated to define modern streetwear luxury."}
               </p>
@@ -249,15 +249,15 @@ const ProductDetail = () => {
               {/* Size Select */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center px-2">
-                  <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Select Fit</h3>
-                  <button className="text-[10px] font-black text-blue-500 uppercase tracking-widest hover:text-slate-900 transition-colors">Size Guide</button>
+                  <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal">Select Fit</h3>
+                  <button className="text-[10px] font-semibold text-blue-500 uppercase tracking-normal hover:text-slate-900 transition-colors">Size Guide</button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`min-w-[4rem] h-14 rounded-2xl border-2 font-black text-xs transition-all flex items-center justify-center ${
+                      className={`min-w-[4rem] h-14 rounded-2xl border-2 font-semibold text-xs transition-all flex items-center justify-center ${
                         selectedSize === size
                           ? 'border-blue-500 bg-blue-500/10 text-white shadow-lg shadow-blue-500/20'
                           : 'border-slate-200 text-slate-500 hover:border-white/20 hover:text-slate-700'
@@ -271,13 +271,13 @@ const ProductDetail = () => {
 
               {/* Color Select */}
               <div className="space-y-4">
-                <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">Colorway</h3>
+                <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal px-2">Colorway</h3>
                 <div className="flex flex-wrap gap-3">
                   {['STELTH BLACK', 'ARCTIC WHITE', 'NEON CRIMSON', 'CYBER BLUE'].map((color) => (
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`px-6 h-12 rounded-2xl border-2 font-black text-[10px] transition-all uppercase tracking-widest ${
+                      className={`px-6 h-12 rounded-2xl border-2 font-semibold text-[10px] transition-all uppercase tracking-normal ${
                         selectedColor === color
                           ? 'border-blue-500 bg-blue-500/10 text-white'
                           : 'border-slate-200 text-slate-500 hover:border-white/20'
@@ -292,7 +292,7 @@ const ProductDetail = () => {
               {/* Quantity */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <div className="space-y-4 w-full sm:w-auto">
-                   <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">Batch Size</h3>
+                   <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal px-2">Batch Size</h3>
                   <div className="flex items-center bg-white rounded-[1.5rem] border border-slate-200 p-1 h-14 w-full sm:w-40">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -300,7 +300,7 @@ const ProductDetail = () => {
                     >
                       <Minus size={20} />
                     </button>
-                    <span className="w-10 text-center font-black text-slate-900 text-xl tabular-nums italic">
+                    <span className="w-10 text-center font-semibold text-slate-900 text-xl tabular-nums ">
                       {quantity}
                     </span>
                     <button
@@ -313,11 +313,11 @@ const ProductDetail = () => {
                 </div>
                 
                 <div className="flex-1 w-full space-y-4">
-                   <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2 invisible sm:visible">Action</h3>
+                   <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal px-2 invisible sm:visible">Action</h3>
                   <button
                     onClick={handleAddToCart}
                     disabled={isAddingToCart || !selectedSize}
-                    className="btn-gradient w-full py-5 text-sm font-black tracking-[0.2em] shadow-2xl shadow-blue-500/20 active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed group h-14"
+                    className="btn-gradient w-full py-5 text-sm font-semibold tracking-[0.2em] shadow-2xl shadow-blue-500/20 active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed group h-14"
                   >
                     <span className="flex items-center justify-center space-x-3">
                       <ShoppingBag size={20} className="group-hover:rotate-12 transition-transform" />
@@ -328,39 +328,39 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Mission Critical Features */}
+            {/* Key Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-10 border-t border-slate-200">
               <div className="flex items-center space-x-4 group cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all">
                   <Truck size={18} />
                 </div>
-                <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Global Express <br /> <span className="text-slate-900">Shipping</span></span>
+                <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Global Express <br /> <span className="text-slate-900">Shipping</span></span>
               </div>
               <div className="flex items-center space-x-4 group cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all">
                   <Shield size={18} />
                 </div>
-                <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Secure Nexus <br /> <span className="text-slate-900">Payments</span></span>
+                <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Secure <br /> <span className="text-slate-900">Payments</span></span>
               </div>
               <div className="flex items-center space-x-4 group cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all">
                   <RotateCcw size={18} />
                 </div>
-                <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">30-Day Return <br /> <span className="text-slate-900">Guarantee</span></span>
+                <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal">30-Day Return <br /> <span className="text-slate-900">Guarantee</span></span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Intelligence Feed (Related) */}
+        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-32 pt-24 border-t border-slate-200">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
               <div>
-                <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Recommended Drops</span>
-                <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic italic">RELATED <span className="text-gradient">GEAR</span></h2>
+                <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Recommended Drops</span>
+                <h2 className="text-4xl md:text-6xl font-semibold text-slate-900 tracking-tight uppercase  ">RELATED <span className="text-gradient">GEAR</span></h2>
               </div>
-              <Link to="/shop" className="btn-glass px-8 py-3 text-[10px] font-black tracking-widest uppercase">View All Intelligence</Link>
+              <Link to="/shop" className="btn-glass px-8 py-3 text-[10px] font-semibold tracking-normal uppercase">View All Products</Link>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -376,3 +376,4 @@ const ProductDetail = () => {
 }
 
 export default ProductDetail
+

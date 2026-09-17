@@ -68,7 +68,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-               <span className="text-slate-900 font-black text-xl">E</span>
+               <span className="text-slate-900 font-semibold text-xl">E</span>
             </div>
             <span className="text-xl font-bold text-slate-900 dark:text-slate-900 tracking-tight">Exquisite <span className="text-blue-500">Boutique</span></span>
           </Link>
@@ -186,3 +186,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

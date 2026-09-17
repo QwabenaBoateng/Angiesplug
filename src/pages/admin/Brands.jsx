@@ -210,7 +210,7 @@ const Brands = () => {
     return (
        <div className="flex flex-col items-center justify-center p-24">
          <div className="w-12 h-12 rounded-full border-4 border-emerald-500/30 border-t-emerald-500 animate-spin mb-4"></div>
-         <p className="text-[10px] font-black tracking-widest uppercase text-emerald-500">Loading Brands...</p>
+         <p className="text-[10px] font-semibold tracking-normal uppercase text-emerald-500">Loading Brands...</p>
        </div>
     )
   }
@@ -220,14 +220,14 @@ const Brands = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
             BRAND <span className="text-emerald-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage the brands you collaborate with</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Manage the brands you collaborate with</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="mt-4 sm:mt-0 btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
+          className="mt-4 sm:mt-0 btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 flex items-center justify-center text-[10px] sm:text-xs tracking-normal uppercase"
         >
           <Plus className="w-4 h-4 mr-2" />
           ADD NEW BRAND
@@ -238,7 +238,7 @@ const Brands = () => {
       {error && (
         <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-3 rounded-xl flex items-center">
            <X className="w-4 h-4 mr-2" />
-           <span className="text-xs font-black tracking-widest uppercase">{error}</span>
+           <span className="text-xs font-semibold tracking-normal uppercase">{error}</span>
         </div>
       )}
 
@@ -270,8 +270,8 @@ const Brands = () => {
                </div>
             </div>
             <div className="p-6 relative z-20 -mt-6">
-              <h3 className="font-black italic tracking-tighter text-xl text-slate-900 uppercase truncate drop-shadow-md">{brand.name}</h3>
-              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest truncate max-w-full">
+              <h3 className="font-semibold  tracking-tight text-xl text-slate-900 uppercase truncate drop-shadow-md">{brand.name}</h3>
+              <p className="text-[10px] font-semibold text-emerald-500 uppercase tracking-normal truncate max-w-full">
                 {brand.description || 'NO DESCRIPTION'}
               </p>
             </div>
@@ -282,11 +282,11 @@ const Brands = () => {
       {brands.length === 0 && (
         <div className="text-center py-24 flex flex-col items-center justify-center glass-card rounded-[2rem] border-slate-200">
           <Building2 className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
-          <h3 className="text-lg font-black text-slate-600 mb-2 uppercase tracking-widest">No Brands Found</h3>
-          <p className="text-xs font-bold text-slate-600 mb-6 uppercase tracking-widest">Add your first brand to the store</p>
+          <h3 className="text-lg font-semibold text-slate-600 mb-2 uppercase tracking-normal">No Brands Found</h3>
+          <p className="text-xs font-bold text-slate-600 mb-6 uppercase tracking-normal">Add your first brand to the store</p>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] tracking-widest uppercase"
+            className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] tracking-normal uppercase"
           >
             ADD NEW BRAND
           </button>
@@ -307,7 +307,7 @@ const Brands = () => {
                   <Building2 className="w-6 h-6 text-emerald-500" />
                 </div>
                 <div>
-                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
+                   <h3 className="text-xl sm:text-2xl font-semibold  tracking-tight text-slate-900 uppercase leading-none">
                      {editingBrand ? 'MODIFY ' : 'ADD '} <span className="text-emerald-500">BRAND</span>
                    </h3>
                 </div>
@@ -322,7 +322,7 @@ const Brands = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                   Brand Name
                 </label>
                 <input
@@ -336,7 +336,7 @@ const Brands = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                   Brand Description
                 </label>
                 <textarea
@@ -350,7 +350,7 @@ const Brands = () => {
 
               {/* Image Upload */}
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                   Brand Logo
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
@@ -377,7 +377,7 @@ const Brands = () => {
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
                         <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                          <span className="text-xs font-semibold tracking-normal text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -390,21 +390,21 @@ const Brands = () => {
                     ) : uploadingImage ? (
                        <>
                           <div className="w-12 h-12 rounded-full border-4 border-emerald-500/30 border-t-emerald-500 animate-spin mb-4"></div>
-                          <span className="text-[10px] font-black tracking-widest uppercase text-emerald-500 text-center">Uploading...</span>
+                          <span className="text-[10px] font-semibold tracking-normal uppercase text-emerald-500 text-center">Uploading...</span>
                         </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Brand Logo</span>
+                        <span className="text-xs sm:text-sm font-semibold tracking-normal uppercase text-slate-700 text-center">Upload Brand Logo</span>
                       </>
                     )}
                   </label>
                 </div>
 
                 <div className="mt-4 space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                     External Image URL
                   </label>
                   <input
@@ -421,14 +421,14 @@ const Brands = () => {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] sm:text-xs tracking-widest uppercase"
+                  className="btn-gradient shadow-emerald-500/20 from-emerald-600 to-emerald-800 text-[10px] sm:text-xs tracking-normal uppercase"
                 >
                   {isSubmitting ? 'PROCESSING...' : editingBrand ? 'SAVE CHANGES' : 'ADD BRAND'}
                 </button>
@@ -443,3 +443,4 @@ const Brands = () => {
 }
 
 export default Brands
+

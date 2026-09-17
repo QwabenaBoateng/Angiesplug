@@ -83,12 +83,12 @@ const Dashboard = () => {
           {change && (
             <div className="flex items-center space-x-1 text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-lg border border-emerald-400/20">
               <TrendingUp className="h-3 w-3" />
-              <span className="text-[10px] font-black tracking-widest">{change}</span>
+              <span className="text-[10px] font-semibold tracking-normal">{change}</span>
             </div>
           )}
         </div>
-        <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] mb-1">{title}</p>
-        <p className="text-3xl font-black text-slate-900 tracking-tighter">{value}</p>
+        <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-[0.2em] mb-1">{title}</p>
+        <p className="text-3xl font-semibold text-slate-900 tracking-tight">{value}</p>
       </div>
     </div>
   )
@@ -112,10 +112,10 @@ const Dashboard = () => {
       
       {/* Page Header Header */}
       <div>
-        <h1 className="text-4xl font-black text-slate-900 italic tracking-tighter uppercase mb-2">
+        <h1 className="text-4xl font-semibold text-slate-900  tracking-tight uppercase mb-2">
           STORE <span className="text-blue-500">PERFORMANCE</span>
         </h1>
-        <p className="text-xs font-black text-slate-500 uppercase tracking-widest">
+        <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">
           Real-time insights and store activity
         </p>
       </div>
@@ -161,12 +161,12 @@ const Dashboard = () => {
         {/* Main Panel: Recent Orders */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-black text-slate-900 italic tracking-tighter uppercase">
+            <h2 className="text-lg font-semibold text-slate-900  tracking-tight uppercase">
               Recent <span className="text-blue-500">Orders</span>
             </h2>
             <Link
               to="/admin/orders"
-              className="group flex items-center text-[10px] font-black text-slate-600 hover:text-blue-400 uppercase tracking-widest transition-colors"
+              className="group flex items-center text-[10px] font-semibold text-slate-600 hover:text-blue-400 uppercase tracking-normal transition-colors"
             >
               View All Orders
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -178,18 +178,18 @@ const Dashboard = () => {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 bg-[#f8f8f6]/30">
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Order #</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Customer</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Total Price</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest">Status</th>
-                    <th className="py-4 px-6 text-[10px] font-black text-slate-600 uppercase tracking-widest text-right">Order Date</th>
+                    <th className="py-4 px-6 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Order #</th>
+                    <th className="py-4 px-6 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Customer</th>
+                    <th className="py-4 px-6 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Total Price</th>
+                    <th className="py-4 px-6 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">Status</th>
+                    <th className="py-4 px-6 text-[10px] font-semibold text-slate-600 uppercase tracking-normal text-right">Order Date</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {recentOrders.map((order) => (
                     <tr key={order.id} className="hover:bg-white-[0.02] transition-colors">
                       <td className="py-4 px-6">
-                        <span className="text-xs font-black text-slate-900 tracking-widest bg-black/5 px-2 py-1 rounded">
+                        <span className="text-xs font-semibold text-slate-900 tracking-normal bg-black/5 px-2 py-1 rounded">
                           {order.id.slice(-6).toUpperCase()}
                         </span>
                       </td>
@@ -198,21 +198,21 @@ const Dashboard = () => {
                         <div className="text-[10px] text-slate-500">{order.email}</div>
                       </td>
                       <td className="py-4 px-6">
-                        <span className="text-sm font-black text-blue-400 tracking-wider">
+                        <span className="text-sm font-semibold text-blue-400 tracking-wider">
                           ₵{order.total_amount.toFixed(2)}
                         </span>
                       </td>
                       <td className="py-4 px-6">
-                        {order.status === 'completed' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">Delivered</span>}
-                        {order.status === 'shipped' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest">On The Way</span>}
-                        {order.status === 'processing' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/20 uppercase tracking-widest">Packing</span>}
-                        {order.status === 'pending' && <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-slate-500/10 text-slate-600 border border-slate-500/20 uppercase tracking-widest">Awaiting Payment</span>}
+                        {order.status === 'completed' && <span className="inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-normal">Delivered</span>}
+                        {order.status === 'shipped' && <span className="inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-normal">On The Way</span>}
+                        {order.status === 'processing' && <span className="inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/20 uppercase tracking-normal">Packing</span>}
+                        {order.status === 'pending' && <span className="inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg bg-slate-500/10 text-slate-600 border border-slate-500/20 uppercase tracking-normal">Awaiting Payment</span>}
                         {!['completed','shipped','processing','pending'].includes(order.status) && (
-                          <span className="inline-flex px-3 py-1 text-[10px] font-black rounded-lg bg-black/5 text-slate-600 border border-slate-200 uppercase tracking-widest">{order.status}</span>
+                          <span className="inline-flex px-3 py-1 text-[10px] font-semibold rounded-lg bg-black/5 text-slate-600 border border-slate-200 uppercase tracking-normal">{order.status}</span>
                         )}
                       </td>
                       <td className="py-4 px-6 text-right">
-                        <span className="text-[10px] font-bold text-slate-500 tracking-widest">
+                        <span className="text-[10px] font-bold text-slate-500 tracking-normal">
                           {new Date(order.created_at).toLocaleDateString()}
                         </span>
                       </td>
@@ -220,7 +220,7 @@ const Dashboard = () => {
                   ))}
                   {recentOrders.length === 0 && (
                      <tr>
-                       <td colSpan="5" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
+                       <td colSpan="5" className="py-12 text-center text-slate-500 text-sm font-semibold tracking-normal uppercase">
                          No orders found
                        </td>
                      </tr>
@@ -233,7 +233,7 @@ const Dashboard = () => {
 
         {/* Side Panel: Quick Actions */}
         <div className="space-y-6">
-          <h2 className="text-lg font-black text-slate-900 italic tracking-tighter uppercase">
+          <h2 className="text-lg font-semibold text-slate-900  tracking-tight uppercase">
             Quick <span className="text-indigo-400">Actions</span>
           </h2>
           
@@ -243,7 +243,7 @@ const Dashboard = () => {
                 <Package className="w-6 h-6 text-blue-500" />
               </div>
               <div>
-                <h3 className="text-sm font-black text-slate-900 tracking-widest uppercase">Manage Items</h3>
+                <h3 className="text-sm font-semibold text-slate-900 tracking-normal uppercase">Manage Items</h3>
                 <p className="text-[10px] font-bold text-slate-600 mt-1">Add or edit products</p>
               </div>
             </Link>
@@ -253,14 +253,14 @@ const Dashboard = () => {
                 <Plus className="w-6 h-6 text-indigo-400" />
               </div>
               <div>
-                <h3 className="text-sm font-black text-slate-900 tracking-widest uppercase">Collections</h3>
+                <h3 className="text-sm font-semibold text-slate-900 tracking-normal uppercase">Collections</h3>
                 <p className="text-[10px] font-bold text-slate-600 mt-1">Organize your shop</p>
               </div>
             </Link>
 
             <div className="bg-indigo-500/5 backdrop-blur-3xl border border-indigo-500/20 rounded-2xl p-6 relative overflow-hidden mt-8">
               <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-[30px]"></div>
-              <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-2 relative z-10">Store Status</h3>
+              <h3 className="text-xs font-semibold text-indigo-400 uppercase tracking-normal mb-2 relative z-10">Store Status</h3>
               <p className="text-sm font-bold text-slate-700 relative z-10 leading-relaxed">
                 Your boutique is running perfectly. All systems are online and ready for business!
               </p>
@@ -275,3 +275,4 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+

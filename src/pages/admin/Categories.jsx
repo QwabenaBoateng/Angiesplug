@@ -215,14 +215,14 @@ const AdminCategories = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
             CATEGORY <span className="text-indigo-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Organize your products into collections</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Organize your products into collections</p>
         </div>
         <button
           onClick={openModal}
-          className="mt-4 sm:mt-0 btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 flex items-center text-[10px] tracking-widest"
+          className="mt-4 sm:mt-0 btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 flex items-center text-[10px] tracking-normal"
         >
           <Plus className="w-4 h-4 mr-2" />
           ADD NEW CATEGORY
@@ -234,34 +234,34 @@ const AdminCategories = () => {
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-            <p className="text-xs font-black tracking-widest uppercase text-indigo-500">Loading Categories...</p>
+            <p className="text-xs font-semibold tracking-normal uppercase text-indigo-500">Loading Categories...</p>
           </div>
         ) : categories.length === 0 ? (
           <div className="p-16 text-center flex flex-col items-center justify-center">
              <LayoutGrid className="w-16 h-16 text-slate-700 mb-4 opacity-50" />
-            <p className="text-sm font-black text-slate-500 tracking-widest uppercase">No categories found</p>
+            <p className="text-sm font-semibold text-slate-500 tracking-normal uppercase">No categories found</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 bg-black/10">
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     Image
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     Name
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     URL Slug
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     Description
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     Date Added
                   </th>
-                  <th className="px-6 py-4 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                  <th className="px-6 py-4 text-right text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                     Actions
                   </th>
                 </tr>
@@ -290,11 +290,11 @@ const AdminCategories = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest max-w-xs truncate">
+                      <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal max-w-xs truncate">
                         {category.description || 'NO DESCRIPTION'}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[10px] font-bold text-slate-500 tracking-widest">
+                    <td className="px-6 py-4 text-[10px] font-bold text-slate-500 tracking-normal">
                       {new Date(category.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -335,7 +335,7 @@ const AdminCategories = () => {
                   <LayoutGrid className="w-6 h-6 text-indigo-500" />
                 </div>
                 <div>
-                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
+                   <h3 className="text-xl sm:text-2xl font-semibold  tracking-tight text-slate-900 uppercase leading-none">
                      {editingCategory ? 'EDIT ' : 'ADD '} <span className="text-indigo-500">CATEGORY</span>
                    </h3>
                 </div>
@@ -350,7 +350,7 @@ const AdminCategories = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Category Name
                 </label>
                 <input
@@ -364,7 +364,7 @@ const AdminCategories = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 flex items-center">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 flex items-center">
                   URL Slug <span className="ml-2 px-2 py-0.5 rounded bg-black/5 border border-slate-200 text-[9px]">GENERATED</span>
                 </label>
                 <input
@@ -378,7 +378,7 @@ const AdminCategories = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Description
                 </label>
                 <textarea
@@ -392,7 +392,7 @@ const AdminCategories = () => {
 
               {/* Category Image Upload */}
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">
                   Category Image
                 </label>
                 <div className={`border-2 border-dashed rounded-[2rem] transition-all duration-300 flex flex-col items-center justify-center overflow-hidden
@@ -419,7 +419,7 @@ const AdminCategories = () => {
                           className="w-full h-32 sm:h-48 object-cover rounded-[1.5rem]"
                         />
                         <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-[1.5rem] flex items-center justify-center">
-                          <span className="text-xs font-black tracking-widest text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
+                          <span className="text-xs font-semibold tracking-normal text-slate-900 uppercase bg-white/50 px-4 py-2 rounded-xl backdrop-blur-sm">Change Image</span>
                         </div>
                         <button
                           type="button"
@@ -432,14 +432,14 @@ const AdminCategories = () => {
                     ) : uploadingImage ? (
                       <>
                         <div className="w-12 h-12 rounded-full border-4 border-indigo-500/30 border-t-indigo-500 animate-spin mb-4"></div>
-                        <span className="text-xs font-black tracking-widest uppercase text-indigo-500 text-center">Uploading...</span>
+                        <span className="text-xs font-semibold tracking-normal uppercase text-indigo-500 text-center">Uploading...</span>
                       </>
                     ) : (
                       <>
                         <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/5 flex items-center justify-center mb-4 border border-slate-200 shadow-2xl">
                           <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-500" />
                         </div>
-                        <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-slate-700 text-center">Upload Image</span>
+                        <span className="text-xs sm:text-sm font-semibold tracking-normal uppercase text-slate-700 text-center">Upload Image</span>
                       </>
                     )}
                   </label>
@@ -450,13 +450,13 @@ const AdminCategories = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 text-[10px] sm:text-xs tracking-widest"
+                  className="btn-gradient shadow-indigo-500/20 from-indigo-600 to-indigo-800 text-[10px] sm:text-xs tracking-normal"
                 >
                   {editingCategory ? 'SAVE CHANGES' : 'ADD CATEGORY'}
                 </button>
@@ -471,3 +471,4 @@ const AdminCategories = () => {
 }
 
 export default AdminCategories
+

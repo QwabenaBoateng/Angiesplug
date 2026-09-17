@@ -150,7 +150,7 @@ const Shop = () => {
           </button>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
-          <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
             {product.categories?.name || product.category || 'Exquisite Exclusive'}
           </span>
         </div>
@@ -159,8 +159,8 @@ const Shop = () => {
         <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-black text-slate-900 tracking-tighter">₵{product.price}</span>
-            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Available Now</span>
+            <span className="text-2xl font-semibold text-slate-900 tracking-tight">₵{product.price}</span>
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-normal mt-1">Available Now</span>
           </div>
           <div className="flex flex-col items-end">
             <div className="flex items-center text-amber-400 mb-1">
@@ -194,7 +194,7 @@ const Shop = () => {
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
             <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em]">Verified Marketplace</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
+          <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight mb-8 animate-in fade-in slide-in-from-top-6 duration-700">
             MARKET<span className="text-gradient">PLACE</span>
           </h1>
           
@@ -297,8 +297,8 @@ const Shop = () => {
         {showFilters && (
           <div className="mb-12 glass-card rounded-3xl p-8 animate-in fade-in slide-in-from-top-8 duration-500">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-black text-slate-900">Refine <span className="text-blue-500">Search</span></h3>
-              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-widest hover:text-slate-900 transition-colors">Reset All</button>
+              <h3 className="text-xl font-semibold text-slate-900">Refine <span className="text-blue-500">Search</span></h3>
+              <button onClick={clearFilters} className="text-xs font-bold text-blue-500 uppercase tracking-normal hover:text-slate-900 transition-colors">Reset All</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
@@ -340,7 +340,7 @@ const Shop = () => {
               <div className="w-24 h-24 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search size={40} className="text-slate-700" />
               </div>
-              <h3 className="text-2xl font-black text-slate-900 mb-2">No items found</h3>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-2">No items found</h3>
               <p className="text-slate-500 max-w-sm mx-auto">We couldn't find any items matching your search. Try adjusting your filters or searching for something else.</p>
               <button onClick={clearFilters} className="mt-8 btn-glass">Clear Search</button>
             </div>
@@ -352,3 +352,4 @@ const Shop = () => {
 }
 
 export default Shop
+

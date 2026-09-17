@@ -74,7 +74,7 @@ const AdminLayout = ({ children }) => {
           <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto no-scrollbar">
             <div className="flex-shrink-0 flex items-center px-6">
                <ShieldCheck className="w-6 h-6 text-blue-500 mr-3" />
-               <h1 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase">
+               <h1 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase">
                  EXQUISITE <span className="text-blue-500">ADMIN</span>
                </h1>
             </div>
@@ -86,7 +86,7 @@ const AdminLayout = ({ children }) => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`group flex items-center px-4 py-3 text-xs font-black uppercase tracking-widest rounded-xl transition-all ${
+                    className={`group flex items-center px-4 py-3 text-xs font-semibold uppercase tracking-normal rounded-xl transition-all ${
                       active
                         ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                         : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -111,10 +111,10 @@ const AdminLayout = ({ children }) => {
               <div className="flex items-center flex-shrink-0 px-8 mb-8">
                 <ShieldCheck className="w-8 h-8 text-blue-500 mr-3" />
                 <div>
-                  <h1 className="text-xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
+                  <h1 className="text-xl font-semibold  tracking-tight text-slate-900 uppercase leading-none">
                     EXQUISITE
                   </h1>
-                  <span className="text-[10px] text-blue-500 font-black tracking-[0.3em] uppercase block mt-1">Admin Panel</span>
+                  <span className="text-[10px] text-blue-500 font-semibold tracking-[0.3em] uppercase block mt-1">Admin Panel</span>
                 </div>
               </div>
               <nav className="flex-1 px-4 space-y-2">
@@ -125,7 +125,7 @@ const AdminLayout = ({ children }) => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className={`group flex items-center px-4 py-3.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all ${
+                      className={`group flex items-center px-4 py-3.5 text-[11px] font-semibold uppercase tracking-normal rounded-xl transition-all ${
                         active
                           ? 'bg-blue-500/10 text-blue-500 shadow-[inset_0_0_20px_rgba(59,130,246,0.1)] border border-blue-500/20'
                           : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -144,7 +144,7 @@ const AdminLayout = ({ children }) => {
                 className="flex items-center w-full group px-4 py-3 rounded-xl hover:bg-black/5 transition-colors"
               >
                 <LogOut className="h-5 w-5 text-red-500/70 group-hover:text-red-500 transition-colors" />
-                <span className="ml-4 text-[11px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-900 transition-colors">
+                <span className="ml-4 text-[11px] font-semibold uppercase tracking-normal text-slate-500 group-hover:text-slate-900 transition-colors">
                   Logout
                 </span>
               </button>
@@ -166,14 +166,14 @@ const AdminLayout = ({ children }) => {
               >
                 <Menu className="h-6 w-6" />
               </button>
-              <h2 className="text-lg font-black text-slate-900 italic tracking-tighter uppercase hidden sm:block">
+              <h2 className="text-lg font-semibold text-slate-900  tracking-tight uppercase hidden sm:block">
                 {navigation.find(item => isActive(item.href))?.name || 'Dashboard'}
               </h2>
             </div>
             <div className="flex items-center space-x-4">
               <Link
                 to="/"
-                className="flex items-center px-4 py-2 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                className="flex items-center px-4 py-2 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
               >
                 <Home className="w-4 h-4 mr-2 text-blue-500" />
                 View Store
@@ -198,3 +198,4 @@ const AdminLayout = ({ children }) => {
 }
 
 export default AdminLayout
+

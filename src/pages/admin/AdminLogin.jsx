@@ -80,53 +80,50 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-[#f8f8f6] flex items-center justify-center p-4 selection:bg-blue-500/30 overflow-hidden font-sans">
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-red-600/5 blur-[120px] rounded-full animate-pulse-slow"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/5 blur-[100px] rounded-full"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#652d23]/5 blur-[120px] rounded-full animate-pulse-slow"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#d38b6d]/5 blur-[100px] rounded-full"></div>
       </div>
 
       <div className="relative w-full max-w-xl bg-white/60 backdrop-blur-3xl rounded-[3rem] overflow-hidden border border-slate-200 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-blue-600 to-indigo-600"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#993f2d] via-[#7e3627] to-[#652d23]"></div>
         
         <div className="p-8 sm:p-12">
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-black/5 rounded-3xl border border-slate-200 mb-6 shadow-2xl relative group">
-              <ShieldCheck className="text-blue-500 group-hover:scale-110 transition-transform" size={40} />
-              <div className="absolute -top-1 -right-1">
-                <div className="w-4 h-4 bg-red-600 rounded-full animate-ping opacity-75"></div>
-              </div>
+              <ShieldCheck className="text-[#652d23] group-hover:scale-110 transition-transform" size={40} />
             </div>
-            <h1 className="text-4xl font-black tracking-tighter text-slate-900 mb-2 italic">ADMIN <span className="text-blue-500">LOGIN</span></h1>
+            <h1 className="text-4xl font-semibold tracking-tight text-slate-900 mb-2 ">ADMIN <span className="text-[#652d23]">LOGIN</span></h1>
             <p className="text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px]">Authorized Personnel Only</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-700 uppercase tracking-widest pl-2">Admin Email</label>
+              <label className="text-xs font-semibold text-slate-700 uppercase tracking-normal pl-2">Admin Email</label>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-500 transition-colors" size={18} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-[#652d23] transition-colors" size={18} />
                 <input
                   type="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full bg-[#f8f8f6]/50 border border-slate-200 rounded-2xl px-4 py-3.5 pl-12 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-sans"
+                  className="w-full bg-[#f8f8f6]/50 border border-slate-200 rounded-2xl px-4 py-3.5 pl-12 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#652d23]/50 transition-all font-sans"
                   placeholder="admin@exquisite.com"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-700 uppercase tracking-widest pl-2">Password</label>
+              <label className="text-xs font-semibold text-slate-700 uppercase tracking-normal pl-2">Password</label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-red-500 transition-colors" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-[#652d23] transition-colors" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full bg-[#f8f8f6]/50 border border-slate-200 rounded-2xl px-4 py-3.5 pl-12 pr-12 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-sans"
+                  className="w-full bg-[#f8f8f6]/50 border border-slate-200 rounded-2xl px-4 py-3.5 pl-12 pr-12 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#652d23]/50 transition-all font-sans"
                   placeholder="••••••••"
                 />
                 <button
@@ -142,14 +139,14 @@ const AdminLogin = () => {
             {error && (
               <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 animate-in fade-in zoom-in duration-300 flex items-center space-x-3">
                 <ShieldAlert className="text-red-500 shrink-0" size={16} />
-                <p className="text-[10px] font-black text-red-500 uppercase tracking-widest leading-relaxed">{error}</p>
+                <p className="text-[10px] font-semibold text-red-500 uppercase tracking-normal leading-relaxed">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-5 rounded-2xl bg-blue-600 text-white font-black tracking-[0.2em] text-xs hover:bg-blue-500 transition-all flex items-center justify-center space-x-3 shadow-xl shadow-blue-600/20 active:scale-[0.98] disabled:opacity-50"
+              className="w-full py-5 rounded-2xl bg-[#652d23] text-white font-semibold tracking-[0.2em] text-xs hover:bg-[#7e3627] transition-all flex items-center justify-center space-x-3 shadow-xl shadow-[#652d23]/20 active:scale-[0.98] disabled:opacity-50"
             >
               {isLoading ? (
                 <>
@@ -166,7 +163,7 @@ const AdminLogin = () => {
           </form>
 
           <div className="mt-12 text-center border-t border-slate-200 pt-8">
-            <p className="text-[8px] font-black text-slate-700 uppercase tracking-[0.4em] leading-loose">
+            <p className="text-[8px] font-semibold text-slate-700 uppercase tracking-[0.4em] leading-loose">
               Authorized store administrators only.
             </p>
           </div>
@@ -177,3 +174,4 @@ const AdminLogin = () => {
 }
 
 export default AdminLogin
+

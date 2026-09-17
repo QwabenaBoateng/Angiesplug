@@ -114,7 +114,7 @@ const Catalog = () => {
           </button>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
-          <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+          <span className="text-[10px] font-semibold text-blue-400 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
             {product.categories?.name || product.category || 'Exquisite Exclusive'}
           </span>
         </div>
@@ -123,8 +123,8 @@ const Catalog = () => {
         <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors tracking-tight">{product.name}</h3>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-2xl font-black text-slate-900 tracking-tighter">₵{product.price}</span>
-            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Available Now</span>
+            <span className="text-2xl font-semibold text-slate-900 tracking-tight">₵{product.price}</span>
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-normal mt-1">Available Now</span>
           </div>
           <div className="flex items-center text-amber-400">
             <Star size={14} className="fill-current mr-1" />
@@ -145,8 +145,8 @@ const Catalog = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Our Collection</span>
-          <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 italic">
+          <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Our Collection</span>
+          <h1 className="text-6xl md:text-8xl font-semibold text-slate-900 tracking-tight mb-8 ">
             CATA<span className="text-gradient">LOG</span>
           </h1>
           
@@ -225,7 +225,7 @@ const Catalog = () => {
               onChange={(e) => setPriceMax(parseInt(e.target.value))}
               className="w-full accent-blue-500 h-2 bg-black/5 rounded-full appearance-none mb-4"
             />
-            <div className="flex justify-between text-blue-400 font-black text-xl">
+            <div className="flex justify-between text-blue-400 font-semibold text-xl">
               <span>₵0</span>
               <span>₵{priceMax}</span>
             </div>
@@ -249,7 +249,7 @@ const Catalog = () => {
           ) : (
             <div className="py-32 text-center bg-black/5 rounded-[3rem] border border-slate-200">
               <Search size={48} className="mx-auto text-slate-700 mb-6" />
-              <h3 className="text-2xl font-black text-slate-900">No items found</h3>
+              <h3 className="text-2xl font-semibold text-slate-900">No items found</h3>
               <p className="text-slate-500 mt-2">Try adjusting your filters or category choice.</p>
             </div>
           )}
@@ -260,3 +260,4 @@ const Catalog = () => {
 }
 
 export default Catalog
+

@@ -40,16 +40,16 @@ const AdminSettings = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
             STORE <span className="text-blue-500">SETTINGS</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store configuration, notifications, and preferences</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Manage your store configuration, notifications, and preferences</p>
         </div>
         <div className="flex mt-6 sm:mt-0">
           <button
             onClick={handleSave}
             disabled={saving}
-            className="btn-gradient shadow-blue-500/20 from-blue-600 to-blue-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
+            className="btn-gradient shadow-blue-500/20 from-blue-600 to-blue-800 flex items-center justify-center text-[10px] sm:text-xs tracking-normal uppercase"
           >
             <Save className="w-4 h-4 mr-2" />
             {saving ? 'SAVING...' : 'SAVE SETTINGS'}
@@ -63,7 +63,7 @@ const AdminSettings = () => {
           <div className="glass-card rounded-[2rem] p-4 flex flex-col space-y-2">
             <button
               onClick={() => setActiveTab('general')}
-              className={`flex items-center px-4 py-3 text-[10px] font-black tracking-widest uppercase rounded-xl transition-all ${
+              className={`flex items-center px-4 py-3 text-[10px] font-semibold tracking-normal uppercase rounded-xl transition-all ${
                 activeTab === 'general'
                   ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                   : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -74,7 +74,7 @@ const AdminSettings = () => {
             </button>
             <button
               onClick={() => setActiveTab('notifications')}
-              className={`flex items-center px-4 py-3 text-[10px] font-black tracking-widest uppercase rounded-xl transition-all ${
+              className={`flex items-center px-4 py-3 text-[10px] font-semibold tracking-normal uppercase rounded-xl transition-all ${
                 activeTab === 'notifications'
                   ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                   : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -85,7 +85,7 @@ const AdminSettings = () => {
             </button>
             <button
               onClick={() => setActiveTab('security')}
-              className={`flex items-center px-4 py-3 text-[10px] font-black tracking-widest uppercase rounded-xl transition-all ${
+              className={`flex items-center px-4 py-3 text-[10px] font-semibold tracking-normal uppercase rounded-xl transition-all ${
                 activeTab === 'security'
                   ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                   : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -96,7 +96,7 @@ const AdminSettings = () => {
             </button>
             <button
               onClick={() => setActiveTab('localization')}
-              className={`flex items-center px-4 py-3 text-[10px] font-black tracking-widest uppercase rounded-xl transition-all ${
+              className={`flex items-center px-4 py-3 text-[10px] font-semibold tracking-normal uppercase rounded-xl transition-all ${
                 activeTab === 'localization'
                   ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                   : 'text-slate-500 hover:bg-black/5 hover:text-slate-900 border border-transparent'
@@ -115,13 +115,13 @@ const AdminSettings = () => {
                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
                   <Store size={120} className="text-blue-500" />
                </div>
-               <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase mb-8 flex items-center">
+               <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase mb-8 flex items-center">
                  <Store className="w-5 h-5 text-blue-500 mr-3" />
                  GENERAL SETTINGS
                </h2>
                <div className="space-y-6 relative z-10 w-full max-w-2xl">
                  <div className="space-y-2">
-                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                   <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                      Store Name
                    </label>
                    <input
@@ -132,7 +132,7 @@ const AdminSettings = () => {
                    />
                  </div>
                  <div className="space-y-2">
-                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                   <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                      Contact Email
                    </label>
                    <input
@@ -151,7 +151,7 @@ const AdminSettings = () => {
                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
                   <Bell size={120} className="text-emerald-500" />
                </div>
-               <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase mb-8 flex items-center">
+               <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase mb-8 flex items-center">
                  <Bell className="w-5 h-5 text-emerald-500 mr-3" />
                  NOTIFICATION SETTINGS
                </h2>
@@ -159,7 +159,7 @@ const AdminSettings = () => {
                  <div className="flex items-center justify-between p-4 bg-black/10 rounded-2xl border border-slate-200 group hover:border-emerald-500/20 transition-all">
                    <div>
                      <p className="text-sm font-bold text-slate-900 tracking-wide">Order Notifications</p>
-                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Send automated emails to customers for their orders</p>
+                     <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal mt-1">Send automated emails to customers for their orders</p>
                    </div>
                    <button
                      onClick={() => handleToggle('notificationsEnabled')}
@@ -177,7 +177,7 @@ const AdminSettings = () => {
                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
                   <ShieldCheck size={120} className="text-rose-500" />
                </div>
-               <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase mb-8 flex items-center">
+               <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase mb-8 flex items-center">
                  <ShieldCheck className="w-5 h-5 text-rose-500 mr-3" />
                  SECURITY & MAINTENANCE
                </h2>
@@ -185,7 +185,7 @@ const AdminSettings = () => {
                  <div className="flex items-center justify-between p-4 bg-black/10 rounded-2xl border border-slate-200 group hover:border-rose-500/20 transition-all">
                    <div>
                      <p className="text-sm font-bold text-slate-900 tracking-wide">Maintenance Mode</p>
-                     <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mt-1 drop-shadow-md">When enabled, the store will be offline for customers</p>
+                     <p className="text-[10px] font-semibold text-rose-500 uppercase tracking-normal mt-1 drop-shadow-md">When enabled, the store will be offline for customers</p>
                    </div>
                    <button
                      onClick={() => handleToggle('maintenanceMode')}
@@ -203,13 +203,13 @@ const AdminSettings = () => {
                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
                   <Globe size={120} className="text-indigo-500" />
                </div>
-               <h2 className="text-lg font-black italic tracking-tighter text-slate-900 uppercase mb-8 flex items-center">
+               <h2 className="text-lg font-semibold  tracking-tight text-slate-900 uppercase mb-8 flex items-center">
                  <Globe className="w-5 h-5 text-indigo-500 mr-3" />
                  LOCALIZATION
                </h2>
                <div className="space-y-6 relative z-10 w-full max-w-2xl">
                  <div className="space-y-2">
-                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block">
+                   <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block">
                      Store Currency
                    </label>
                    <select
@@ -233,3 +233,4 @@ const AdminSettings = () => {
 }
 
 export default AdminSettings
+

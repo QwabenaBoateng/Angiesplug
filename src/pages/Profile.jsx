@@ -77,9 +77,9 @@ const Profile = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Personal Dossier</span>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">
-            MEMBER <span className="text-gradient">TERMINAL</span>
+          <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Personal Dossier</span>
+          <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight  uppercase leading-none">
+            MEMBER <span className="text-gradient">DASHBOARD</span>
           </h1>
         </div>
         
@@ -92,12 +92,12 @@ const Profile = () => {
               {/* User Avatar Placeholder */}
               <div className="mb-8 text-center">
                 <div className="w-24 h-24 rounded-[2rem] bg-gradient-to-tr from-blue-600 to-indigo-600 p-[2px] mx-auto mb-4 group-hover:scale-105 transition-transform duration-500">
-                  <div className="w-full h-full rounded-[1.9rem] bg-[#f8f8f6] flex items-center justify-center font-black text-3xl text-slate-900 italic">
+                  <div className="w-full h-full rounded-[1.9rem] bg-[#f8f8f6] flex items-center justify-center font-semibold text-3xl text-slate-900 ">
                     {user?.email?.charAt(0).toUpperCase()}
                   </div>
                 </div>
-                <h3 className="text-slate-900 font-black tracking-tight text-xl truncate px-2">{profile?.username || user?.email?.split('@')[0]}</h3>
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Verified Member</p>
+                <h3 className="text-slate-900 font-semibold tracking-tight text-xl truncate px-2">{profile?.username || user?.email?.split('@')[0]}</h3>
+                <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal mt-1">Verified Member</p>
               </div>
               
               <nav className="space-y-3">
@@ -111,7 +111,7 @@ const Profile = () => {
                 >
                   <div className="flex items-center">
                     <User className="w-5 h-5 mr-4" />
-                    <span className="text-xs font-black uppercase tracking-widest leading-none">Profile Intel</span>
+                    <span className="text-xs font-semibold uppercase tracking-normal leading-none">Profile Info</span>
                   </div>
                   <ChevronRight size={14} className={`transition-transform ${activeTab === 'profile' ? 'rotate-0' : '-rotate-90 opacity-0 group-hover/item:opacity-100 group-hover/item:rotate-0'}`} />
                 </button>
@@ -126,7 +126,7 @@ const Profile = () => {
                 >
                   <div className="flex items-center">
                     <Package className="w-5 h-5 mr-4" />
-                    <span className="text-xs font-black uppercase tracking-widest leading-none">Order History</span>
+                    <span className="text-xs font-semibold uppercase tracking-normal leading-none">Order History</span>
                   </div>
                   <ChevronRight size={14} className={`transition-transform ${activeTab === 'orders' ? 'rotate-0' : '-rotate-90 opacity-0 group-hover/item:opacity-100 group-hover/item:rotate-0'}`} />
                 </button>
@@ -137,7 +137,7 @@ const Profile = () => {
                     className="w-full flex items-center px-6 py-4 rounded-[1.5rem] bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-all shadow-indigo-500/5 group/item"
                   >
                     <ShieldCheck className="w-5 h-5 mr-4" />
-                    <span className="text-xs font-black uppercase tracking-widest leading-none">Admin Nexus</span>
+                    <span className="text-xs font-semibold uppercase tracking-normal leading-none">Admin Dashboard</span>
                   </Link>
                 )}
                 
@@ -147,21 +147,21 @@ const Profile = () => {
                     className="w-full flex items-center px-6 py-4 rounded-[1.5rem] bg-red-500/5 border border-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all group/logout"
                   >
                     <LogOut className="w-5 h-5 mr-4 transition-transform group-hover/logout:-translate-x-1" />
-                    <span className="text-xs font-black uppercase tracking-widest leading-none">Abort Session</span>
+                    <span className="text-xs font-semibold uppercase tracking-normal leading-none">Abort Session</span>
                   </button>
                 </div>
               </nav>
             </div>
             
-            {/* Mission Stats */}
+            {/* Order Stats */}
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="glass-card rounded-[2rem] p-6 text-center border-slate-200">
-                <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Loyalty Tier</p>
-                <p className="text-lg font-black text-blue-500 italic">ELITE</p>
+                <p className="text-[8px] font-semibold text-slate-500 uppercase tracking-normal mb-1">Loyalty Tier</p>
+                <p className="text-lg font-semibold text-blue-500 ">ELITE</p>
               </div>
               <div className="glass-card rounded-[2rem] p-6 text-center border-slate-200">
-                <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Drops</p>
-                <p className="text-lg font-black text-slate-900 italic">{orders.length}</p>
+                <p className="text-[8px] font-semibold text-slate-500 uppercase tracking-normal mb-1">Total Drops</p>
+                <p className="text-lg font-semibold text-slate-900 ">{orders.length}</p>
               </div>
             </div>
           </div>
@@ -172,10 +172,10 @@ const Profile = () => {
               <div className="glass-card rounded-[3rem] p-8 sm:p-14 border-slate-200 shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-700">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-12 gap-6">
                   <div>
-                    <h2 className="text-3xl font-black italic tracking-tighter text-slate-900">PROFILE <span className="text-blue-500">ANALYSIS</span></h2>
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Core account credentials</p>
+                    <h2 className="text-3xl font-semibold  tracking-tight text-slate-900">PROFILE <span className="text-blue-500">ANALYSIS</span></h2>
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal mt-1">Core account credentials</p>
                   </div>
-                  <button className="flex items-center space-x-2 px-6 py-3 rounded-2xl bg-black/5 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-black/5 transition-all text-slate-700">
+                  <button className="flex items-center space-x-2 px-6 py-3 rounded-2xl bg-black/5 border border-slate-200 text-xs font-semibold uppercase tracking-normal hover:bg-black/5 transition-all text-slate-700">
                     <Edit size={14} className="text-blue-500" />
                     <span>Modify Data</span>
                   </button>
@@ -183,38 +183,38 @@ const Profile = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Codename: First</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Codename: First</label>
                     <div className="flex items-center p-5 bg-black/5 border border-slate-200 rounded-[1.5rem] group hover:border-blue-500/20 transition-all">
                       <User className="w-5 h-5 text-blue-500 mr-4 opacity-50" />
-                      <span className="text-lg font-black text-slate-900 tracking-tight">
+                      <span className="text-lg font-semibold text-slate-900 tracking-tight">
                         {user.user_metadata?.first_name || 'UNDEFINED'}
                       </span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Codename: Last</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Codename: Last</label>
                     <div className="flex items-center p-5 bg-black/5 border border-slate-200 rounded-[1.5rem] group hover:border-blue-500/20 transition-all">
                       <User className="w-5 h-5 text-blue-500 mr-4 opacity-50" />
-                      <span className="text-lg font-black text-slate-900 tracking-tight">
+                      <span className="text-lg font-semibold text-slate-900 tracking-tight">
                         {user.user_metadata?.last_name || 'UNDEFINED'}
                       </span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Secure Link (Email)</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Secure Link (Email)</label>
                     <div className="flex items-center p-5 bg-black/5 border border-slate-200 rounded-[1.5rem] group hover:border-blue-500/20 transition-all">
                       <Mail className="w-5 h-5 text-indigo-500 mr-4 opacity-50" />
-                      <span className="text-lg font-black text-slate-900 tracking-tight truncate">{user.email}</span>
+                      <span className="text-lg font-semibold text-slate-900 tracking-tight truncate">{user.email}</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Network Handle</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Network Handle</label>
                     <div className="flex items-center p-5 bg-black/5 border border-slate-200 rounded-[1.5rem] group hover:border-blue-500/20 transition-all">
-                      <span className="w-5 h-5 flex items-center justify-center text-blue-500 mr-4 font-black">@</span>
-                      <span className="text-lg font-black text-slate-900 tracking-tight">
+                      <span className="w-5 h-5 flex items-center justify-center text-blue-500 mr-4 font-semibold">@</span>
+                      <span className="text-lg font-semibold text-slate-900 tracking-tight">
                         {profile?.username || 'GUEST_USER'}
                       </span>
                     </div>
@@ -222,10 +222,10 @@ const Profile = () => {
                 </div>
                 
                 <div className="mt-12 pt-12 border-t border-slate-200">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 block mb-4">Clearance Level</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2 block mb-4">Clearance Level</label>
                   <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-600/10 border border-blue-500/20">
                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-3"></span>
-                     <span className="text-xs font-black text-blue-500 uppercase tracking-[0.2em] italic">
+                     <span className="text-xs font-semibold text-blue-500 uppercase tracking-[0.2em] ">
                        {profile?.role === 'admin' ? 'Strategic Administrator' : 'Verified Community Member'}
                      </span>
                   </div>
@@ -238,7 +238,7 @@ const Profile = () => {
                 <div className="flex items-center space-x-6 mb-12 ml-4">
                   <div className="w-px h-12 bg-blue-500"></div>
                   <div>
-                    <h2 className="text-3xl font-black italic tracking-tighter text-slate-900 uppercase">ORDER <span className="text-gradient leading-tight">HISTORY</span></h2>
+                    <h2 className="text-3xl font-semibold  tracking-tight text-slate-900 uppercase">ORDER <span className="text-gradient leading-tight">HISTORY</span></h2>
                     <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mt-1">Archive of all past secure acquisitions</p>
                   </div>
                 </div>
@@ -246,9 +246,9 @@ const Profile = () => {
                 {orders.length === 0 ? (
                   <div className="glass-card rounded-[3rem] p-16 text-center border-slate-200">
                     <Package className="w-24 h-24 text-slate-800 mx-auto mb-8 stroke-[1px]" />
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tighter mb-4 italic uppercase">ARCHIVE <span className="text-blue-500">NULL</span></h3>
+                    <h3 className="text-2xl font-semibold text-slate-900 tracking-tight mb-4  uppercase">ARCHIVE <span className="text-blue-500">NULL</span></h3>
                     <p className="text-slate-600 font-bold text-lg mb-12 tracking-tight">You haven't initiated any procurements yet. The catalog is waiting.</p>
-                    <Link to="/shop" className="btn-gradient px-10 py-5 text-xs font-black tracking-[0.2em] inline-block uppercase">
+                    <Link to="/shop" className="btn-gradient px-10 py-5 text-xs font-semibold tracking-[0.2em] inline-block uppercase">
                       Start Collection
                     </Link>
                   </div>
@@ -263,12 +263,12 @@ const Profile = () => {
                                 <ShoppingBag size={24} />
                               </div>
                               <div>
-                                <h3 className="text-2xl font-black text-slate-900 tracking-tighter italic uppercase">
+                                <h3 className="text-2xl font-semibold text-slate-900 tracking-tight  uppercase">
                                   ORDER #{order.id.slice(-8).toUpperCase()}
                                 </h3>
                                 <div className="flex items-center space-x-3 mt-1">
                                   <Clock className="w-3 h-3 text-slate-500" />
-                                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                                     ESTABLISHED {new Date(order.created_at).toLocaleDateString()}
                                   </p>
                                 </div>
@@ -276,10 +276,10 @@ const Profile = () => {
                             </div>
                             
                             <div className="flex items-baseline md:items-end flex-col">
-                              <p className="text-3xl font-black text-slate-900 tracking-tighter italic mb-2">
+                              <p className="text-3xl font-semibold text-slate-900 tracking-tight  mb-2">
                                 ₵{order.total_amount.toFixed(2)}
                               </p>
-                              <span className={`inline-flex px-4 py-1 text-[8px] font-black rounded-full uppercase tracking-widest border transition-colors ${
+                              <span className={`inline-flex px-4 py-1 text-[8px] font-semibold rounded-full uppercase tracking-normal border transition-colors ${
                                 order.status === 'completed'
                                   ? 'bg-blue-500/10 text-blue-500 border-blue-500/20'
                                   : order.status === 'shipped'
@@ -288,7 +288,7 @@ const Profile = () => {
                                   ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
                                   : 'bg-black/5 text-slate-600 border-slate-200'
                               }`}>
-                                {order.status} Protocol
+                                {order.status} Status
                               </span>
                             </div>
                           </div>
@@ -304,16 +304,16 @@ const Profile = () => {
                                   />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="text-lg font-black text-slate-900 tracking-tighter uppercase truncate mb-1">
+                                  <h4 className="text-lg font-semibold text-slate-900 tracking-tight uppercase truncate mb-1">
                                     {item.products?.name}
                                   </h4>
-                                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+                                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">
                                     QTY: {item.quantity}
                                     {item.size && ` • SIZE: ${item.size}`}
                                     {item.color && ` • COLOR: ${item.color}`}
                                   </p>
                                 </div>
-                                <p className="text-xl font-black text-slate-900 tracking-tighter italic">
+                                <p className="text-xl font-semibold text-slate-900 tracking-tight ">
                                   ₵{(item.price * item.quantity).toFixed(2)}
                                 </p>
                               </div>
@@ -325,9 +325,9 @@ const Profile = () => {
                             <div className="flex flex-col sm:flex-row justify-between text-xs font-bold gap-4">
                               <div className="flex space-x-3 text-slate-500">
                                 <MapPin size={14} className="text-blue-500 shrink-0" />
-                                <span className="uppercase tracking-widest text-[10px]">Transmission Point:</span>
+                                <span className="uppercase tracking-normal text-[10px]">Shipping Address:</span>
                               </div>
-                              <span className="text-right text-slate-600 uppercase tracking-widest text-[10px] leading-relaxed">
+                              <span className="text-right text-slate-600 uppercase tracking-normal text-[10px] leading-relaxed">
                                 {order.shipping_address?.firstName} {order.shipping_address?.lastName}<br />
                                 {order.shipping_address?.address}, {order.shipping_address?.city}<br />
                                 {order.shipping_address?.state}, {order.shipping_address?.zipCode}
@@ -349,3 +349,4 @@ const Profile = () => {
 }
 
 export default Profile
+

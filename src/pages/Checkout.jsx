@@ -132,14 +132,14 @@ const Checkout = () => {
   return (
     <div className="min-h-screen bg-[#f8f8f6] pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/cart" className="inline-flex items-center space-x-2 text-slate-500 hover:text-slate-900 transition-colors mb-12 uppercase text-[10px] font-black tracking-widest">
+        <Link to="/cart" className="inline-flex items-center space-x-2 text-slate-500 hover:text-slate-900 transition-colors mb-12 uppercase text-[10px] font-semibold tracking-normal">
           <ChevronLeft size={16} />
           <span>Review Cart Selection</span>
         </Link>
         
         <div className="mb-16">
-          <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Deployment Terminal</span>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">
+          <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Shipping Information</span>
+          <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight  uppercase leading-none">
             SECURE <span className="text-gradient">CHECKOUT</span>
           </h1>
         </div>
@@ -158,12 +158,12 @@ const Checkout = () => {
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
                   <MapPin size={20} />
                 </div>
-                <h2 className="text-2xl font-black italic tracking-tighter text-slate-900">01. <span className="text-blue-500">DESTINATION</span> INTEL</h2>
+                <h2 className="text-2xl font-semibold  tracking-tight text-slate-900">01. <span className="text-blue-500">SHIPPING</span> INFO</h2>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">First Name</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">First Name</label>
                   <input
                     type="text"
                     value={shippingInfo.firstName}
@@ -174,7 +174,7 @@ const Checkout = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Last Name</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Last Name</label>
                   <input
                     type="text"
                     value={shippingInfo.lastName}
@@ -185,18 +185,18 @@ const Checkout = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Intel Email</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Email Address</label>
                   <input
                     type="email"
                     value={shippingInfo.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     className={`input-glass ${errors.email ? 'border-red-500/50' : ''}`}
-                    placeholder="address@nexus.com"
+                    placeholder="name@domain.com"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Comm Link (Phone)</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Comm Link (Phone)</label>
                   <input
                     type="tel"
                     value={shippingInfo.phone}
@@ -207,7 +207,7 @@ const Checkout = () => {
                 </div>
                 
                 <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Base Address</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Base Address</label>
                   <input
                     type="text"
                     value={shippingInfo.address}
@@ -218,7 +218,7 @@ const Checkout = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">City / District</label>
+                  <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">City / District</label>
                   <input
                     type="text"
                     value={shippingInfo.city}
@@ -230,7 +230,7 @@ const Checkout = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Region</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Region</label>
                     <input
                       type="text"
                       value={shippingInfo.state}
@@ -240,7 +240,7 @@ const Checkout = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2">Digital Code</label>
+                    <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal pl-2">Digital Code</label>
                     <input
                       type="text"
                       value={shippingInfo.zipCode}
@@ -263,7 +263,7 @@ const Checkout = () => {
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20">
                   <CreditCard size={20} />
                 </div>
-                <h2 className="text-2xl font-black italic tracking-tighter text-slate-900">02. <span className="text-indigo-500">SETTLEMENT</span> PROTOCOL</h2>
+                <h2 className="text-2xl font-semibold  tracking-tight text-slate-900">02. <span className="text-indigo-500">PAYMENT</span></h2>
               </div>
               
               <div className="space-y-6">
@@ -278,18 +278,18 @@ const Checkout = () => {
                   />
                   <div className="ml-6 flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-black text-slate-900 uppercase tracking-widest">Digital Credit Card</span>
+                      <span className="text-sm font-semibold text-slate-900 uppercase tracking-normal">Digital Credit Card</span>
                       <div className="flex space-x-2">
-                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
-                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-black">MASTERCARD</div>
+                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-semibold">VISA</div>
+                        <div className="w-8 h-5 bg-black/5 rounded flex items-center justify-center text-[8px] font-semibold">MASTERCARD</div>
                       </div>
                     </div>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Secure encrypted transmission</p>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-normal">Secure transaction</p>
                   </div>
                 </label>
                 
                 <div className="p-6 rounded-[2rem] bg-indigo-500/5 border border-indigo-500/10">
-                  <p className="text-xs font-bold text-slate-600 italic">
+                  <p className="text-xs font-bold text-slate-600 ">
                     Note: Payment processing is isolated and encrypted. The production gateway (Stripe/Paystack) will be activated for live transactions.
                   </p>
                 </div>
@@ -304,7 +304,7 @@ const Checkout = () => {
                
               <div className="flex items-center space-x-4 mb-10">
                 <ShieldCheck className="text-blue-500" size={24} />
-                <h2 className="text-2xl font-black italic tracking-tighter">SUMMARY <span className="text-blue-500">INTEL</span></h2>
+                <h2 className="text-2xl font-semibold  tracking-tight">ORDER <span className="text-blue-500">SUMMARY</span></h2>
               </div>
               
               {/* Mini Cart Feed */}
@@ -319,13 +319,13 @@ const Checkout = () => {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-black text-slate-900 uppercase truncate tracking-widest leading-none mb-1">
+                      <p className="text-[10px] font-semibold text-slate-900 uppercase truncate tracking-normal leading-none mb-1">
                         {item.name}
                       </p>
                       <p className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.1em]">
                         {item.selectedSize && `SZ: ${item.selectedSize}`} • QTY: {item.quantity}
                       </p>
-                      <p className="text-[10px] font-black text-blue-500 mt-1">₵{(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="text-[10px] font-semibold text-blue-500 mt-1">₵{(item.price * item.quantity).toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
@@ -333,35 +333,35 @@ const Checkout = () => {
               
               <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Subtotal</span>
-                  <span className="text-lg font-black text-slate-900 tracking-tighter">₵{subtotal.toFixed(2)}</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Subtotal</span>
+                  <span className="text-lg font-semibold text-slate-900 tracking-tight">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between items-end">
                   <div className="flex items-center space-x-2">
                     <Truck size={14} className="text-slate-500" />
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
+                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
                   </div>
-                  <span className={`text-lg font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
+                  <span className={`text-lg font-semibold tracking-tight ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
                     {shipping === 0 ? 'FREE' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-end pb-8 border-b border-slate-200">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
-                  <span className="text-lg font-black text-slate-900 tracking-tighter">₵{tax.toFixed(2)}</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
+                  <span className="text-lg font-semibold text-slate-900 tracking-tight">₵{tax.toFixed(2)}</span>
                 </div>
                 
                 <div className="pt-2">
                   <div className="flex justify-between items-end mb-10">
-                    <span className="text-xs font-black text-slate-900 uppercase tracking-[0.3em]">Total Mission Cost</span>
-                    <span className="text-4xl font-black text-blue-500 tracking-tighter">₵{total.toFixed(2)}</span>
+                    <span className="text-xs font-semibold text-slate-900 uppercase tracking-[0.3em]">Total Cost</span>
+                    <span className="text-4xl font-semibold text-blue-500 tracking-tight">₵{total.toFixed(2)}</span>
                   </div>
                   
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className="btn-gradient w-full py-5 text-sm font-black tracking-[0.2em] flex items-center justify-center space-x-4 shadow-xl shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50"
+                    className="btn-gradient w-full py-5 text-sm font-semibold tracking-[0.2em] flex items-center justify-center space-x-4 shadow-xl shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50"
                   >
                     <span>{isProcessing ? 'TERMINATING TRANSACTION...' : 'AUTHORIZE PROCUREMENT'}</span>
                     <ArrowRight size={20} />
@@ -370,7 +370,7 @@ const Checkout = () => {
                   <div className="mt-8 flex items-center justify-center space-x-4">
                     <div className="flex items-center space-x-2 grayscale opacity-50">
                       <ShieldCheck size={14} className="text-blue-500" />
-                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">SSL Encrypted Deployment</span>
+                      <span className="text-[8px] font-semibold text-slate-500 uppercase tracking-[0.2em]">SSL Encrypted Checkout</span>
                     </div>
                   </div>
                 </div>
@@ -384,3 +384,4 @@ const Checkout = () => {
 }
 
 export default Checkout
+

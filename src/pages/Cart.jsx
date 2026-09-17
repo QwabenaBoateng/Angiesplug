@@ -22,11 +22,11 @@ const Cart = () => {
           <div className="inline-flex items-center justify-center w-24 h-24 bg-black/5 rounded-[2.5rem] border border-slate-200 mb-8 shadow-2xl">
             <ShoppingBag className="w-12 h-12 text-slate-700" />
           </div>
-          <h1 className="text-4xl font-black tracking-tighter text-slate-900 mb-4 italic">YOUR CART IS <span className="text-blue-500">VOID</span></h1>
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-900 mb-4 ">YOUR CART IS <span className="text-blue-500">VOID</span></h1>
           <p className="text-slate-600 font-bold text-lg mb-12 tracking-tight leading-relaxed">
             Looks like you haven't secured any pieces for your collection yet. Start browsing our latest drops.
           </p>
-          <Link to="/shop" className="btn-gradient px-12 py-5 text-sm font-black tracking-[0.2em] inline-block">
+          <Link to="/shop" className="btn-gradient px-12 py-5 text-sm font-semibold tracking-[0.2em] inline-block">
             CONTINUE SHOPPING
           </Link>
         </div>
@@ -39,19 +39,19 @@ const Cart = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="text-left">
-            <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4 block">Secure Procurement</span>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic leading-none">
+            <span className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.4em] mb-4 block">Secure Procurement</span>
+            <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 tracking-tight  leading-none">
               SECURE <span className="text-gradient">CART</span>
             </h1>
           </div>
           <div className="flex items-center space-x-6">
             <div className="text-right hidden sm:block">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Items In Bundle</p>
-              <p className="text-xl font-black text-slate-900">{cart.length} PIECES</p>
+              <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal mb-1">Items In Bundle</p>
+              <p className="text-xl font-semibold text-slate-900">{cart.length} PIECES</p>
             </div>
             <button
               onClick={clearCart}
-              className="px-6 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-black tracking-widest hover:bg-red-500 hover:text-white transition-all uppercase"
+              className="px-6 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-semibold tracking-normal hover:bg-red-500 hover:text-white transition-all uppercase"
             >
               Flush Cart
             </button>
@@ -80,32 +80,32 @@ const Cart = () => {
                   {/* Item Details */}
                   <div className="flex-1 min-w-0 text-center sm:text-left space-y-2">
                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:space-x-4">
-                      <h3 className="text-2xl font-black text-slate-900 tracking-tighter truncate group-hover:text-blue-500 transition-colors">
+                      <h3 className="text-2xl font-semibold text-slate-900 tracking-tight truncate group-hover:text-blue-500 transition-colors">
                         {item.name.toUpperCase()}
                       </h3>
-                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                      <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal">
                         {item.categories?.name || item.category || 'EXQUISITE SELECTION'}
                       </span>
                     </div>
                     
                     <div className="flex flex-wrap justify-center sm:justify-start gap-3 mt-4">
                       {item.selectedSize && (
-                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-widest">
+                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-semibold text-slate-700 uppercase tracking-normal">
                           SIZE: {item.selectedSize}
                         </span>
                       )}
                       {item.selectedColor && (
-                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-widest">
+                        <span className="px-3 py-1 rounded-lg bg-black/5 border border-slate-200 text-[10px] font-semibold text-slate-700 uppercase tracking-normal">
                           COLOR: {item.selectedColor}
                         </span>
                       )}
                     </div>
                     
                     <div className="pt-4 flex items-center justify-center sm:justify-start space-x-6">
-                      <p className="text-2xl font-black text-slate-900 tracking-tighter">
+                      <p className="text-2xl font-semibold text-slate-900 tracking-tight">
                         ₵{item.price}
                       </p>
-                      <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full">
+                      <p className="text-[10px] font-semibold text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-full">
                         AVAILABLE STOCK
                       </p>
                     </div>
@@ -120,7 +120,7 @@ const Cart = () => {
                       >
                         <Minus size={18} />
                       </button>
-                      <span className="w-10 text-center font-black text-slate-900 text-lg tabular-nums">
+                      <span className="w-10 text-center font-semibold text-slate-900 text-lg tabular-nums">
                         {item.quantity}
                       </span>
                       <button
@@ -151,40 +151,40 @@ const Cart = () => {
               
               <div className="flex items-center space-x-4 mb-10">
                 <ShieldCheck className="text-blue-500" size={24} />
-                <h2 className="text-2xl font-black italic tracking-tighter">SUMMARY <span className="text-blue-500">INTEL</span></h2>
+                <h2 className="text-2xl font-semibold  tracking-tight">ORDER <span className="text-blue-500">SUMMARY</span></h2>
               </div>
               
               <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Subtotal Payload</span>
-                  <span className="text-xl font-black text-slate-900 tracking-tighter">₵{subtotal.toFixed(2)}</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Subtotal</span>
+                  <span className="text-xl font-semibold text-slate-900 tracking-tight">₵{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between items-end">
                   <div className="flex items-center space-x-2">
                     <Truck size={14} className="text-slate-500" />
-                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
+                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Priority Shipping</span>
                   </div>
-                  <span className={`text-xl font-black tracking-tighter ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
+                  <span className={`text-xl font-semibold tracking-tight ${shipping === 0 ? 'text-blue-500' : 'text-slate-900'}`}>
                     {shipping === 0 ? 'COMPLIMENTARY' : `₵${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-end">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
-                  <span className="text-xl font-black text-slate-900 tracking-tighter">₵{tax.toFixed(2)}</span>
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Service Tax (5%)</span>
+                  <span className="text-xl font-semibold text-slate-900 tracking-tight">₵{tax.toFixed(2)}</span>
                 </div>
                 
                 <div className="pt-8 mt-4 border-t border-slate-200">
                   <div className="flex justify-between items-end mb-10">
-                    <span className="text-xs font-black text-slate-900 uppercase tracking-[0.3em]">Total Mission Cost</span>
-                    <span className="text-4xl font-black text-slate-900 tracking-tighter text-blue-500">₵{total.toFixed(2)}</span>
+                    <span className="text-xs font-semibold text-slate-900 uppercase tracking-[0.3em]">Total Cost</span>
+                    <span className="text-4xl font-semibold text-slate-900 tracking-tight text-blue-500">₵{total.toFixed(2)}</span>
                   </div>
                   
                   <div className="space-y-4">
                     <Link
                       to="/checkout"
-                      className="btn-gradient w-full py-5 text-sm font-black tracking-[0.2em] flex items-center justify-center space-x-4 shadow-xl shadow-blue-500/20 active:scale-[0.98]"
+                      className="btn-gradient w-full py-5 text-sm font-semibold tracking-[0.2em] flex items-center justify-center space-x-4 shadow-xl shadow-blue-500/20 active:scale-[0.98]"
                     >
                       <span>PROCEED TO SECURE CHECKOUT</span>
                       <ArrowRight size={20} />
@@ -192,7 +192,7 @@ const Cart = () => {
                     
                     <Link
                       to="/shop"
-                      className="w-full btn-glass py-5 text-sm font-black tracking-[0.2em] block text-center uppercase"
+                      className="w-full btn-glass py-5 text-sm font-semibold tracking-[0.2em] block text-center uppercase"
                     >
                       Continue Collection
                     </Link>
@@ -202,7 +202,7 @@ const Cart = () => {
               
               {subtotal < 50 && (
                 <div className="mt-8 p-6 rounded-[2rem] bg-blue-500/5 border border-blue-500/10 text-center">
-                  <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest leading-loose">
+                  <p className="text-[10px] font-semibold text-blue-400 uppercase tracking-normal leading-loose">
                     SECURE ₵{(50 - subtotal).toFixed(2)} MORE FOR <br /> <span className="text-slate-900">COMPLIMENTARY SHIPPING</span>
                   </p>
                 </div>
@@ -216,3 +216,4 @@ const Cart = () => {
 }
 
 export default Cart
+

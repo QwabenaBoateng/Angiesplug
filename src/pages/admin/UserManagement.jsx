@@ -139,7 +139,7 @@ const UserManagement = () => {
     }
 
     return (
-      <span className={`inline-flex items-center px-3 py-1 text-[10px] uppercase tracking-widest font-black rounded border ${styles[role]}`}>
+      <span className={`inline-flex items-center px-3 py-1 text-[10px] uppercase tracking-normal font-semibold rounded border ${styles[role]}`}>
         {getRoleIcon(role)}
         <span className="ml-2">{roleLabels[role] || role.replace('_', ' ')}</span>
       </span>
@@ -157,7 +157,7 @@ const UserManagement = () => {
     return (
       <div className="flex flex-col items-center justify-center p-24">
         <div className="w-12 h-12 rounded-full border-4 border-amber-500/30 border-t-amber-500 animate-spin mb-4"></div>
-        <p className="text-xs font-black tracking-widest uppercase text-amber-500">Loading Users...</p>
+        <p className="text-xs font-semibold tracking-normal uppercase text-amber-500">Loading Users...</p>
       </div>
     )
   }
@@ -166,12 +166,12 @@ const UserManagement = () => {
     return (
       <div className="flex flex-col items-center justify-center p-24 text-center">
         <Shield className="w-24 h-24 text-rose-500 mx-auto mb-6 opacity-80" />
-        <h2 className="text-2xl font-black italic tracking-tighter text-rose-500 uppercase">ACCESS RESTRICTED</h2>
-        <p className="text-xs font-black text-rose-400/70 tracking-widest uppercase mt-2 max-w-md">
+        <h2 className="text-2xl font-semibold  tracking-tight text-rose-500 uppercase">ACCESS RESTRICTED</h2>
+        <p className="text-xs font-semibold text-rose-400/70 tracking-normal uppercase mt-2 max-w-md">
           You don't have permission to view the user management page. Please contact a store owner if you believe this is an error.
         </p>
         <div className="mt-8 px-6 py-3 bg-red-500/5 my-2 border border-rose-500/10 rounded-xl inline-block">
-           <p className="text-[10px] font-black tracking-widest text-slate-900 uppercase">User Role: <span className="text-rose-500">{userProfile?.role || 'UNKNOWN'}</span></p>
+           <p className="text-[10px] font-semibold tracking-normal text-slate-900 uppercase">User Role: <span className="text-rose-500">{userProfile?.role || 'UNKNOWN'}</span></p>
         </div>
       </div>
     )
@@ -182,10 +182,10 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between py-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 italic tracking-tighter uppercase mb-1">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight uppercase mb-1">
             USER <span className="text-amber-500">MANAGEMENT</span>
           </h1>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Manage your store's users and their roles</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-normal">Manage your store's users and their roles</p>
         </div>
         {(isSuperAdmin() || hasPermission('create_users')) && (
           <button
@@ -194,7 +194,7 @@ const UserManagement = () => {
               setUserForm({ email: '', full_name: '', role: 'user' })
               setShowModal(true)
             }}
-            className="mt-4 sm:mt-0 btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 flex items-center justify-center text-[10px] sm:text-xs tracking-widest uppercase"
+            className="mt-4 sm:mt-0 btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 flex items-center justify-center text-[10px] sm:text-xs tracking-normal uppercase"
           >
             <UserPlus className="w-4 h-4 mr-2" />
             Add User
@@ -206,7 +206,7 @@ const UserManagement = () => {
       <div className="bg-white/60 backdrop-blur-3xl border border-slate-200 rounded-3xl p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2 block mb-2">
               Search Users
             </label>
             <div className="relative group">
@@ -222,7 +222,7 @@ const UserManagement = () => {
           </div>
           
           <div>
-            <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 block mb-2">
+            <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2 block mb-2">
               User Role
             </label>
             <select
@@ -243,7 +243,7 @@ const UserManagement = () => {
                 setSearchQuery('')
                 setRoleFilter('')
               }}
-              className="w-full btn-glass flex items-center justify-center text-xs tracking-widest uppercase"
+              className="w-full btn-glass flex items-center justify-center text-xs tracking-normal uppercase"
             >
               <Filter className="w-4 h-4 mr-2 text-slate-600" />
               Clear Filters
@@ -258,16 +258,16 @@ const UserManagement = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-[#f8f8f6]/30">
-                <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                   User
                 </th>
-                <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                   Role
                 </th>
-                <th className="px-6 py-4 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                <th className="px-6 py-4 text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                   Join Date
                 </th>
-                <th className="px-6 py-4 text-right text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                <th className="px-6 py-4 text-right text-[10px] font-semibold text-slate-600 uppercase tracking-normal">
                   Actions
                 </th>
               </tr>
@@ -284,7 +284,7 @@ const UserManagement = () => {
                         <div className="text-sm font-bold text-slate-900 tracking-wide">
                           {user.full_name || 'NO NAME PROVIDED'}
                         </div>
-                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">
+                        <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-normal mt-1">
                           {user.email}
                         </div>
                       </div>
@@ -294,7 +294,7 @@ const UserManagement = () => {
                     {getRoleBadge(user.role)}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-[10px] font-bold text-slate-600 tracking-widest uppercase">
+                    <span className="text-[10px] font-bold text-slate-600 tracking-normal uppercase">
                        {new Date(user.created_at).toLocaleDateString()}
                     </span>
                   </td>
@@ -322,7 +322,7 @@ const UserManagement = () => {
               ))}
               {filteredUsers.length === 0 && (
                 <tr>
-                   <td colSpan="4" className="py-12 text-center text-slate-500 text-sm font-black tracking-widest uppercase">
+                   <td colSpan="4" className="py-12 text-center text-slate-500 text-sm font-semibold tracking-normal uppercase">
                      No users found
                    </td>
                 </tr>
@@ -346,7 +346,7 @@ const UserManagement = () => {
                   <Shield className="w-6 h-6 text-amber-500" />
                 </div>
                 <div>
-                   <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">
+                   <h3 className="text-xl sm:text-2xl font-semibold  tracking-tight text-slate-900 uppercase leading-none">
                      {editingUser ? 'EDIT ' : 'ADD '} <span className="text-amber-500">USER</span>
                    </h3>
                 </div>
@@ -362,7 +362,7 @@ const UserManagement = () => {
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {!editingUser && (
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2">
                     Email Address <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -377,7 +377,7 @@ const UserManagement = () => {
               )}
 
                <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2">
                   Full Name <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -391,7 +391,7 @@ const UserManagement = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2">
+                <label className="text-[10px] font-semibold text-slate-600 uppercase tracking-normal pl-2">
                   Assign Role <span className="text-rose-500">*</span>
                 </label>
                 <select
@@ -410,13 +410,13 @@ const UserManagement = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-black text-slate-700 uppercase tracking-widest border border-slate-200 transition-all"
+                  className="px-6 py-3 rounded-xl bg-black/5 hover:bg-black/5 text-[10px] font-semibold text-slate-700 uppercase tracking-normal border border-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 text-[10px] sm:text-xs tracking-widest uppercase"
+                  className="btn-gradient shadow-amber-500/20 from-amber-600 to-amber-800 text-[10px] sm:text-xs tracking-normal uppercase"
                 >
                   {editingUser ? 'SAVE CHANGES' : 'SEND INVITE'}
                 </button>
@@ -431,3 +431,4 @@ const UserManagement = () => {
 }
 
 export default UserManagement
+
